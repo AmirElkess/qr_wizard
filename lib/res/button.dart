@@ -6,10 +6,11 @@ class SoftButton extends StatelessWidget {
   double radius;
   double width;
   double height;
+  Function onTap;
   Widget child;
 
 
-  SoftButton ({ Key key , this.radius, @required this.child, this.height, this.width}) : super(key: key) {
+  SoftButton ({ Key key, this.radius, @required this.child, this.height, this.width, this.onTap}) : super(key: key) {
     if (radius == null || radius <= 0) radius = 32;
     if (height == null || height <= 0) height = radius;
     if (width == null || width <= 0) width = radius;
@@ -17,19 +18,24 @@ class SoftButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: this.width,
-      height: this.height,
-      decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(radius),
-          boxShadow: [
-            BoxShadow(color: shadowColor, offset: Offset(4,4), blurRadius: 2),
-            BoxShadow(color: lightShadowColor, offset: Offset(-4,-4), blurRadius: 2),
-          ]
-      ),
-      child: Center(
-        child: this.child,
+    return GestureDetector(
+      onTap: this.onTap,
+      child: Container(
+        width: this.width,
+        height: this.height,
+        decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(radius),
+            boxShadow: [
+              BoxShadow(color: shadowColor, offset: Offset(4,4), blurRadius: 2),
+              BoxShadow(color: lightShadowColor, offset: Offset(-4,-4), blurRadius: 2),
+            ]
+        ),
+        child: Center(
+          child: this.child,
+        ),
+        margin: EdgeInsets.all(5),
+
       ),
     );
   }

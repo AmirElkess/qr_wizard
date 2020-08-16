@@ -8,12 +8,51 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  double btnWidth = 180;
+  double btnHeight = 40;
+  double btnRadius = 20;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Center(
-        child: SoftButton(radius:35,height: 200, width: 80, child: Text("Amir Elkess")),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 160,
+              ),
+              SoftButton(
+                radius: btnRadius,
+                height: btnHeight,
+                width: btnWidth,
+                child: Text("READ"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/read');
+                },
+              ),
+              SoftButton(
+                radius: btnRadius,
+                height: btnHeight,
+                width: btnWidth,
+                child: Text("CREATE"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/create');
+                },
+              ),
+              SoftButton(
+                radius: btnRadius,
+                height: btnHeight,
+                width: btnWidth,
+                child: Text("ABOUT"),
+                onTap: () {
+                  Navigator.pushNamed(context, '/about');
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

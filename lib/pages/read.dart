@@ -9,6 +9,10 @@ class Read extends StatefulWidget {
 class _ReadState extends State<Read> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+        child: Text('READ_SCREEN'),
+      ),
+    );
   }
 }

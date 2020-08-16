@@ -8,6 +8,10 @@ class Create extends StatefulWidget {
 class _CreateState extends State<Create> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: SafeArea(
+        child: Text('CREATE_SCREEN'),
+      ),
+    );
   }
 }
