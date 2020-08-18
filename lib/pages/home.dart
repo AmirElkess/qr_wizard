@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
                 radius: btnRadius,
                 height: btnHeight,
                 width: btnWidth,
-                child: Text("READ"),
+                child: Text("SCAN QR"),
                 onTap: () {
                   Navigator.pushNamed(context, '/read');
                 },
@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
                 radius: btnRadius,
                 height: btnHeight,
                 width: btnWidth,
-                child: Text("CREATE"),
+                child: Text("CREATE QR"),
                 onTap: () {
                   Navigator.pushNamed(context, '/create');
                 },
