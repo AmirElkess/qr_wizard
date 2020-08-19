@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/res/constants.dart';
@@ -37,27 +38,22 @@ class _CreateState extends State<Create> {
           },
         ),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
         child: Center(
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 140,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-                child: TextField(
-                  onChanged: (text) {
-                    setState(() {
-                      qrInput = text;
-                      print(qrInput);
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Enter a term',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                  ),
+              TextField(
+                onChanged: (text) {
+                  setState(() {
+                    qrInput = text;
+                    print(qrInput);
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Enter a term',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
                 ),
               ),
               QrImage(

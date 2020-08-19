@@ -47,132 +47,139 @@ class _ReadState extends State<Read> {
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: shadowColor, offset: Offset(4, 4), blurRadius: 2),
-                  BoxShadow(
-                      color: lightShadowColor,
-                      offset: Offset(-4, -4),
-                      blurRadius: 2),
-                ],
-              ),
-              child: SizedBox(
-                height: 200,
-                child: QRView(
-                  key: qrKey,
-                  onQRViewCreated: (controller) {
-                    this.controller = controller;
-                    controller.scannedDataStream.listen((event) {
-                      setState(() {
-                        qrText = event;
-                        controller.pauseCamera();
-                        playing = false;
-                        playPause = Icon(Icons.pause);
-                        //print(qrText);
+        child: Builder(builder:  (context) {
+          return Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: shadowColor, offset: Offset(4, 4), blurRadius: 2),
+                    BoxShadow(
+                        color: lightShadowColor,
+                        offset: Offset(-4, -4),
+                        blurRadius: 2),
+                  ],
+                ),
+                child: SizedBox(
+                  height: 200,
+                  child: QRView(
+                    key: qrKey,
+                    onQRViewCreated: (controller) {
+                      this.controller = controller;
+                      controller.scannedDataStream.listen((event) {
+                        setState(() {
+                          qrText = event;
+                          controller.pauseCamera();
+                          playing = false;
+                          playPause = Icon(Icons.pause);
+                          //print(qrText);
+                        });
                       });
-                    });
-                  },
-                  overlay: QrScannerOverlayShape(
-                    borderColor: Colors.blueGrey,
-                    borderRadius: 5,
-                    borderLength: 60,
-                    borderWidth: 5,
-                    cutOutSize: 200,
+                    },
+                    overlay: QrScannerOverlayShape(
+                      borderColor: Colors.blueGrey,
+                      borderRadius: 5,
+                      borderLength: 60,
+                      borderWidth: 5,
+                      cutOutSize: 200,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                SoftButton(
-                  child: flashIcon,
-                  radius: 50,
-                  onTap: () {
-                    setState(() {
-                      if (FLASH_ON){
-                        flashIcon = Icon(Icons.flash_off);
-                      } else {
-                        flashIcon = Icon(Icons.flash_on, color: Colors.yellow,);
-                      }
-                      FLASH_ON = !FLASH_ON;
-                      controller.toggleFlash();
-                    });
-                  },
-                ),
-                SoftButton(
-                  child: camIcon,
-                  radius: 50,
-                  onTap: () {
-                    setState(() {
-                      if (REAR_CAM){
-                        camIcon = Icon(Icons.camera_front);
-                      } else {
-                        camIcon = Icon(Icons.camera_rear);
-                      }
-                      REAR_CAM = !REAR_CAM;
-                      controller.flipCamera();
-                    });
-                  },
-
-                ),
-                SoftButton(
-                  child: playPause,
-                  radius: 50,
-                  onTap: () {
-                    setState(() {
-                      if (playing){
-                        playPause = Icon(Icons.pause);
-                        controller.pauseCamera();
-                      } else {
-                        playPause = Icon(Icons.play_arrow);
-                        controller.resumeCamera();
-                      }
-                      playing = !playing;
-                    });
-                  },
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(thickness: 1.5),
-            SizedBox(height: 10,),
-            SizedBox(
-              height: 140,
-              width: double.infinity,
-              child: Row(
+              SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: SoftButton(
-                      height: 150,
-                      child: Text(qrText),
-                    ),
+                  SoftButton(
+                    child: flashIcon,
+                    radius: 50,
+                    onTap: () {
+                      setState(() {
+                        if (FLASH_ON){
+                          flashIcon = Icon(Icons.flash_off);
+                        } else {
+                          flashIcon = Icon(Icons.flash_on, color: Colors.yellow,);
+                        }
+                        FLASH_ON = !FLASH_ON;
+                        controller.toggleFlash();
+                      });
+                    },
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: SoftButton(
-                      height: 150,
-                      child: Icon(Icons.content_copy),
-                      onTap: () {
-                        Clipboard.setData(ClipboardData(text: qrText));
-                      },
-                    ),
+                  SoftButton(
+                    child: camIcon,
+                    radius: 50,
+                    onTap: () {
+                      setState(() {
+                        if (REAR_CAM){
+                          camIcon = Icon(Icons.camera_front);
+                        } else {
+                          camIcon = Icon(Icons.camera_rear);
+                        }
+                        REAR_CAM = !REAR_CAM;
+                        controller.flipCamera();
+                      });
+                    },
+
                   ),
+                  SoftButton(
+                    child: playPause,
+                    radius: 50,
+                    onTap: () {
+                      setState(() {
+                        if (playing){
+                          playPause = Icon(Icons.pause);
+                          controller.pauseCamera();
+                        } else {
+                          playPause = Icon(Icons.play_arrow);
+                          controller.resumeCamera();
+                        }
+                        playing = !playing;
+                      });
+                    },
+                  )
                 ],
               ),
-            ),
-          ],
-        ),
+              SizedBox(
+                height: 10,
+              ),
+              Divider(thickness: 1.5),
+              SizedBox(height: 10,),
+              SizedBox(
+                height: 140,
+                width: double.infinity,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 5,
+                      child: SoftButton(
+                        height: 150,
+                        child: Text(qrText),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: SoftButton(
+                        height: 150,
+                        child: Icon(Icons.content_copy),
+                        onTap: (){
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text("Text copied to clipboard", style: TextStyle(color: Colors.black),),
+                            backgroundColor: backgroundColor,
+                            elevation: 0.0,
+                            duration: Duration(seconds: 2),
+                          ));
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        })
       ),
     );
   }
