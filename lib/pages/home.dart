@@ -17,40 +17,50 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 160,
-              ),
-              SoftButton(
-                radius: btnRadius,
-                height: btnHeight,
-                width: btnWidth,
-                child: Text("SCAN QR"),
-                onTap: () {
-                  Navigator.pushNamed(context, '/read');
-                },
-              ),
-              SoftButton(
-                radius: btnRadius,
-                height: btnHeight,
-                width: btnWidth,
-                child: Text("CREATE QR"),
-                onTap: () {
-                  Navigator.pushNamed(context, '/create');
-                },
-              ),
-              SoftButton(
-                radius: btnRadius,
-                height: btnHeight,
-                width: btnWidth,
-                child: Text("ABOUT"),
-                onTap: () {
-                  Navigator.pushNamed(context, '/about');
-                },
-              ),
-            ],
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(20, 75, 20, 0),
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                SoftButton(
+                  width: btnWidth,
+                  height: btnWidth,
+                  child: Image.asset('lib/res/logo.png', ),
+                ),
+                SizedBox(height: 10,),
+                SoftButton(
+                  radius: btnRadius,
+                  height: btnHeight,
+                  width: btnWidth,
+                  child: Text("SCAN QR"),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/read');
+                  },
+                ),
+                SizedBox(height: 10,),
+
+                SoftButton(
+                  radius: btnRadius,
+                  height: btnHeight,
+                  width: btnWidth,
+                  child: Text("CREATE QR"),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/create');
+                  },
+                ),
+                SizedBox(height: 10,),
+
+                SoftButton(
+                  radius: btnRadius,
+                  height: btnHeight,
+                  width: btnWidth,
+                  child: Text("ABOUT"),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/about');
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
