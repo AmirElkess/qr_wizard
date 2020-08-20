@@ -8,9 +8,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double btnWidth = 180;
+  double btnWidth = double.infinity;
   double btnHeight = 40;
-  double btnRadius = 20;
+  double btnRadius = 17;
+  double sideMargin = 55;
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +20,14 @@ class _HomeState extends State<Home> {
       backgroundColor: backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 75, 20, 0),
+          padding: EdgeInsets.fromLTRB(sideMargin, 75, sideMargin, 0),
           child: Center(
             child: Column(
               children: <Widget>[
                 SoftButton(
                   width: btnWidth,
-                  height: btnWidth,
+                  radius: 10,
+                  height: MediaQuery.of(context).size.width - 2*(sideMargin),
                   child: Image.asset('lib/res/logo.png', ),
                 ),
                 SizedBox(height: 10,),
@@ -32,7 +35,7 @@ class _HomeState extends State<Home> {
                   radius: btnRadius,
                   height: btnHeight,
                   width: btnWidth,
-                  child: Text("SCAN QR"),
+                  child: Text("SCAN QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold),),
                   onTap: () {
                     Navigator.pushNamed(context, '/read');
                   },
@@ -43,7 +46,7 @@ class _HomeState extends State<Home> {
                   radius: btnRadius,
                   height: btnHeight,
                   width: btnWidth,
-                  child: Text("CREATE QR"),
+                  child: Text("CREATE QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold)),
                   onTap: () {
                     Navigator.pushNamed(context, '/create');
                   },
@@ -54,7 +57,7 @@ class _HomeState extends State<Home> {
                   radius: btnRadius,
                   height: btnHeight,
                   width: btnWidth,
-                  child: Text("ABOUT"),
+                  child: Text("ABOUT", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold)),
                   onTap: () {
                     Navigator.pushNamed(context, '/about');
                   },

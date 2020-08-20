@@ -42,11 +42,11 @@ class SoftButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
             boxShadow: [
               BoxShadow(
-                  color: shadowColor, offset: Offset(4, 4), blurRadius: 2),
+                  color: shadowColor, offset: Offset(5, 5), blurRadius: 8),
               BoxShadow(
                   color: lightShadowColor,
-                  offset: Offset(-4, -4),
-                  blurRadius: 2),
+                  offset: Offset(-5, -5),
+                  blurRadius: 8),
             ]
         ),
         child: Center(
