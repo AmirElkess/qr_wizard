@@ -33,11 +33,11 @@ class _HomeState extends State<Home> {
               ),
               SoftButton(
                 width: btnWidth,
-                inverted: true,
+                inverted: false,
                 radius: 10,
                 height: MediaQuery.of(context).size.width - 2*(sideMargin),
                 child: Image.asset('lib/res/logo.png', ),
-                color: Color(0xff3bd8d0),
+
               ),
               SizedBox(height: 10,),
               SoftButton(

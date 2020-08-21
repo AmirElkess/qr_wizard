@@ -1,9 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/rendering.dart';
+import 'package:screenshot/screenshot.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+
 
 class Create extends StatefulWidget {
   @override
@@ -12,16 +17,18 @@ class Create extends StatefulWidget {
 
 class _CreateState extends State<Create> {
 
+  File _imageFile;
+  ScreenshotController screenshotController = ScreenshotController();
   final textController = TextEditingController();
   String qrInput = "";
+
+
 
   @override
   void dispose() {
     textController.dispose();
     super.dispose();
   }
-
-  @override
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +76,13 @@ class _CreateState extends State<Create> {
                           radius: 12,
                           height: double.infinity,
                           width: double.infinity,
-                          child: QrImage(
-                            data: qrInput,
-                            version: QrVersions.auto,
-                            size: 200.0,
+                          child: Screenshot(
+                            controller: screenshotController,
+                            child: QrImage(
+                              data: qrInput,
+                              version: QrVersions.auto,
+                              size: 200.0,
+                            ),
                           ),
                         ),
                       ),
@@ -108,7 +118,7 @@ class _CreateState extends State<Create> {
                     width: double.infinity,
                     height: double.infinity,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+                      padding: EdgeInsets.fromLTRB(15, 0, 15, 5),
                       child: TextField(
                         controller: textController,
                         keyboardType: TextInputType.multiline,
