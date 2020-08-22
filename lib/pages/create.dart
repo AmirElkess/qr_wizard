@@ -6,9 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:screenshot/screenshot.dart';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
-
+import 'dart:async';
 
 class Create extends StatefulWidget {
   @override
@@ -21,8 +19,7 @@ class _CreateState extends State<Create> {
   ScreenshotController screenshotController = ScreenshotController();
   final textController = TextEditingController();
   String qrInput = "";
-
-
+  double notificationOpacityLevel = 0;
 
   @override
   void dispose() {
@@ -106,6 +103,17 @@ class _CreateState extends State<Create> {
                           height: double.infinity,
                           width: double.infinity,
                           child: Icon(Icons.save_alt),
+                          onTap: (){
+                            setState(() {
+                              notificationOpacityLevel = 1;
+                              print(notificationOpacityLevel);
+                              new Timer(Duration(seconds: 2), (){
+                                setState(() {
+                                  notificationOpacityLevel = 0;
+                                });
+                              });
+                            });
+                          },
                         ),
                       )
                     ]
@@ -135,6 +143,18 @@ class _CreateState extends State<Create> {
                           border: InputBorder.none,
                         ),
                       ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: AnimatedOpacity(
+                    opacity: notificationOpacityLevel,
+                    duration: Duration(milliseconds: 600),
+                    child: SoftButton(
+                      height: double.infinity,
+                      width: double.infinity,
+                      child: Text("QR saved successfully"),
                     ),
                   ),
                 )
