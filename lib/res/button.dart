@@ -10,6 +10,8 @@ class SoftButton extends StatelessWidget {
   Widget child;
   bool inverted;
   Color color;
+  double shadowOffset;
+  double blurRadius;
 
   SoftButton(
       {Key key,
@@ -19,28 +21,29 @@ class SoftButton extends StatelessWidget {
       this.height,
       this.width,
       this.onTap,
-      this.inverted,
-      this.color})
+      this.inverted = false,
+      this.color,
+      this.shadowOffset = 5,
+      this.blurRadius = 5})
       : super(key: key) {
     if (radius == null || radius <= 0) radius = 32;
     if (height == null || height <= 0) height = radius;
     if (width == null || width <= 0) width = radius;
     if (margin == null || margin <= 0) margin = 5.0;
-    if (inverted == null) inverted = false;
     if (color == null) color = backgroundColor;
   }
 
   List<BoxShadow> getShadows() {
     if (!inverted) {
       return [
-        BoxShadow(color: shadowColor, offset: Offset(5, 5), blurRadius: 8),
+        BoxShadow(color: shadowColor, offset: Offset(shadowOffset, shadowOffset), blurRadius: blurRadius),
         BoxShadow(
-            color: lightShadowColor, offset: Offset(-5, -5), blurRadius: 8),
+            color: lightShadowColor, offset: Offset(-shadowOffset, -shadowOffset), blurRadius: blurRadius),
       ];
     } else {
       return [
-        BoxShadow(color: lightShadowColor, offset: Offset(5, 5), blurRadius: 8),
-        BoxShadow(color: shadowColor, offset: Offset(-5, -5), blurRadius: 8),
+        BoxShadow(color: lightShadowColor, offset: Offset(shadowOffset, shadowOffset), blurRadius: blurRadius),
+        BoxShadow(color: shadowColor, offset: Offset(-shadowOffset, -shadowOffset), blurRadius: blurRadius),
       ];
     }
   }
