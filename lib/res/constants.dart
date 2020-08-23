@@ -8,4 +8,4 @@ Color lightShadowColor = Color(0xFFdcf4f3);
 Color textColor = Colors.black54;
 Color seekBarLightColor = Color(0xFFB8ECED);
 Color seekBarDarkColor = Color(0xFF37C8DF);
-EdgeInsets universalPadding = EdgeInsets.fromLTRB(20, 10, 20, 0);
+EdgeInsets universalPadding = EdgeInsets.fromLTRB(20, 20, 20, 0);

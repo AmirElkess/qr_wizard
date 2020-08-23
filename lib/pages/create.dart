@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/res/constants.dart';
@@ -54,103 +55,102 @@ class _CreateState extends State<Create> {
           },
         ),
       ),
-      body: Padding(
-        padding: universalPadding,
-        child: Center(
+      body: Align(
+        alignment: Alignment.center,
+        child: Padding(
+          padding: universalPadding,
           child: Column(
             children: <Widget>[
-              Center(
-                child: SoftButton(
-                  radius: 12,
-                  width: double.infinity,
-                  height: 400,
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 5,
-                        child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 6,
-                                child: SoftButton(
-                                  radius: 12,
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  child: Screenshot(
-                                    controller: screenshotController,
-                                    child: QrImage(
-                                      data: qrInput,
-                                      version: QrVersions.auto,
-                                      size: 200.0,
-                                    ),
+              SoftButton(
+                radius: 12,
+                width: double.infinity,
+                height: 400,
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 5,
+                      child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 6,
+                              child: SoftButton(
+                                radius: 12,
+                                height: double.infinity,
+                                width: double.infinity,
+                                child: Screenshot(
+                                  controller: screenshotController,
+                                  child: QrImage(
+                                    data: qrInput,
+                                    version: QrVersions.auto,
+                                    size: 200.0,
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: SoftButton(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Icon(Icons.clear),
-                                  onTap: (){
-                                    setState(() {
-                                      textController.value = TextEditingValue(text: "");
-                                      qrInput = "";
-                                    });
-                                  },
-                                ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: SoftButton(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Icon(Icons.clear),
+                                onTap: (){
+                                  setState(() {
+                                    textController.value = TextEditingValue(text: "");
+                                    qrInput = "";
+                                  });
+                                },
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: SoftButton(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  child: Icon(Icons.save_alt),
-                                  onTap: (){
-                                    setState(() {
-                                      notificationOpacityLevel = 1;
-                                      print(notificationOpacityLevel);
-                                      new Timer(Duration(seconds: 2), (){
-                                        setState(() {
-                                          notificationOpacityLevel = 0;
-                                        });
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: SoftButton(
+                                height: double.infinity,
+                                width: double.infinity,
+                                child: Icon(Icons.save_alt),
+                                onTap: (){
+                                  setState(() {
+                                    notificationOpacityLevel = 1;
+                                    print(notificationOpacityLevel);
+                                    new Timer(Duration(seconds: 2), (){
+                                      setState(() {
+                                        notificationOpacityLevel = 0;
                                       });
                                     });
-                                  },
-                                ),
-                              )
-                            ]
-                        ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: SoftButton(
-                          radius: 12,
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(15, 0, 15, 5),
-                            child: TextField(
-                              controller: textController,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 5,
-                              maxLength: 120,
-                              onChanged: (text) {
-                                setState(() {
-                                  qrInput = text;
-                                  print(qrInput);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'Enter text here',
-                                border: InputBorder.none,
+                                  });
+                                },
                               ),
+                            )
+                          ]
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: SoftButton(
+                        radius: 12,
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(15, 0, 15, 5),
+                          child: TextField(
+                            controller: textController,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 5,
+                            maxLength: 120,
+                            onChanged: (text) {
+                              setState(() {
+                                qrInput = text;
+                                print(qrInput);
+                              });
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Enter text here',
+                              border: InputBorder.none,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 10,),
