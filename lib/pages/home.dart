@@ -32,15 +32,18 @@ class _HomeState extends State<Home> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("QR Wizard"),
-                      SoftButton(
+                      Text("QR Wizard", style: TextStyle(fontWeight: FontWeight.bold),),
+                      Opacity(
+                        opacity: 0,
+                        child: SoftButton(
 //                        radius: 24,
 //                        height: 5,
 //                        width: 5,
-                        child: Icon(Icons.settings),
-                        onTap: (){
-                          Navigator.pushNamed(context, '/settings');
-                        },
+                          child: Icon(Icons.settings),
+//                          onTap: (){
+//                            Navigator.pushNamed(context, '/settings');
+//                          },
+                        ),
                       )
                     ],
                   ),

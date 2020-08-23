@@ -41,17 +41,18 @@ class _AboutState extends State<About> {
             child: SoftButton(
               radius: 12,
               width: double.infinity,
-              height: 500,
+              height: 1100,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("Who am I", style: TextStyle(fontWeight: FontWeight.bold),),
                     Text("An independent Hobbyist/Developer who's interested in Flutter app development."),
                     SizedBox(height: 12,),
                     Text("Contact me", style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text("Name: Amir Elkess"),
                     Text("Email: amir.elkess@gmail.com"),
                     SizedBox(height: 12,),
                     Text("Open source licenses", style: TextStyle(fontWeight: FontWeight.bold),),
@@ -59,7 +60,41 @@ class _AboutState extends State<About> {
                     SoftButton(
                       radius: 8,
                       width: double.infinity,
-                      child: Text(flutterLicense),
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(flutterLicense),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+
+                    Text("qr_flutter", style: TextStyle(fontStyle: FontStyle.italic), ),
+                    SoftButton(
+                      radius: 8,
+                      width: double.infinity,
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(qr_flutterLicense),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+
+                    Text("qr_code_scanner", style: TextStyle(fontStyle: FontStyle.italic), ),
+                    SoftButton(
+                      radius: 8,
+                      width: double.infinity,
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(qr_code_scannerLicense),
+                        ),
+                      ),
                     ),
                     SizedBox(height: 12,),
                   ],
