@@ -8,6 +8,8 @@ import 'package:flutter/rendering.dart';
 import 'package:screenshot/screenshot.dart';
 import 'dart:io';
 import 'dart:async';
+import 'package:gallery_saver/gallery_saver.dart';
+
 
 class Create extends StatefulWidget {
   @override
@@ -83,6 +85,7 @@ class _CreateState extends State<Create> {
                                     data: qrInput,
                                     version: QrVersions.auto,
                                     size: 200.0,
+                                    backgroundColor: backgroundColor,
                                   ),
                                 ),
                               ),
@@ -109,6 +112,12 @@ class _CreateState extends State<Create> {
                                 child: Icon(Icons.save_alt),
                                 onTap: (){
                                   setState(() {
+                                    screenshotController.capture(pixelRatio: 2).then((File image) async {
+                                      if (image != null && image.path != null) {
+                                        print("Image and path correct");
+                                        GallerySaver.saveImage(image.path, albumName: "QR Wizard");
+                                      }
+                                    });
                                     notificationOpacityLevel = 1;
                                     print(notificationOpacityLevel);
                                     new Timer(Duration(seconds: 2), (){
@@ -156,9 +165,9 @@ class _CreateState extends State<Create> {
               SizedBox(height: 10,),
               AnimatedOpacity(
                 opacity: notificationOpacityLevel,
-                duration: Duration(milliseconds: 600),
+                duration: Duration(milliseconds: 300),
                 child: SoftButton(
-                  height: 30,
+                  height: 31,
                   radius: 12,
                   width: double.infinity,
                   child: Text("QR saved successfully"),

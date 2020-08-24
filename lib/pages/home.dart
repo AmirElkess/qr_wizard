@@ -38,9 +38,6 @@ class _HomeState extends State<Home> {
                         Opacity(
                           opacity: 0,
                           child: SoftButton(
-//                        radius: 24,
-//                        height: 5,
-//                        width: 5,
                             child: Icon(Icons.settings),
 //                          onTap: (){
 //                            Navigator.pushNamed(context, '/settings');
@@ -54,7 +51,7 @@ class _HomeState extends State<Home> {
                   SoftButton(
                     width: double.infinity,
                     radius: 12,
-                    height: 450,
+                    height: 420,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -62,7 +59,7 @@ class _HomeState extends State<Home> {
                           width: btnWidth,
                           inverted: false,
                           radius: btnRadius,
-                          height: MediaQuery.of(context).size.width - 2*(sideMargin),
+                          height: 220,
                           //child: Image.asset('lib/res/logo.png', ),
                           child: QrImage(
                             data: qrLogo,

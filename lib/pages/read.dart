@@ -214,7 +214,7 @@ class _ReadState extends State<Read> {
                 SizedBox(height: 10,),
                 AnimatedOpacity(
                   opacity: notificationOpacityLevel,
-                  duration: Duration(milliseconds: 600),
+                  duration: Duration(milliseconds: 300),
                   child: SoftButton(
                     height: 30,
                     radius: 12,
