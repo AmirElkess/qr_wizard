@@ -41,7 +41,7 @@ class _AboutState extends State<About> {
             child: SoftButton(
               radius: 12,
               width: double.infinity,
-              height: 1100,
+              height: 1850,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
                 child: Column(
@@ -93,6 +93,34 @@ class _AboutState extends State<About> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(qr_code_scannerLicense),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+
+                    Text("gallery_saver", style: TextStyle(fontStyle: FontStyle.italic), ),
+                    SoftButton(
+                      radius: 8,
+                      width: double.infinity,
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(gallery_saverLicense),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+
+                    Text("screenshot", style: TextStyle(fontStyle: FontStyle.italic), ),
+                    SoftButton(
+                      radius: 8,
+                      width: double.infinity,
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(screenshotLicense),
                         ),
                       ),
                     ),

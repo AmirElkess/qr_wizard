@@ -65,6 +65,7 @@ class _HomeState extends State<Home> {
                             data: qrLogo,
                             version: QrVersions.auto,
                             size: 220.0,
+                            backgroundColor: backgroundColor,
                           ),
                         ),
                         SoftButton(
