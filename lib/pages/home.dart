@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class Home extends StatefulWidget {
@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("QR Wizard", style: TextStyle(fontWeight: FontWeight.bold),),
+                        Text("QR WIZARD", style: GoogleFonts.robotoMono(fontSize: 16, fontWeight: FontWeight.bold)),
                         Opacity(
                           opacity: 0,
                           child: SoftButton(

@@ -26,6 +26,7 @@ dependencies:
   screenshot: ^0.2.0
   gallery_saver: ^2.0.1
   characters: ^1.0.0
+  google_fonts: ^1.1.0
 
   flutter:
     sdk: flutter
