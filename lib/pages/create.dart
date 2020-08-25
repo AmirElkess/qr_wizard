@@ -112,6 +112,7 @@ class _CreateState extends State<Create> {
                                 child: Icon(Icons.save_alt),
                                 onTap: (){
                                   setState(() {
+                                    FocusScope.of(context).unfocus();
                                     screenshotController.capture(pixelRatio: 2).then((File image) async {
                                       if (image != null && image.path != null) {
                                         print("Image and path correct");
