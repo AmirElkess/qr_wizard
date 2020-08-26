@@ -83,45 +83,53 @@ class _ReadState extends State<Read> {
                             child: SizedBox(
                               height: 200,
                               width: double.infinity,
-                              child: QRView(
-                                key: qrKey,
-                                onQRViewCreated: (controller) {
-                                  this.controller = controller;
-                                  controller.scannedDataStream
-                                      .listen((event) async {
-                                        qrTextString = event;
-                                    if (await canLaunch(event)) {
-                                      print("Found URL string");
-                                      qrText = GestureDetector(
-                                        child: Text(
-                                          qrTextString,
-                                          style: TextStyle(
-                                              color: Colors.blue,
-                                              decoration:
-                                              TextDecoration.underline),
-                                        ),
-                                        onTap: () async {
-                                          await launch(qrTextString);
-                                        },
-                                      );
-                                    } else {
-                                      print("Found normal string");
-                                      qrText = Text(qrTextString);
-                                    }
-                                    setState(() {
-                                      controller.pauseCamera();
-                                    playing = false;
-                                    playPause = Icon(Icons.pause);
-
-                                    });
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    controller.resumeCamera();
+                                    playing = true;
+                                    playPause = Icon(Icons.play_arrow);
                                   });
                                 },
-                                overlay: QrScannerOverlayShape(
-                                  borderColor: Colors.blueGrey,
-                                  borderRadius: 5,
-                                  borderLength: 60,
-                                  borderWidth: 5,
-                                  cutOutSize: 200,
+                                child: QRView(
+                                  key: qrKey,
+                                  onQRViewCreated: (controller) {
+                                    this.controller = controller;
+                                    controller.scannedDataStream
+                                        .listen((event) async {
+                                      qrTextString = event;
+                                      if (await canLaunch(event)) {
+                                        print("Found URL string");
+                                        qrText = GestureDetector(
+                                          child: Text(
+                                            qrTextString,
+                                            style: TextStyle(
+                                                color: Colors.blue,
+                                                decoration:
+                                                    TextDecoration.underline),
+                                          ),
+                                          onTap: () async {
+                                            await launch(qrTextString);
+                                          },
+                                        );
+                                      } else {
+                                        print("Found normal string");
+                                        qrText = Text(qrTextString);
+                                      }
+                                      setState(() {
+                                        controller.pauseCamera();
+                                        playing = false;
+                                        playPause = Icon(Icons.pause);
+                                      });
+                                    });
+                                  },
+                                  overlay: QrScannerOverlayShape(
+                                    borderColor: Colors.blueGrey,
+                                    borderRadius: 5,
+                                    borderLength: 60,
+                                    borderWidth: 5,
+                                    cutOutSize: 200,
+                                  ),
                                 ),
                               ),
                             ),
