@@ -41,7 +41,7 @@ class _AboutState extends State<About> {
             child: SoftButton(
               radius: 12,
               width: double.infinity,
-              height: 1850,
+              height: 2100,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
                 child: Column(
@@ -121,6 +121,20 @@ class _AboutState extends State<About> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(screenshotLicense),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+
+                    Text("url_launcher", style: TextStyle(fontStyle: FontStyle.italic), ),
+                    SoftButton(
+                      radius: 8,
+                      width: double.infinity,
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(url_launcherLicense),
                         ),
                       ),
                     ),
