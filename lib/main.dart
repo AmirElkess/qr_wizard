@@ -5,10 +5,13 @@ import 'pages/read.dart';
 import 'pages/about.dart';
 import 'package:flutter/services.dart';
 import 'pages/settings.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 void main() {
 //  WidgetsFlutterBinding.ensureInitialized();
 //  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+
 
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,

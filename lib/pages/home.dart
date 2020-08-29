@@ -3,6 +3,7 @@ import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 
 class Home extends StatefulWidget {
@@ -18,7 +19,29 @@ class _HomeState extends State<Home> {
   String qrLogo = "QRWizard by AE";
 
   @override
+  void initState() {
+    final QuickActions quickActions =  QuickActions();
+    quickActions.initialize((shortcutType) {
+      if (shortcutType == 'scan_qr') {
+        print('The user tapped on the "scan qr" action.');
+        Navigator.pushNamed(context, '/read');
+      } else if (shortcutType == 'create_qr') {
+        print('The user tapped on the "create qr" action.');
+        Navigator.pushNamed(context, '/create');
+      }
+    });
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(type: 'scan_qr', localizedTitle: 'SCAN QR', icon: 'scan_icon'),
+      const ShortcutItem(type: 'create_qr', localizedTitle: 'CREATE QR', icon: 'create_icon' ),
+
+    ]);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: SafeArea(
