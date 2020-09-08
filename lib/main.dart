@@ -8,8 +8,8 @@ import 'pages/settings.dart';
 import 'package:quick_actions/quick_actions.dart';
 
 void main() {
-//  WidgetsFlutterBinding.ensureInitialized();
-//  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
 
 

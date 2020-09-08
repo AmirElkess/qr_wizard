@@ -10,14 +10,12 @@ import 'dart:io';
 import 'dart:async';
 import 'package:gallery_saver/gallery_saver.dart';
 
-
 class Create extends StatefulWidget {
   @override
   _CreateState createState() => _CreateState();
 }
 
 class _CreateState extends State<Create> {
-
   File _imageFile;
   ScreenshotController screenshotController = ScreenshotController();
   final textController = TextEditingController();
@@ -71,68 +69,72 @@ class _CreateState extends State<Create> {
                   children: <Widget>[
                     Expanded(
                       flex: 5,
-                      child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 6,
-                              child: SoftButton(
-                                radius: 12,
-                                height: double.infinity,
-                                width: double.infinity,
-                                child: Screenshot(
-                                  controller: screenshotController,
-                                  child: QrImage(
-                                    data: qrInput,
-                                    version: QrVersions.auto,
-                                    size: 200.0,
-                                    backgroundColor: backgroundColor,
-                                  ),
-                                ),
+                      child: Row(children: <Widget>[
+                        Expanded(
+                          flex: 6,
+                          child: SoftButton(
+                            radius: 12,
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: Screenshot(
+                              controller: screenshotController,
+                              child: QrImage(
+                                data: qrInput,
+                                version: QrVersions.auto,
+                                size: 200.0,
+                                backgroundColor: backgroundColor,
                               ),
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: SoftButton(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: Icon(Icons.clear),
-                                onTap: (){
-                                  setState(() {
-                                    textController.value = TextEditingValue(text: "");
-                                    qrInput = "";
-                                  });
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: SoftButton(
-                                height: double.infinity,
-                                width: double.infinity,
-                                child: Icon(Icons.save_alt),
-                                onTap: (){
-                                  setState(() {
-
-                                    FocusScope.of(context).unfocus();
-                                    screenshotController.capture(pixelRatio: 2).then((File image) async {
-                                      if (image != null && image.path != null) {
-                                        print("Image and path correct");
-                                        GallerySaver.saveImage(image.path, albumName: "QR Wizard");
-                                      }
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SoftButton(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Icon(Icons.clear),
+                            onTap: () {
+                              setState(() {
+                                textController.value =
+                                    TextEditingValue(text: "");
+                                qrInput = "";
+                              });
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SoftButton(
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: Icon(Icons.save_alt),
+                            onTap: () {
+                              setState(() {
+                                FocusScope.of(context).unfocus();
+                                screenshotController
+                                    .capture(pixelRatio: 2, delay: Duration(milliseconds: 150))
+                                    .then((File image) async {
+                                  if (image != null && image.path != null) {
+                                    print("Image and path correct");
+                                    print(image.path);
+                                    GallerySaver.saveImage(image.path, albumName: "QR Wizard",);
+                                    setState(() {
+                                      notificationOpacityLevel = 1;
                                     });
-                                    notificationOpacityLevel = 1;
-                                    print(notificationOpacityLevel);
-                                    new Timer(Duration(seconds: 2), (){
+                                    new Timer(Duration(seconds: 2), () {
                                       setState(() {
                                         notificationOpacityLevel = 0;
                                       });
                                     });
-                                  });
-                                },
-                              ),
-                            )
-                          ]
-                      ),
+
+                                  }
+
+                                });
+                              });
+                            },
+                          ),
+                        )
+                      ]),
                     ),
                     Expanded(
                       flex: 4,
@@ -164,7 +166,9 @@ class _CreateState extends State<Create> {
                   ],
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               AnimatedOpacity(
                 opacity: notificationOpacityLevel,
                 duration: Duration(milliseconds: 300),
@@ -176,7 +180,6 @@ class _CreateState extends State<Create> {
                 ),
               )
             ],
-
           ),
         ),
       ),
