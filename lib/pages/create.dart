@@ -117,7 +117,7 @@ class _CreateState extends State<Create> {
                                   if (image != null && image.path != null) {
                                     print("Image and path correct");
                                     print(image.path);
-                                    GallerySaver.saveImage(image.path, albumName: "QR Wizard",);
+                                    await GallerySaver.saveImage(image.path, albumName: "QR Wizard",);
                                     setState(() {
                                       notificationOpacityLevel = 1;
                                     });
