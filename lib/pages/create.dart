@@ -55,12 +55,11 @@ class _CreateState extends State<Create> {
           },
         ),
       ),
-      body: Align(
-        alignment: Alignment.center,
+      body: SingleChildScrollView(
         child: Padding(
           padding: universalPadding,
           child: Column(
-            children: <Widget>[
+            children: <Widget>[ 
               SoftButton(
                 radius: 12,
                 width: double.infinity,

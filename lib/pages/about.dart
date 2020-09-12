@@ -41,7 +41,7 @@ class _AboutState extends State<About> {
             child: SoftButton(
               radius: 12,
               width: double.infinity,
-              height: 2100,
+              height: 2600,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
                 child: Column(
@@ -135,6 +135,34 @@ class _AboutState extends State<About> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(url_launcherLicense),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+
+                    Text("flutter_launcher_icons", style: TextStyle(fontStyle: FontStyle.italic), ),
+                    SoftButton(
+                      radius: 8,
+                      width: double.infinity,
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(flutter_launcher_iconsLicense),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+
+                    Text("quick_actions", style: TextStyle(fontStyle: FontStyle.italic), ),
+                    SoftButton(
+                      radius: 8,
+                      width: double.infinity,
+                      height: 250,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(quick_actionsLicense),
                         ),
                       ),
                     ),

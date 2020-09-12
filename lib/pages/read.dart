@@ -52,8 +52,7 @@ class _ReadState extends State<Read> {
           },
         ),
       ),
-      body: Align(
-        alignment: Alignment.center,
+      body: SingleChildScrollView(
         child: Padding(
             padding: universalPadding,
             child: Builder(builder: (context) {
