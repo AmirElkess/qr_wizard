@@ -36,8 +36,8 @@ flutter_icons:
   android: true
   #image_path_ios: "assets/launcher/icon.png"
   image_path: "lib/res/icon.png"
-  #adaptive_icon_background: "assets/launcher/background.png"
-  #adaptive_icon_foreground: "assets/launcher/foreground.png"
+  #adaptive_icon_background: "lib/res/background.png"
+  #adaptive_icon_foreground: "lib/res/foreground.png"
 
 
   # The following adds the Cupertino Icons font to your application.
