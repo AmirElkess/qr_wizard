@@ -2,9 +2,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 
-Color backgroundColor = Color(0Xffd3ecf3);
-Color shadowColor = Color(0xFFb3c9cf);
-Color lightShadowColor = Color(0xFFf3ffff);
+Color backgroundColor = Color(0XFFededed);
+Color shadowColor = Color(0xFFc9c9c9);
+Color lightShadowColor = Color(0xFFffffff);
 Color textColor = Colors.black54;
 Color seekBarLightColor = Color(0xFFB8ECED);
 Color seekBarDarkColor = Color(0xFF37C8DF);

@@ -24,7 +24,7 @@ class SoftButton extends StatelessWidget {
       this.inverted = false,
       this.color,
       this.shadowOffset = 4,
-      this.blurRadius = 5})
+      this.blurRadius = 7})
       : super(key: key) {
     if (radius == null || radius <= 0) radius = 32;
     if (height == null || height <= 0) height = radius;
