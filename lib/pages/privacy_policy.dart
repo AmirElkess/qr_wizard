@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/licenses.dart';
-import 'package:flutter_launcher_icons/constants.dart';
 
 class PrivacyPolicy extends StatefulWidget {
   @override
@@ -21,8 +19,8 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
       body: SafeArea(
         child: SingleChildScrollView(
             child: Padding(
-                padding: universalPadding,
-                child: Text(privacy_policy))
+                padding: EdgeInsets.all(25),
+                child: Text(privacy_policy)),
         ),
       ),
     );
