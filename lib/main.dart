@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_wizard/pages/privacy_policy.dart';
 import 'pages/home.dart';
 import 'pages/create.dart';
 import 'pages/read.dart';
@@ -22,6 +23,7 @@ void main() {
         '/read': (context) => Read(),
         '/about': (context) => About(),
         '/settings': (context) => Settings(),
+        '/privacy_policy': (context) => PrivacyPolicy(),
       }
   ));
 }

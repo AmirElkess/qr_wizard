@@ -41,7 +41,7 @@ class _AboutState extends State<About> {
             child: SoftButton(
               radius: 12,
               width: double.infinity,
-              height: 2600,
+              height: 2640,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
                 child: Column(
@@ -55,6 +55,14 @@ class _AboutState extends State<About> {
                     Text("Name: Amir Elkess"),
                     Text("Email: amir.elkess@gmail.com"),
                     SizedBox(height: 12,),
+                    SoftButton(
+                      width: double.infinity,
+                      height: 30,
+                      child: Text("Privacy Policy"),
+                      onTap: (){
+                          Navigator.pushNamed(context, '/privacy_policy');
+                      },
+                    ),
                     Text("Open source licenses", style: TextStyle(fontWeight: FontWeight.bold),),
                     Text("Flutter", style: TextStyle(fontStyle: FontStyle.italic), ),
                     SoftButton(
