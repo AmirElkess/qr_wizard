@@ -95,6 +95,7 @@ class _HomeState extends State<Home> {
                           radius: btnRadius,
                           height: btnHeight,
                           width: btnWidth,
+                          isClickable: true,
                           child: Text("SCAN QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold),),
                           onTap: () {
                             Navigator.pushNamed(context, '/read');

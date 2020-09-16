@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_wizard/res/constants.dart';
 
-class SoftButton extends StatelessWidget {
+class SoftButton extends StatefulWidget {
   double radius;
   double margin;
   double width;
@@ -12,6 +12,7 @@ class SoftButton extends StatelessWidget {
   Color color;
   double shadowOffset;
   double blurRadius;
+  bool isClickable;
 
   SoftButton(
       {Key key,
@@ -24,7 +25,8 @@ class SoftButton extends StatelessWidget {
       this.inverted = false,
       this.color,
       this.shadowOffset = 4,
-      this.blurRadius = 7})
+      this.blurRadius = 7,
+      this.isClickable = false})
       : super(key: key) {
     if (radius == null || radius <= 0) radius = 32;
     if (height == null || height <= 0) height = radius;
@@ -33,17 +35,22 @@ class SoftButton extends StatelessWidget {
     if (color == null) color = backgroundColor;
   }
 
+  @override
+  _SoftButtonState createState() => _SoftButtonState();
+}
+
+class _SoftButtonState extends State<SoftButton> {
   List<BoxShadow> getShadows() {
-    if (!inverted) {
+    if (!widget.inverted) {
       return [
-        BoxShadow(color: shadowColor, offset: Offset(shadowOffset, shadowOffset), blurRadius: blurRadius),
+        BoxShadow(color: shadowColor, offset: Offset(widget.shadowOffset, widget.shadowOffset), blurRadius: widget.blurRadius),
         BoxShadow(
-            color: lightShadowColor, offset: Offset(-shadowOffset, -shadowOffset), blurRadius: blurRadius),
+            color: lightShadowColor, offset: Offset(-widget.shadowOffset, -widget.shadowOffset), blurRadius: widget.blurRadius),
       ];
     } else {
       return [
-        BoxShadow(color: lightShadowColor, offset: Offset(shadowOffset, shadowOffset), blurRadius: blurRadius),
-        BoxShadow(color: shadowColor, offset: Offset(-shadowOffset, -shadowOffset), blurRadius: blurRadius),
+        BoxShadow(color: lightShadowColor, offset: Offset(widget.shadowOffset, widget.shadowOffset), blurRadius: widget.blurRadius),
+        BoxShadow(color: shadowColor, offset: Offset(-widget.shadowOffset, -widget.shadowOffset), blurRadius: widget.blurRadius),
       ];
     }
   }
@@ -51,19 +58,40 @@ class SoftButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.onTap,
+      onTap: this.widget.onTap,
+      onTapDown: (TapDownDetails) {
+        if (this.widget.isClickable){
+          setState(() {
+            this.widget.color = shadowColor;
+          });
+        }
+      },
+      onTapUp: (TapUpDetails){
+        if (this.widget.isClickable){
+          setState(() {
+            this.widget.color = backgroundColor;
+          });
+        }
+      },
+      onTapCancel: (){
+        if (this.widget.isClickable){
+          setState(() {
+            this.widget.color = backgroundColor;
+          });
+        }
+      },
       child: Container(
-        width: this.width,
-        height: this.height,
+        width: this.widget.width,
+        height: this.widget.height,
         decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(radius),
+          color: widget.color,
+          borderRadius: BorderRadius.circular(widget.radius),
           boxShadow: getShadows(),
         ),
         child: Center(
-          child: this.child,
+          child: this.widget.child,
         ),
-        margin: EdgeInsets.all(margin),
+        margin: EdgeInsets.all(widget.margin),
       ),
     );
   }

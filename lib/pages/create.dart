@@ -46,6 +46,9 @@ class _CreateState extends State<Create> {
           radius: 24,
           width: 5,
           height: 5,
+          shadowOffset: 0,
+          blurRadius: 0,
+
           child: Icon(
             Icons.arrow_back,
             color: Colors.black,

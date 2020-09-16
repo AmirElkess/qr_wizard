@@ -26,6 +26,9 @@ class _AboutState extends State<About> {
             radius: 24,
             width: 5,
             height: 5,
+            blurRadius: 0,
+
+            shadowOffset: 0,
             child: Icon(
               Icons.arrow_back,
               color: Colors.black,
