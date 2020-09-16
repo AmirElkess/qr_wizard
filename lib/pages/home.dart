@@ -100,8 +100,8 @@ class _HomeState extends State<Home> {
                           isClickable: true,
                           child: Text("SCAN QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold),),
                           onTap: () {
-                            Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
-                            //Navigator.pushNamed(context, '/read');
+                            //Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
+                            Navigator.pushNamed(context, '/read');
                           },
                         ),
                         SoftButton(
