@@ -62,6 +62,7 @@ class _AboutState extends State<About> {
                       width: double.infinity,
                       radius: 12,
                       height: 30,
+                      isClickable: true,
                       child: Text("Privacy Policy"),
                       onTap: (){
                           Navigator.pushNamed(context, '/privacy_policy');

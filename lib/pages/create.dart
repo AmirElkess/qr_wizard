@@ -95,6 +95,7 @@ class _CreateState extends State<Create> {
                             width: double.infinity,
                             height: double.infinity,
                             child: Icon(Icons.clear),
+                            isClickable: true,
                             onTap: () {
                               setState(() {
                                 textController.value =
@@ -110,6 +111,7 @@ class _CreateState extends State<Create> {
                             height: double.infinity,
                             width: double.infinity,
                             child: Icon(Icons.save_alt),
+                            isClickable: true,
                             onTap: () {
                               setState(() {
                                 FocusScope.of(context).unfocus();

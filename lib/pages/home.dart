@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_wizard/pages/read.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -98,13 +100,15 @@ class _HomeState extends State<Home> {
                           isClickable: true,
                           child: Text("SCAN QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold),),
                           onTap: () {
-                            Navigator.pushNamed(context, '/read');
+                            Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
+                            //Navigator.pushNamed(context, '/read');
                           },
                         ),
                         SoftButton(
                           radius: btnRadius,
                           height: btnHeight,
                           width: btnWidth,
+                          isClickable: true,
                           child: Text("CREATE QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold)),
                           onTap: () {
                             Navigator.pushNamed(context, '/create');
@@ -114,6 +118,7 @@ class _HomeState extends State<Home> {
                           radius: btnRadius,
                           height: btnHeight,
                           width: btnWidth,
+                          isClickable: true,
                           child: Text("ABOUT", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold)),
                           onTap: () {
                             Navigator.pushNamed(context, '/about');

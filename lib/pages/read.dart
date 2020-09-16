@@ -145,6 +145,7 @@ class _ReadState extends State<Read> {
                             SoftButton(
                               child: flashIcon,
                               radius: 50,
+                              isClickable: true,
                               onTap: () {
                                 setState(() {
                                   if (FLASH_ON) {
@@ -163,6 +164,7 @@ class _ReadState extends State<Read> {
                             SoftButton(
                               child: camIcon,
                               radius: 50,
+                              isClickable: true,
                               onTap: () {
                                 setState(() {
                                   if (REAR_CAM) {
@@ -178,6 +180,7 @@ class _ReadState extends State<Read> {
                             SoftButton(
                               child: playPause,
                               radius: 50,
+                              isClickable: true,
                               onTap: () {
                                 setState(() {
                                   if (playing) {
@@ -229,6 +232,7 @@ class _ReadState extends State<Read> {
                                   child: SoftButton(
                                     height: 150,
                                     radius: 12,
+                                    isClickable: true,
                                     child: Icon(Icons.content_copy),
                                     onTap: () {
                                       setState(() {
