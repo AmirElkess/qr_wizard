@@ -60,7 +60,7 @@ class _AboutState extends State<About> {
                     SizedBox(height: 12,),
                     SoftButton(
                       width: double.infinity,
-                      radius: 12,
+                      radius: 8,
                       height: 30,
                       isClickable: true,
                       child: Text("Privacy Policy"),
