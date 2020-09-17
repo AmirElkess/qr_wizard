@@ -50,6 +50,14 @@ class _HistoryState extends State<History> {
                   setState(() {
                     deleteEntry(entriesList[index].id);
                     entriesList.removeAt(index);
+                    if(entriesList.length == 0) {
+                      mainWidget = Align(
+                          heightFactor: 7,
+                          child: Text(
+                            "History is Empty",
+                            style: TextStyle(color: Colors.grey),
+                          ));
+                    }
                   });
                 },
                 child: SoftButton(
@@ -69,6 +77,7 @@ class _HistoryState extends State<History> {
                                   "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
                                   style: TextStyle(color: Colors.grey)),
                               Text(entriesList[index].qrString),
+                              Text(entriesList[index].id.toString()),
                             ],
                           ),
                         ),
@@ -77,7 +86,7 @@ class _HistoryState extends State<History> {
                         flex: 1,
                         child: SoftButton(
                           isClickable: true,
-                          radius: 15,
+                          radius: 9,
                           height: double.infinity,
                           child: Icon(Icons.arrow_forward),
                           onTap: () {
