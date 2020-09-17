@@ -44,57 +44,50 @@ class _HistoryState extends State<History> {
             padding: EdgeInsets.all(8),
             itemCount: entriesList.length,
             itemBuilder: (BuildContext context, int index) {
-              return SoftButton(
-                radius: 8,
-                height: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 7,
-                      child: SoftButton(
-                        height: double.infinity,
-                        radius: 8,
-                        child: Column(
-                          children: [
-                            Text(
-                                "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
-                                style: TextStyle(color: Colors.grey)),
-                            Text(entriesList[index].qrString),
-                          ],
+              return Dismissible(
+                key: Key(index.toString()),
+                onDismissed: (direction) {
+                  setState(() {
+                    deleteEntry(entriesList[index].id);
+                    entriesList.removeAt(index);
+                  });
+                },
+                child: SoftButton(
+                  radius: 8,
+                  height: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 7,
+                        child: SoftButton(
+                          height: double.infinity,
+                          radius: 8,
+                          child: Column(
+                            children: [
+                              Text(
+                                  "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
+                                  style: TextStyle(color: Colors.grey)),
+                              Text(entriesList[index].qrString),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: SoftButton(
-                        isClickable: true,
-                        radius: 15,
-                        height: double.infinity,
-                        onTap: () {
-                          deleteEntry(entriesList[index].id);
-                          initiateView(entriesList);
-                        },
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                      Expanded(
+                        flex: 1,
+                        child: SoftButton(
+                          isClickable: true,
+                          radius: 15,
+                          height: double.infinity,
+                          child: Icon(Icons.arrow_forward),
+                          onTap: () {
+                            Navigator.pushNamed(context, '/details',
+                                arguments: entriesList[index]);
+                          },
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: SoftButton(
-                        isClickable: true,
-                        radius: 15,
-                        height: double.infinity,
-                        child: Icon(Icons.arrow_forward),
-                        onTap: () {
-                          Navigator.pushNamed(context, '/details',
-                              arguments: entriesList[index]);
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             });
