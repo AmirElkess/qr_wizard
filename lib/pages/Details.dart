@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_wizard/res/constants.dart';
@@ -46,7 +47,44 @@ class _DetailsState extends State<Details> {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(25),
-            child: Text(entry.qrString),
+            child: SoftButton(
+              radius: 12,
+              width: double.infinity,
+              height: 400,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 5,
+                    child: Row(children: <Widget>[
+                      Expanded(
+                        flex: 6,
+                        child: SoftButton(
+                          radius: 12,
+                          height: double.infinity,
+                          width: double.infinity,
+                          child: QrImage(
+                            data: entry.qrString,
+                            version: QrVersions.auto,
+                            size: 200.0,
+                            backgroundColor: backgroundColor,
+                          ),
+                        ),
+                      ),
+
+                    ]),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: SoftButton(
+                      radius: 12,
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: Text(entry.qrString)
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ));
   }

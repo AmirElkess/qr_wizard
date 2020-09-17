@@ -46,14 +46,11 @@ class _HistoryState extends State<History> {
                       child: SoftButton(
                         height: double.infinity,
                         radius: 8,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(00, 0, 0, 0),
-                          child: Column(
-                            children: [
-                              Text("Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}", style: TextStyle(color: Colors.grey)),
-                              Text(entriesList[index].qrString),
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            Text("Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}", style: TextStyle(color: Colors.grey)),
+                            Text(entriesList[index].qrString),
+                          ],
                         ),
                       ),
                     ),
