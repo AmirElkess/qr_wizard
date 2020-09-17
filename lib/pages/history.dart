@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
@@ -17,13 +18,13 @@ class _HistoryState extends State<History> {
 
   void initiateView(entriesList) async {
     setState(() {
-      mainWidget = Text("Loading QR scan history");
+      mainWidget = Align(heightFactor: 7, child: Text("Loading History", style: TextStyle(color: Colors.grey),));
       print('loading screen');
     });
     entriesList = await entries();
     if (entriesList.length == 0) {
       setState(() {
-        mainWidget = Text("History is empty");
+        mainWidget = Align(heightFactor: 7, child: Text("History is Empty", style: TextStyle(color: Colors.grey),));
         print('Empty history');
       });
     } else {
@@ -36,25 +37,49 @@ class _HistoryState extends State<History> {
               return SoftButton(
                 radius: 8,
                 height: 100,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(entriesList[index].qrString),
-                      QrImage(
-                        data: entriesList[index].qrString,
-                        version: QrVersions.auto,
-                        size: 90.0,
-                        backgroundColor: backgroundColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+
+                    Expanded(
+                      flex: 7,
+                      child: SoftButton(
+                        height: double.infinity,
+                        radius: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(00, 0, 0, 0),
+                          child: Column(
+                            children: [
+                              Text("Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}", style: TextStyle(color: Colors.grey)),
+                              Text(entriesList[index].qrString),
+                            ],
+                          ),
+                        ),
                       ),
-                      GestureDetector(
-                          onTap: (){
-                            Navigator.pushNamed(context, '/details');
-                          },
-                          child: Icon(Icons.arrow_forward))
-                    ],),
-                ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: SoftButton(
+                        isClickable: true,
+                        radius: 15,
+                        height: double.infinity,
+                        child: Icon(Icons.delete, color: Colors.red,),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: SoftButton(
+                        isClickable: true,
+                        radius: 15,
+                        height: double.infinity,
+                        child: Icon(Icons.arrow_forward),
+                        onTap: (){
+                          Navigator.pushNamed(context, '/details', arguments: entriesList[index]);
+                        },
+                      ),
+                    ),
+
+                  ],),
               );
             });
       });
