@@ -18,13 +18,23 @@ class _HistoryState extends State<History> {
 
   void initiateView(entriesList) async {
     setState(() {
-      mainWidget = Align(heightFactor: 7, child: Text("Loading History", style: TextStyle(color: Colors.grey),));
+      mainWidget = Align(
+          heightFactor: 7,
+          child: Text(
+            "Loading History",
+            style: TextStyle(color: Colors.grey),
+          ));
       print('loading screen');
     });
     entriesList = await entries();
     if (entriesList.length == 0) {
       setState(() {
-        mainWidget = Align(heightFactor: 7, child: Text("History is Empty", style: TextStyle(color: Colors.grey),));
+        mainWidget = Align(
+            heightFactor: 7,
+            child: Text(
+              "History is Empty",
+              style: TextStyle(color: Colors.grey),
+            ));
         print('Empty history');
       });
     } else {
@@ -40,7 +50,6 @@ class _HistoryState extends State<History> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     Expanded(
                       flex: 7,
                       child: SoftButton(
@@ -48,7 +57,9 @@ class _HistoryState extends State<History> {
                         radius: 8,
                         child: Column(
                           children: [
-                            Text("Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}", style: TextStyle(color: Colors.grey)),
+                            Text(
+                                "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
+                                style: TextStyle(color: Colors.grey)),
                             Text(entriesList[index].qrString),
                           ],
                         ),
@@ -60,7 +71,14 @@ class _HistoryState extends State<History> {
                         isClickable: true,
                         radius: 15,
                         height: double.infinity,
-                        child: Icon(Icons.delete, color: Colors.red,),
+                        onTap: () {
+                          deleteEntry(entriesList[index].id);
+                          initiateView(entriesList);
+                        },
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -70,13 +88,14 @@ class _HistoryState extends State<History> {
                         radius: 15,
                         height: double.infinity,
                         child: Icon(Icons.arrow_forward),
-                        onTap: (){
-                          Navigator.pushNamed(context, '/details', arguments: entriesList[index]);
+                        onTap: () {
+                          Navigator.pushNamed(context, '/details',
+                              arguments: entriesList[index]);
                         },
                       ),
                     ),
-
-                  ],),
+                  ],
+                ),
               );
             });
       });
@@ -92,32 +111,32 @@ class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
         backgroundColor: backgroundColor,
-        appBar: AppBar(
-          backgroundColor: backgroundColor,
-          elevation: 0.0,
-          title: Text(
-            "Scan History",
-            style: TextStyle(color: Colors.black),
-          ),
-          centerTitle: true,
-          leading: SoftButton(
-            margin: 8,
-            radius: 24,
-            width: 5,
-            height: 5,
-            shadowOffset: 0,
-            blurRadius: 0,
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
+        elevation: 0.0,
+        title: Text(
+          "Scan History",
+          style: TextStyle(color: Colors.black),
         ),
-        body: mainWidget,
+        centerTitle: true,
+        leading: SoftButton(
+          margin: 8,
+          radius: 24,
+          width: 5,
+          height: 5,
+          shadowOffset: 0,
+          blurRadius: 0,
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: mainWidget,
     );
   }
 }

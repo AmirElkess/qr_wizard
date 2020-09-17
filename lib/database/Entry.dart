@@ -39,6 +39,15 @@ Future<List<Entry>> entries() async {
   });
 }
 
+Future<void> deleteEntry(int id) async {
+  final db = await initiateDB();
+  await db.delete(
+    'entry',
+    where: "id = ?",
+    whereArgs: [id],
+  );
+}
+
 void testRetrieve() async {
   List<Entry> entriesList = await entries();
   for (var entry in entriesList) {
