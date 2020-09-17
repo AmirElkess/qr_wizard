@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'dart:async';
@@ -99,6 +100,8 @@ class _ReadState extends State<Read> {
                                     controller.scannedDataStream
                                         .listen((event) async {
                                       qrTextString = event;
+                                      Entry entry = Entry (id: null, qrString: qrTextString, timestamp: DateTime.now().toIso8601String());
+                                      insertEntry(entry);
                                       if (await canLaunch(event)) {
                                         print("Found URL string");
                                         qrText = GestureDetector(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/pages/read.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
@@ -22,6 +23,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+
     final QuickActions quickActions =  QuickActions();
     quickActions.initialize((shortcutType) {
       if (shortcutType == 'scan_qr') {
@@ -76,7 +78,7 @@ class _HomeState extends State<Home> {
                   SoftButton(
                     width: double.infinity,
                     radius: 12,
-                    height: 420,
+                    height: 450,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -98,7 +100,7 @@ class _HomeState extends State<Home> {
                           height: btnHeight,
                           width: btnWidth,
                           isClickable: true,
-                          child: Text("SCAN QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold),),
+                          child: Text("Scan QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal),),
                           onTap: () {
                             //Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
                             Navigator.pushNamed(context, '/read');
@@ -109,7 +111,7 @@ class _HomeState extends State<Home> {
                           height: btnHeight,
                           width: btnWidth,
                           isClickable: true,
-                          child: Text("CREATE QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold)),
+                          child: Text("Create QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
                           onTap: () {
                             Navigator.pushNamed(context, '/create');
                           },
@@ -119,7 +121,17 @@ class _HomeState extends State<Home> {
                           height: btnHeight,
                           width: btnWidth,
                           isClickable: true,
-                          child: Text("ABOUT", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold)),
+                          child: Text("Scan History", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
+                          onTap: () {
+                            Navigator.pushNamed(context, '/history');
+                          },
+                        ),
+                        SoftButton(
+                          radius: btnRadius,
+                          height: btnHeight,
+                          width: btnWidth,
+                          isClickable: true,
+                          child: Text("About", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
                           onTap: () {
                             Navigator.pushNamed(context, '/about');
                           },

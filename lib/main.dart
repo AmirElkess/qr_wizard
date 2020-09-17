@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_wizard/pages/history.dart';
 import 'package:qr_wizard/pages/privacy_policy.dart';
 import 'pages/home.dart';
 import 'pages/create.dart';
@@ -18,6 +19,7 @@ void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+
       // ignore: missing_return
       onGenerateRoute: (RouteSettings settings){
         switch(settings.name) {
@@ -26,6 +28,7 @@ void main() {
           case '/read': return CupertinoPageRoute(builder: (_) => Read(), settings: settings);
           case '/about': return CupertinoPageRoute(builder: (_) => About(), settings: settings);
           case '/privacy_policy': return CupertinoPageRoute(builder: (_) => PrivacyPolicy(), settings: settings);
+          case '/history': return CupertinoPageRoute(builder: (_) => History(), settings: settings);
         }
       },
       // routes: {
