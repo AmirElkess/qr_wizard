@@ -6,14 +6,16 @@ class Entry {
   final int id;
   final String qrString;
   final String timestamp;
+  final int dataType;
 
-  Entry({this.id, this.qrString, this.timestamp});
+  Entry({this.id, this.qrString, this.timestamp, this.dataType});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'qrString': qrString,
       'timestamp': timestamp,
+      'dataType': dataType,
     };
   }
 }
@@ -36,6 +38,7 @@ Future<List<Entry>> entries() async {
       id: maps[i]['id'],
       qrString: maps[i]['qrString'],
       timestamp: maps[i]['timestamp'],
+      dataType: maps[i]['dataType'],
     );
   });
 }

@@ -8,7 +8,7 @@ Future<Database> initiateDB() async {
     join(await getDatabasesPath(), 'qrDB.db'),
     onCreate: (db, version) {
       return db.execute(
-        "CREATE TABLE entry(id INTEGER PRIMARY KEY AUTOINCREMENT, qrString TEXT, timestamp TEXT)",
+        "CREATE TABLE entry(id INTEGER PRIMARY KEY AUTOINCREMENT, qrString TEXT, timestamp TEXT, dataType INTEGER)",
       );
     },
     version: 1,

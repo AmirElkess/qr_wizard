@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
+import 'package:qr_wizard/database/qrDataTypes.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/licenses.dart';
 import 'package:flutter_launcher_icons/constants.dart';
@@ -78,6 +79,7 @@ class _HistoryState extends State<History> {
                                   style: TextStyle(color: Colors.grey)),
                               Text(entriesList[index].qrString),
                               Text(entriesList[index].id.toString()),
+                              Text(entriesList[index].dataType.toString()),
                             ],
                           ),
                         ),
