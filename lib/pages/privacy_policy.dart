@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_wizard/res/constants.dart';
-import 'package:qr_wizard/res/licenses.dart';
+import 'package:qr_wizard/res/licenseStrings.dart';
 import 'package:flutter_launcher_icons/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 

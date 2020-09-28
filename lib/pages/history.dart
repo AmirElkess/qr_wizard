@@ -4,7 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
 import 'package:qr_wizard/res/constants.dart';
-import 'package:qr_wizard/res/licenses.dart';
+import 'package:qr_wizard/res/licenseStrings.dart';
 import 'package:flutter_launcher_icons/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 

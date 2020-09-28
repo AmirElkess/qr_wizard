@@ -21,7 +21,7 @@ class Entry {
 }
 
 Future<void> insertEntry(Entry entry) async {
-  print('entry ${entry.qrString} inserted');
+  //print('entry ${entry.qrString} inserted');
   final Database db = await initiateDB();
   await db.insert(
     'entry',

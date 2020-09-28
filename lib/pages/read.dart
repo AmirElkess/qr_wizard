@@ -7,6 +7,7 @@ import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:qr_wizard/functions/typeClassifier.dart';
 
 class Read extends StatefulWidget {
   @override
@@ -97,6 +98,8 @@ class _ReadState extends State<Read> {
                                 controller.scannedDataStream
                                     .listen((event) async {
                                   qrTextString = event;
+                                  var qrDataType = QrDataTypes.values[await classifyType(qrTextString)];
+                                  print(qrDataType);
                                   Entry entry = Entry(
                                       id: null,
                                       qrString: qrTextString,
@@ -104,8 +107,7 @@ class _ReadState extends State<Read> {
                                           DateTime.now().toIso8601String(),
                                       dataType: QrDataTypes.URL.index);
                                   insertEntry(entry);
-                                  if (await canLaunch(event)) {
-                                    print("Found URL string");
+                                  if (qrDataType == QrDataTypes.URL) {
                                     qrText = GestureDetector(
                                       child: Text(
                                         qrTextString,
@@ -118,10 +120,12 @@ class _ReadState extends State<Read> {
                                         await launch(qrTextString);
                                       },
                                     );
-                                  } else {
-                                    print("Found normal string");
+                                  } else if (qrDataType == QrDataTypes.TEXT) {
                                     qrText = Text(qrTextString);
+                                  } else if ( qrDataType == QrDataTypes.CONTACT ) {
+                                    qrText = Text("Contact: " + qrTextString);
                                   }
+
                                   setState(() {
                                     controller.pauseCamera();
                                     playing = false;

@@ -218,9 +218,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.""";
 
-String privacy_policy = """
-
-Amir Elkess built the QR Wizard app as a Free app. This SERVICE is provided by Amir Elkess at no cost and is intended for use as is.
+String privacy_policy = """Amir Elkess built the QR Wizard app as a Free app. This SERVICE is provided by Amir Elkess at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
