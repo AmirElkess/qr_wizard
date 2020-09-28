@@ -57,7 +57,7 @@ class _HistoryState extends State<History> {
                           child: Text(
                             "History is Empty",
                             style: TextStyle(color: Colors.grey),
-                          ));
+                          )); //used to set main screen after all history entries are dismissed
                     }
                   });
                 },
@@ -72,15 +72,20 @@ class _HistoryState extends State<History> {
                         child: SoftButton(
                           height: double.infinity,
                           radius: 8,
-                          child: Column(
-                            children: [
-                              Text(
-                                  "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
-                                  style: TextStyle(color: Colors.grey)),
-                              Text(entriesList[index].qrString),
-                              Text(entriesList[index].id.toString()),
-                              Text(entriesList[index].dataType.toString()),
-                            ],
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text( 
+                                      "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
+                                      style: TextStyle(color: Colors.grey)),
+                                  Text(entriesList[index].qrString),
+                                  Text(entriesList[index].id.toString()),
+                                  Text(entriesList[index].dataType.toString()),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),

@@ -21,6 +21,12 @@ void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+    builder: (context, child) {
+      return ScrollConfiguration(
+        behavior: GlowlessScroll(),
+        child: child,
+      );
+    },
 
       // ignore: missing_return
       onGenerateRoute: (RouteSettings settings){
@@ -44,4 +50,14 @@ void main() {
       //   '/privacy_policy': (context) => PrivacyPolicy(),
       // }
   ));
+}
+
+
+//Scroll behaviour
+class GlowlessScroll extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
+  }
 }

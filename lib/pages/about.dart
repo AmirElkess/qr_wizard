@@ -62,7 +62,7 @@ class _AboutState extends State<About> {
                     SoftButton(
                       width: double.infinity,
                       radius: 8,
-                      height: 30,
+                      height: 36,
                       isClickable: true,
                       child: Text("Privacy Policy"),
                       onTap: (){
@@ -72,7 +72,7 @@ class _AboutState extends State<About> {
                     SoftButton(
                       width: double.infinity,
                       radius: 8,
-                      height: 30,
+                      height: 36,
                       isClickable: true,
                       child: Text("Open Source Licenses"),
                       onTap: (){
