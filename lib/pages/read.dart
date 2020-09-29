@@ -107,6 +107,13 @@ class _ReadState extends State<Read> {
                                           DateTime.now().toIso8601String(),
                                       dataType: QrDataTypes.URL.index);
                                   insertEntry(entry);
+
+                                  setState(() {
+                                    controller.pauseCamera();
+                                    playing = false;
+                                    playPause = Icon(Icons.pause);
+                                  });
+
                                   if (qrDataType == QrDataTypes.URL) {
                                     qrText = GestureDetector(
                                       child: Text(
@@ -123,14 +130,17 @@ class _ReadState extends State<Read> {
                                   } else if (qrDataType == QrDataTypes.TEXT) {
                                     qrText = Text(qrTextString);
                                   } else if ( qrDataType == QrDataTypes.CONTACT ) {
-                                    qrText = Text("Contact: " + qrTextString);
+                                    //qrText = Text("Contact: " + qrTextString);
+                                    await Navigator.pushNamed(context, '/contact_details', arguments: entry);
+                                    setState(() {
+                                      controller.resumeCamera();
+                                      playing = true;
+                                      playPause = Icon(Icons.play_arrow);
+                                    });
+
                                   }
 
-                                  setState(() {
-                                    controller.pauseCamera();
-                                    playing = false;
-                                    playPause = Icon(Icons.pause);
-                                  });
+
                                 });
                               },
                               overlay: QrScannerOverlayShape(

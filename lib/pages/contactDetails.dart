@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_wizard/res/constants.dart';
 
-class Details extends StatefulWidget {
+class ContactDetails extends StatefulWidget {
   @override
-  _DetailsState createState() => _DetailsState();
+  _ContactDetailsState createState() => _ContactDetailsState();
 }
 
-class _DetailsState extends State<Details> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _ContactDetailsState extends State<ContactDetails> {
   @override
   Widget build(BuildContext context) {
     Entry entry = ModalRoute.of(context).settings.arguments;
@@ -24,7 +18,7 @@ class _DetailsState extends State<Details> {
           backgroundColor: backgroundColor,
           elevation: 0.0,
           title: Text(
-            "Details",
+            "Contact",
             style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
@@ -58,17 +52,7 @@ class _DetailsState extends State<Details> {
                     child: Row(children: <Widget>[
                       Expanded(
                         flex: 6,
-                        child: SoftButton(
-                          radius: 12,
-                          height: double.infinity,
-                          width: double.infinity,
-                          child: QrImage(
-                            data: entry.qrString,
-                            version: QrVersions.auto,
-                            size: 200.0,
-                            backgroundColor: backgroundColor,
-                          ),
-                        ),
+                        child: Text("Hello there"),
                       ),
 
                     ]),
@@ -76,14 +60,14 @@ class _DetailsState extends State<Details> {
                   Expanded(
                     flex: 4,
                     child: SoftButton(
-                      radius: 12,
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: SingleChildScrollView(
-                          child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(entry.qrString))
-                      )
+                        radius: 12,
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: SingleChildScrollView(
+                            child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(entry.qrString))
+                        )
                     ),
                   ),
                 ],

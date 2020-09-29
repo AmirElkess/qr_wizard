@@ -75,15 +75,19 @@ class _HistoryState extends State<History> {
                           child: SingleChildScrollView(
                             child: Padding(
                               padding: EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text( 
-                                      "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
-                                      style: TextStyle(color: Colors.grey)),
-                                  Text(entriesList[index].qrString),
-                                  Text(entriesList[index].id.toString()),
-                                  Text(entriesList[index].dataType.toString()),
-                                ],
+                              child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
+                                        style: TextStyle(color: Colors.grey, fontSize: 10)),
+                                    Text(entriesList[index].qrString),
+                                    Text(entriesList[index].id.toString()),
+                                    Text(entriesList[index].dataType.toString()),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
