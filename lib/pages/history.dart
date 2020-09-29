@@ -45,6 +45,17 @@ class _HistoryState extends State<History> {
             padding: EdgeInsets.all(8),
             itemCount: entriesList.length,
             itemBuilder: (BuildContext context, int index) {
+
+              Icon entryIcon;
+
+              if (entriesList[index].dataType == QrDataTypes.CONTACT.index){
+                entryIcon = Icon(Icons.contact_phone);
+              } else if (entriesList[index].dataType == QrDataTypes.URL.index){
+                entryIcon = Icon(Icons.link);
+              } else {
+                entryIcon = Icon(Icons.text_fields);
+              }
+
               return Dismissible(
                 key: Key(index.toString()),
                 onDismissed: (direction) {
@@ -67,6 +78,10 @@ class _HistoryState extends State<History> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Expanded(
+                        flex: 1,
+                        child: entryIcon,
+                      ),
                       Expanded(
                         flex: 7,
                         child: SoftButton(
