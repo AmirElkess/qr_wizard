@@ -105,7 +105,7 @@ class _ReadState extends State<Read> {
                                       qrString: qrTextString,
                                       timestamp:
                                           DateTime.now().toIso8601String(),
-                                      dataType: QrDataTypes.URL.index);
+                                      dataType: await classifyType(qrTextString));
                                   insertEntry(entry);
 
                                   setState(() {

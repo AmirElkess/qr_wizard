@@ -4,9 +4,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
 import 'package:qr_wizard/res/constants.dart';
-import 'package:qr_wizard/res/licenseStrings.dart';
-import 'package:flutter_launcher_icons/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_wizard/res/button.dart';
+import 'package:vcard_parser/vcard_parser.dart';
+
 
 class History extends StatefulWidget {
   @override
@@ -16,6 +17,49 @@ class History extends StatefulWidget {
 class _HistoryState extends State<History> {
   List<Entry> entriesList;
   Widget mainWidget;
+
+  Icon findIcon(entry) {
+    if (entry.dataType == QrDataTypes.CONTACT.index){
+      return Icon(Icons.contact_phone);
+    } else if (entry.dataType == QrDataTypes.URL.index){
+      return Icon(Icons.link);
+    } else {
+      return Icon(Icons.text_fields);
+    }
+  }
+
+  Widget findEntryBody(entry) {
+    if (entry.dataType == QrDataTypes.CONTACT.index){
+      Map<String, Object> vCardMap = VcardParser(entry.qrString ).parse();
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text("${vCardMap['FN']}", style: TextStyle(fontWeight: FontWeight.bold),),
+          Text("Contact Card", style: TextStyle(fontSize: 12),)
+        ],
+      );
+
+
+    } else if (entry.dataType == QrDataTypes.URL.index) {
+      return GestureDetector(
+        onTap: () async {
+          await launch(entry.qrString);
+        },
+        child: Text(
+          entry.qrString,
+          style: TextStyle(
+              color: Colors.blue,
+              decoration:
+              TextDecoration.underline),
+        ),
+      );
+    } else {
+      return Text(entry.qrString);
+    }
+  }
+
+
 
   void initiateView(entriesList) async {
     setState(() {
@@ -45,16 +89,7 @@ class _HistoryState extends State<History> {
             padding: EdgeInsets.all(8),
             itemCount: entriesList.length,
             itemBuilder: (BuildContext context, int index) {
-
-              Icon entryIcon;
-
-              if (entriesList[index].dataType == QrDataTypes.CONTACT.index){
-                entryIcon = Icon(Icons.contact_phone);
-              } else if (entriesList[index].dataType == QrDataTypes.URL.index){
-                entryIcon = Icon(Icons.link);
-              } else {
-                entryIcon = Icon(Icons.text_fields);
-              }
+              Icon entryIcon = findIcon(entriesList[index]);
 
               return Dismissible(
                 key: Key(index.toString()),
@@ -74,7 +109,7 @@ class _HistoryState extends State<History> {
                 },
                 child: SoftButton(
                   radius: 8,
-                  height: 100,
+                  height: 90,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -87,23 +122,24 @@ class _HistoryState extends State<History> {
                         child: SoftButton(
                           height: double.infinity,
                           radius: 8,
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                        "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
-                                        style: TextStyle(color: Colors.grey, fontSize: 10)),
-                                    Text(entriesList[index].qrString),
-                                    Text(entriesList[index].id.toString()),
-                                    Text(entriesList[index].dataType.toString()),
-                                  ],
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                      "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
+                                      style: TextStyle( color: Colors.grey, fontSize: 10)),
                                 ),
-                              ),
+                                Expanded(
+                                  flex: 3,
+                                  child: SingleChildScrollView(
+                                    child: findEntryBody(entriesList[index]),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
