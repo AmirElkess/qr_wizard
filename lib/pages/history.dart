@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
 import 'package:qr_wizard/res/constants.dart';
+import 'package:simple_vcard_parser/simple_vcard_parser.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_wizard/res/button.dart';
-import 'package:vcard_parser/vcard_parser.dart';
 
 
 class History extends StatefulWidget {
@@ -30,12 +29,12 @@ class _HistoryState extends State<History> {
 
   Widget findEntryBody(entry) {
     if (entry.dataType == QrDataTypes.CONTACT.index){
-      Map<String, Object> vCardMap = VcardParser(entry.qrString ).parse();
+      VCard vCard = VCard(entry.qrString);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text("${vCardMap['FN']}", style: TextStyle(fontWeight: FontWeight.bold),),
+          Text("${vCard.formattedName}", style: TextStyle(fontWeight: FontWeight.bold),),
           Text("Contact Card", style: TextStyle(fontSize: 12),)
         ],
       );
