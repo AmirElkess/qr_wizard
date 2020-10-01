@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
+import 'package:qr_wizard/functions/wifiParser.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_wizard/functions/typeClassifier.dart';
+import 'package:wifi_connect/wifi_connect.dart';
 
 class Read extends StatefulWidget {
   @override
@@ -98,14 +100,16 @@ class _ReadState extends State<Read> {
                                 controller.scannedDataStream
                                     .listen((event) async {
                                   qrTextString = event;
-                                  var qrDataType = QrDataTypes.values[await classifyType(qrTextString)];
+                                  var qrDataType = QrDataTypes
+                                      .values[await classifyType(qrTextString)];
                                   print(qrDataType);
                                   Entry entry = Entry(
                                       id: null,
                                       qrString: qrTextString,
                                       timestamp:
                                           DateTime.now().toIso8601String(),
-                                      dataType: await classifyType(qrTextString));
+                                      dataType:
+                                          await classifyType(qrTextString));
                                   insertEntry(entry);
 
                                   setState(() {
@@ -129,18 +133,29 @@ class _ReadState extends State<Read> {
                                     );
                                   } else if (qrDataType == QrDataTypes.TEXT) {
                                     qrText = Text(qrTextString);
-                                  } else if ( qrDataType == QrDataTypes.CONTACT ) {
+                                  } else if (qrDataType ==
+                                      QrDataTypes.CONTACT) {
                                     //qrText = Text("Contact: " + qrTextString);
-                                    await Navigator.pushNamed(context, '/contact_details', arguments: entry);
+                                    await Navigator.pushNamed(
+                                        context, '/contact_details',
+                                        arguments: entry);
                                     setState(() {
                                       controller.resumeCamera();
                                       playing = true;
                                       playPause = Icon(Icons.play_arrow);
                                     });
+                                  } else if (qrDataType == QrDataTypes.WIFI) {
 
+                                    List<String> wifiDetails = parseWifi(qrTextString);
+                                    if (wifiDetails[1] == '-1') {
+                                      WifiConnect.connect(context, ssid: wifiDetails[0]);
+                                      print("Connecting to passwordless wifi");
+                                    } else {
+                                      WifiConnect.connect(context, ssid: wifiDetails[0], password: wifiDetails[1]);
+                                      print("Connecting to passworded wifi");
+
+                                    }
                                   }
-
-
                                 });
                               },
                               overlay: QrScannerOverlayShape(
@@ -273,6 +288,7 @@ class _ReadState extends State<Read> {
       ),
     );
   }
+
 
   @override
   void dispose() {

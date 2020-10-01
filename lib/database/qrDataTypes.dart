@@ -1,5 +1,6 @@
 enum QrDataTypes {
   TEXT,
   URL,
-  CONTACT
+  CONTACT,
+  WIFI
 }

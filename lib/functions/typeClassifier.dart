@@ -9,6 +9,8 @@ Future<int> classifyType (qrString) async {
     return QrDataTypes.URL.index;
   } else if (qrString.startsWith('BEGIN:VCARD')) {
     return QrDataTypes.CONTACT.index;
+  } else if (qrString.startsWith('WIFI')){
+    return QrDataTypes.WIFI.index;
   } else {
     return QrDataTypes.TEXT.index;
   }
