@@ -1,7 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_wizard/res/constants.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:simple_vcard_parser/simple_vcard_parser.dart';
 
 class ContactDetails extends StatefulWidget {
   @override
@@ -9,9 +16,20 @@ class ContactDetails extends StatefulWidget {
 }
 
 class _ContactDetailsState extends State<ContactDetails> {
+
   @override
   Widget build(BuildContext context) {
     Entry entry = ModalRoute.of(context).settings.arguments;
+    print(entry.qrString);
+    VCard vc = VCard(entry.qrString);
+    RegExp telem = RegExp(r'(?<=:).+');
+    List<String> tels = vc.getWordsOfPrefix('TEL');
+    List<String> telephones = List<String>();
+    for (String tel in tels){
+      telephones.add(telem.firstMatch(tel).group(0));
+    }
+    ScreenshotController screenshotController = ScreenshotController();
+
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
@@ -38,42 +56,149 @@ class _ContactDetailsState extends State<ContactDetails> {
             },
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(25),
-            child: SoftButton(
-              radius: 12,
-              width: double.infinity,
-              height: 400,
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Row(children: <Widget>[
+        body: Builder(
+          builder: (BuildContext context) {
+            return SingleChildScrollView(
+              child: Padding(
+                padding: universalPadding,
+                child: SoftButton(
+                  radius: 12,
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: Column(
+                    children: <Widget>[
                       Expanded(
-                        flex: 6,
-                        child: Text("Hello there"),
+                        flex: 5,
+                        child: Row(children: <Widget>[
+                          Expanded(
+                            flex: 11,
+                            child: SoftButton(
+                              radius: 12,
+                              height: double.infinity,
+                              width: double.infinity,
+                              child: Screenshot(
+                                controller: screenshotController,
+                                child: QrImage(
+                                  data: entry.qrString,
+                                  version: QrVersions.auto,
+                                  size: MediaQuery.of(context).size.height * 0.25,
+                                  backgroundColor: backgroundColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: SoftButton(
+                              height: double.infinity,
+                              width: double.infinity,
+                              radius: 12,
+                              child: Icon(Icons.save_alt),
+                              isClickable: true,
+                              onTap: () {
+                                setState(() {
+                                  FocusScope.of(context).unfocus();
+                                  screenshotController
+                                      .capture(
+                                      pixelRatio: 2,
+                                      delay: Duration(milliseconds: 150))
+                                      .then((File image) async {
+                                    if (image != null && image.path != null) {
+                                      print("Image and path correct");
+                                      print(image.path);
+                                      await GallerySaver.saveImage(
+                                        image.path,
+                                        albumName: "QR Wizard",
+                                      );
+                                      Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content:
+                                              Text('QR saved to gallery')));
+                                    }
+                                  });
+                                });
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: SoftButton(
+                              height: double.infinity,
+                              width: double.infinity,
+                              radius: 12,
+                              isClickable: true,
+                              child: Icon(Icons.content_copy),
+                              onTap: () {
+                                Clipboard.setData(
+                                    ClipboardData(text: entry.qrString));
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                    content:
+                                    Text('Text Copied to clipboard')));
+                              },
+                            ),
+                          ),
+                        ]),
                       ),
+                      Expanded(
+                        flex: 4,
+                        child: SoftButton(
+                          radius: 12,
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(20, 12, 20, 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 11)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle(fontSize: 11, color: Colors.grey),),
+                                ),
+                                Expanded(
+                                  flex: 7,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(color: Colors.black, wordSpacing: 1.5, height: 1.4),
+                                      children: <TextSpan>[
+                                        TextSpan(text: 'Name: '),
+                                        TextSpan(text: vc.formattedName, style: TextStyle(color: Colors.black54)),
+                                        TextSpan(text: '\n'),
 
-                    ]),
+                                        TextSpan(text: 'Organisation: '),
+                                        TextSpan(text: vc.organisation, style: TextStyle(color: Colors.black54)),
+                                        TextSpan(text: '\n'),
+
+                                        TextSpan(text: 'Title: '),
+                                        TextSpan(text: vc.title, style: TextStyle(color: Colors.black54)),
+                                        TextSpan(text: '\n'),
+
+                                        TextSpan(text: 'Telephone: '),
+                                        TextSpan(text: telephones.join(', '), style: TextStyle(color: Colors.black54)),
+                                        TextSpan(text: '\n'),
+
+                                        TextSpan(text: 'Email: '),
+                                        TextSpan(text: vc.email, style: TextStyle(color: Colors.black54)),
+                                        TextSpan(text: '\n'),
+
+
+
+
+                                      ]
+                                    ),
+                                  )
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    flex: 4,
-                    child: SoftButton(
-                        radius: 12,
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: SingleChildScrollView(
-                            child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(entry.qrString))
-                        )
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ));
+            );
+          },
+        ),
+    );
   }
 }

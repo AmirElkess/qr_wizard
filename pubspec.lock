@@ -156,34 +156,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
-  js:
-    dependency: transitive
-    description:
-      name: js
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.6.2"
-  location:
-    dependency: transitive
-    description:
-      name: location
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.2"
-  location_platform_interface:
-    dependency: transitive
-    description:
-      name: location_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  location_web:
-    dependency: transitive
-    description:
-      name: location_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   matcher:
     dependency: transitive
     description:
@@ -268,13 +240,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
-  plugin_scaffold:
-    dependency: transitive
-    description:
-      name: plugin_scaffold
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   process:
     dependency: transitive
     description:
@@ -323,7 +288,7 @@ packages:
       name: simple_vcard_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -441,13 +406,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.1+1"
-  use_location:
-    dependency: transitive
-    description:
-      name: use_location
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.4"
   vector_math:
     dependency: transitive
     description:
@@ -455,13 +413,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-  wifi_connect:
-    dependency: "direct main"
-    description:
-      name: wifi_connect
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.1"
   win32:
     dependency: transitive
     description:

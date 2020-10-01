@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
+import 'package:qr_wizard/functions/wifiParser.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:simple_vcard_parser/simple_vcard_parser.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_wizard/res/button.dart';
-
 
 class History extends StatefulWidget {
   @override
@@ -18,28 +18,34 @@ class _HistoryState extends State<History> {
   Widget mainWidget;
 
   Icon findIcon(entry) {
-    if (entry.dataType == QrDataTypes.CONTACT.index){
+    if (entry.dataType == QrDataTypes.CONTACT.index) {
       return Icon(Icons.contact_phone);
-    } else if (entry.dataType == QrDataTypes.URL.index){
+    } else if (entry.dataType == QrDataTypes.URL.index) {
       return Icon(Icons.link);
+    } else if (entry.dataType == QrDataTypes.WIFI.index) {
+      return Icon(Icons.wifi);
     } else {
       return Icon(Icons.text_fields);
     }
   }
 
   Widget findEntryBody(entry) {
-    if (entry.dataType == QrDataTypes.CONTACT.index){
+    if (entry.dataType == QrDataTypes.CONTACT.index) {
       VCard vCard = VCard(entry.qrString);
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text("${vCard.formattedName}", style: TextStyle(fontWeight: FontWeight.bold),),
-          Text("Contact Card", style: TextStyle(fontSize: 12),)
+          Text(
+            "${vCard.formattedName}",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            "Contact Card",
+            style: TextStyle(fontSize: 12),
+          )
         ],
       );
-
-
     } else if (entry.dataType == QrDataTypes.URL.index) {
       return GestureDetector(
         onTap: () async {
@@ -48,17 +54,31 @@ class _HistoryState extends State<History> {
         child: Text(
           entry.qrString,
           style: TextStyle(
-              color: Colors.blue,
-              decoration:
-              TextDecoration.underline),
+              color: Colors.blue, decoration: TextDecoration.underline),
         ),
       );
+    } else if (entry.dataType == QrDataTypes.WIFI.index){
+      if (parseWifi(entry.qrString)[1] == '-1'){
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text("SSID: " + parseWifi(entry.qrString)[0]),
+            Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, decoration: TextDecoration.underline),),
+          ],
+        );
+      } else {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text("SSID: " +parseWifi(entry.qrString)[0]),
+            Text("Password: " + parseWifi(entry.qrString)[1], style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+          ],
+        );
+      }
     } else {
       return Text(entry.qrString);
     }
   }
-
-
 
   void initiateView(entriesList) async {
     setState(() {
@@ -96,7 +116,7 @@ class _HistoryState extends State<History> {
                   setState(() {
                     deleteEntry(entriesList[index].id);
                     entriesList.removeAt(index);
-                    if(entriesList.length == 0) {
+                    if (entriesList.length == 0) {
                       mainWidget = Align(
                           heightFactor: 7,
                           child: Text(
@@ -130,7 +150,8 @@ class _HistoryState extends State<History> {
                                   flex: 1,
                                   child: Text(
                                       "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
-                                      style: TextStyle( color: Colors.grey, fontSize: 10)),
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 10)),
                                 ),
                                 Expanded(
                                   flex: 3,
@@ -151,8 +172,20 @@ class _HistoryState extends State<History> {
                           height: double.infinity,
                           child: Icon(Icons.arrow_forward),
                           onTap: () {
-                            Navigator.pushNamed(context, '/details',
-                                arguments: entriesList[index]);
+                            if (entriesList[index].dataType ==
+                                QrDataTypes.CONTACT.index) {
+                              Navigator.pushNamed(context, '/contact_details',
+                                  arguments: entriesList[index]);
+                            } else if (entriesList[index].dataType ==
+                                    QrDataTypes.URL.index ||
+                                entriesList[index].dataType ==
+                                    QrDataTypes.TEXT.index) {
+                              Navigator.pushNamed(context, '/details',
+                                  arguments: entriesList[index]);
+                            } else if (entriesList[index].dataType ==
+                                QrDataTypes.WIFI.index) {
+                              //Implement wifi page
+                            }
                           },
                         ),
                       ),

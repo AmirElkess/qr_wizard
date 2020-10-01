@@ -9,7 +9,6 @@ import 'package:qr_wizard/res/button.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_wizard/functions/typeClassifier.dart';
-import 'package:wifi_connect/wifi_connect.dart';
 
 class Read extends StatefulWidget {
   @override
@@ -145,13 +144,16 @@ class _ReadState extends State<Read> {
                                       playPause = Icon(Icons.play_arrow);
                                     });
                                   } else if (qrDataType == QrDataTypes.WIFI) {
-
                                     List<String> wifiDetails = parseWifi(qrTextString);
                                     if (wifiDetails[1] == '-1') {
-                                      WifiConnect.connect(context, ssid: wifiDetails[0]);
+                                      qrText = Text(
+                                        "Wifi \nSSID: ${wifiDetails[0]}"
+                                      );
                                       print("Connecting to passwordless wifi");
                                     } else {
-                                      WifiConnect.connect(context, ssid: wifiDetails[0], password: wifiDetails[1]);
+                                      qrText = Text(
+                                          "Wifi \nSSID: ${wifiDetails[0]} \nPassword: ${wifiDetails[1]}"
+                                      );
                                       print("Connecting to passworded wifi");
 
                                     }

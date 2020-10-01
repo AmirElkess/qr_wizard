@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:screenshot/screenshot.dart';
 import 'dart:io';
-import 'dart:async';
 import 'package:gallery_saver/gallery_saver.dart';
 
 class Create extends StatefulWidget {
