@@ -1,5 +1,3 @@
-import 'dart:io';
-
 List<String> parseWifi (String baseString) {
   String ssid;
   String pwd;
@@ -15,9 +13,9 @@ List<String> parseWifi (String baseString) {
   if (type == 'nopass') {
     pwd = '-1';
   } else {
-    pwd = pwdm.firstMatch(baseString).group(0);
+    pwd = pwdm.firstMatch(baseString).group(0).replaceAll('\\:', ':');
   }
-  ssid = ssidm.firstMatch(baseString).group(0);
+  ssid = ssidm.firstMatch(baseString).group(0).replaceAll('\\:', ':');
 
   return [ssid, pwd];
 }
