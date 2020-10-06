@@ -146,13 +146,23 @@ class _ReadState extends State<Read> {
                                   } else if (qrDataType == QrDataTypes.WIFI) {
                                     List<String> wifiDetails = parseWifi(qrTextString);
                                     if (wifiDetails[1] == '-1') {
-                                      qrText = Text(
-                                        "Wifi \nSSID: ${wifiDetails[0]}"
+                                      qrText = Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
+                                          Text("SSID: " + parseWifi(entry.qrString)[0]),
+                                          Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+                                        ],
                                       );
                                       print("Connecting to passwordless wifi");
                                     } else {
-                                      qrText = Text(
-                                          "Wifi \nSSID: ${wifiDetails[0]} \nPassword: ${wifiDetails[1]}"
+                                      qrText = Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
+                                          Text("SSID: " +parseWifi(entry.qrString)[0]),
+                                          Text("Password: " + parseWifi(entry.qrString)[1], style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+                                        ],
                                       );
                                       print("Connecting to passworded wifi");
 

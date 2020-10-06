@@ -120,23 +120,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                               },
                             ),
                           ),
-                          Expanded(
-                            flex: 2,
-                            child: SoftButton(
-                              height: double.infinity,
-                              width: double.infinity,
-                              radius: 12,
-                              isClickable: true,
-                              child: Icon(Icons.content_copy),
-                              onTap: () {
-                                Clipboard.setData(
-                                    ClipboardData(text: entry.qrString));
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                    content:
-                                    Text('Text Copied to clipboard')));
-                              },
-                            ),
-                          ),
+
                         ]),
                       ),
                       Expanded(
@@ -152,7 +136,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 11)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle(fontSize: 11, color: Colors.grey),),
+                                  child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 10)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle(fontSize: 11, color: Colors.grey),),
                                 ),
                                 Expanded(
                                   flex: 7,
@@ -161,7 +145,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                                       style: TextStyle(color: Colors.black, wordSpacing: 1.5, height: 1.4),
                                       children: <TextSpan>[
                                         TextSpan(text: 'Name: '),
-                                        TextSpan(text: vc.formattedName, style: TextStyle(color: Colors.black54)),
+                                        TextSpan(text: vc.name.reversed.join(' '), style: TextStyle(color: Colors.black54)),
                                         TextSpan(text: '\n'),
 
                                         TextSpan(text: 'Organisation: '),

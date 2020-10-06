@@ -13,9 +13,9 @@ List<String> parseWifi (String baseString) {
   if (type == 'nopass') {
     pwd = '-1';
   } else {
-    pwd = pwdm.firstMatch(baseString).group(0).replaceAll('\\:', ':');
+    pwd = pwdm.firstMatch(baseString).group(0).replaceAll(r'\\', r'\').replaceAll(r'\:', ':');
   }
-  ssid = ssidm.firstMatch(baseString).group(0).replaceAll('\\:', ':');
+  ssid = ssidm.firstMatch(baseString).group(0).replaceAll(r'\\', r'\').replaceAll(r'\:', ':');
 
   return [ssid, pwd];
 }

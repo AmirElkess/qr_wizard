@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_wizard/res/concaveDecoration.dart';
 import 'package:qr_wizard/res/constants.dart';
 
 class SoftButton extends StatefulWidget {
@@ -40,54 +41,64 @@ class SoftButton extends StatefulWidget {
 }
 
 class _SoftButtonState extends State<SoftButton> {
-  List<BoxShadow> getShadows() {
-    if (!widget.inverted) {
-      return [
-        BoxShadow(color: shadowColor, offset: Offset(widget.shadowOffset, widget.shadowOffset), blurRadius: widget.blurRadius),
+
+  bool isPressed = false;
+
+  Decoration getOuterShadow () {
+    return BoxDecoration(
+      color: widget.color,
+      borderRadius: BorderRadius.circular(widget.radius),
+      boxShadow: [
         BoxShadow(
-            color: lightShadowColor, offset: Offset(-widget.shadowOffset, -widget.shadowOffset), blurRadius: widget.blurRadius),
-      ];
-    } else {
-      return [
-        BoxShadow(color: lightShadowColor, offset: Offset(widget.shadowOffset, widget.shadowOffset), blurRadius: widget.blurRadius),
-        BoxShadow(color: shadowColor, offset: Offset(-widget.shadowOffset, -widget.shadowOffset), blurRadius: widget.blurRadius),
-      ];
-    }
+            color: shadowColor,
+            offset: Offset(widget.shadowOffset, widget.shadowOffset),
+            blurRadius: widget.blurRadius),
+        BoxShadow(
+            color: lightShadowColor,
+            offset: Offset(-widget.shadowOffset, -widget.shadowOffset),
+            blurRadius: widget.blurRadius),
+      ],
+    );
   }
+
+  Decoration getInnerShadow () {
+    return ConcaveDecoration(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(this.widget.radius)),
+        colors: [lightShadowColor, shadowColor],
+        depth: 3);
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: this.widget.onTap,
       onTapDown: (TapDownDetails) {
-        if (this.widget.isClickable){
+        if (this.widget.isClickable) {
           setState(() {
-            this.widget.color = shadowColor;
+            isPressed = true;
           });
         }
       },
-      onTapUp: (TapUpDetails){
-        if (this.widget.isClickable){
+      onTapUp: (TapUpDetails) {
+        if (this.widget.isClickable) {
           setState(() {
-            this.widget.color = backgroundColor;
+            isPressed = false;
           });
         }
       },
-      onTapCancel: (){
-        if (this.widget.isClickable){
+      onTapCancel: () {
+        if (this.widget.isClickable) {
           setState(() {
-            this.widget.color = backgroundColor;
+            isPressed = false;
           });
         }
       },
       child: Container(
         width: this.widget.width,
         height: this.widget.height,
-        decoration: BoxDecoration(
-          color: widget.color,
-          borderRadius: BorderRadius.circular(widget.radius),
-          boxShadow: getShadows(),
-        ),
+        decoration: isPressed ? getInnerShadow() : getOuterShadow(),
         child: Center(
           child: this.widget.child,
         ),

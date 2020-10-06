@@ -37,7 +37,7 @@ class _HistoryState extends State<History> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "${vCard.formattedName}",
+            "${vCard.name.reversed.join(' ')}",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
@@ -63,7 +63,7 @@ class _HistoryState extends State<History> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text("SSID: " + parseWifi(entry.qrString)[0]),
-            Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, decoration: TextDecoration.underline),),
+            Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
           ],
         );
       } else {
