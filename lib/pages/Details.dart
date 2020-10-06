@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
-import 'package:qr_wizard/database/qrDataTypes.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:screenshot/screenshot.dart';
@@ -24,19 +24,6 @@ class _DetailsState extends State<Details> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Widget findEntryBody (Entry entry ) {
-    if (entry.dataType == QrDataTypes.URL.index) {
-      return GestureDetector(
-        onTap: () async {
-          await launch(entry.qrString);
-        },
-          child: Text(entry.qrString, style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline)),
-      );
-    } else {
-      return Text(entry.qrString);
-    }
   }
 
   @override
@@ -157,7 +144,7 @@ class _DetailsState extends State<Details> {
                                         ),
                                         Expanded(
                                           flex: 5,
-                                          child: findEntryBody(entry),
+                                          child: Linkify(text: entry.qrString, onOpen: (link) => {launch(link.url)},),
                                         )
                                       ],
                                     ),

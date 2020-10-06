@@ -153,6 +153,20 @@ class _LicensesState extends State<Licenses> {
                   ),
                 ),
                 SizedBox(height: 12,),
+
+                Text("flutter_linkify", style: TextStyle(fontStyle: FontStyle.italic), ),
+                SoftButton(
+                  radius: 8,
+                  width: double.infinity,
+                  height: 250,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(flutter_linkifyLicense),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12,),
               ],
             )
         ),

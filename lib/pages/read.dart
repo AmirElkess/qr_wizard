@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
@@ -117,21 +118,8 @@ class _ReadState extends State<Read> {
                                     playPause = Icon(Icons.pause);
                                   });
 
-                                  if (qrDataType == QrDataTypes.URL) {
-                                    qrText = GestureDetector(
-                                      child: Text(
-                                        qrTextString,
-                                        style: TextStyle(
-                                            color: Colors.blue,
-                                            decoration:
-                                                TextDecoration.underline),
-                                      ),
-                                      onTap: () async {
-                                        await launch(qrTextString);
-                                      },
-                                    );
-                                  } else if (qrDataType == QrDataTypes.TEXT) {
-                                    qrText = Text(qrTextString);
+                                  if (qrDataType == QrDataTypes.TEXT || qrDataType == QrDataTypes.URL) {
+                                    qrText = Linkify(text: qrTextString, onOpen: (link) => {launch(link.url)});
                                   } else if (qrDataType ==
                                       QrDataTypes.CONTACT) {
                                     //qrText = Text("Contact: " + qrTextString);

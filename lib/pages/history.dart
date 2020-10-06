@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
 import 'package:qr_wizard/functions/wifiParser.dart';
@@ -46,37 +47,32 @@ class _HistoryState extends State<History> {
           )
         ],
       );
-    } else if (entry.dataType == QrDataTypes.URL.index) {
-      return GestureDetector(
-        onTap: () async {
-          await launch(entry.qrString);
-        },
-        child: Text(
-          entry.qrString,
-          style: TextStyle(
-              color: Colors.blue, decoration: TextDecoration.underline),
-        ),
-      );
-    } else if (entry.dataType == QrDataTypes.WIFI.index){
-      if (parseWifi(entry.qrString)[1] == '-1'){
+    } else if (entry.dataType == QrDataTypes.WIFI.index) {
+      if (parseWifi(entry.qrString)[1] == '-1') {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text("SSID: " + parseWifi(entry.qrString)[0]),
-            Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+            Text(
+              'PASSWORD: [Password-less Wifi]',
+              style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+            ),
           ],
         );
       } else {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("SSID: " +parseWifi(entry.qrString)[0]),
-            Text("Password: " + parseWifi(entry.qrString)[1], style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+            Text("SSID: " + parseWifi(entry.qrString)[0]),
+            Text(
+              "Password: " + parseWifi(entry.qrString)[1],
+              style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+            ),
           ],
         );
       }
     } else {
-      return Text(entry.qrString);
+      return Linkify(text: entry.qrString, onOpen: (link) => {launch(link.url)},);
     }
   }
 
