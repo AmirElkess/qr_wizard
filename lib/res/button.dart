@@ -41,10 +41,9 @@ class SoftButton extends StatefulWidget {
 }
 
 class _SoftButtonState extends State<SoftButton> {
-
   bool isPressed = false;
 
-  Decoration getOuterShadow () {
+  Decoration getOuterShadow() {
     return BoxDecoration(
       color: widget.color,
       borderRadius: BorderRadius.circular(widget.radius),
@@ -61,7 +60,7 @@ class _SoftButtonState extends State<SoftButton> {
     );
   }
 
-  Decoration getInnerShadow () {
+  Decoration getInnerShadow() {
     return ConcaveDecoration(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(this.widget.radius)),
@@ -69,40 +68,41 @@ class _SoftButtonState extends State<SoftButton> {
         depth: 3);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: this.widget.onTap,
-      onTapDown: (TapDownDetails) {
-        if (this.widget.isClickable) {
-          setState(() {
-            isPressed = true;
-          });
-        }
-      },
-      onTapUp: (TapUpDetails) {
-        if (this.widget.isClickable) {
-          setState(() {
-            isPressed = false;
-          });
-        }
-      },
-      onTapCancel: () {
-        if (this.widget.isClickable) {
-          setState(() {
-            isPressed = false;
-          });
-        }
-      },
-      child: Container(
-        width: this.widget.width,
-        height: this.widget.height,
-        decoration: isPressed ? getInnerShadow() : getOuterShadow(),
-        child: Center(
-          child: this.widget.child,
+      child: Listener(
+        onPointerDown: (TapDownDetails) {
+          if (this.widget.isClickable) {
+            setState(() {
+              isPressed = true;
+            });
+          }
+        },
+        onPointerUp: (TapUpDetails) {
+          if (this.widget.isClickable) {
+            setState(() {
+              isPressed = false;
+            });
+          }
+        },
+        onPointerCancel: (PointerCancelEvent) {
+          if (this.widget.isClickable) {
+            setState(() {
+              isPressed = false;
+            });
+          }
+        },
+        child: Container(
+          width: this.widget.width,
+          height: this.widget.height,
+          decoration: isPressed ? getInnerShadow() : getOuterShadow(),
+          child: Center(
+            child: this.widget.child,
+          ),
+          margin: EdgeInsets.all(widget.margin),
         ),
-        margin: EdgeInsets.all(widget.margin),
       ),
     );
   }
