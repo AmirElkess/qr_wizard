@@ -41,7 +41,7 @@ class SoftButton extends StatefulWidget {
 }
 
 class _SoftButtonState extends State<SoftButton> {
-  bool isPressed = false;
+  bool isConcave = false;
 
   Decoration getOuterShadow() {
     return BoxDecoration(
@@ -65,39 +65,41 @@ class _SoftButtonState extends State<SoftButton> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(this.widget.radius)),
         colors: [lightShadowColor, shadowColor],
-        depth: 3);
+        depth: 4);
   }
+
 
   @override
   Widget build(BuildContext context) {
+    if (widget.inverted) isConcave = true;
     return GestureDetector(
       onTap: this.widget.onTap,
       child: Listener(
         onPointerDown: (TapDownDetails) {
           if (this.widget.isClickable) {
             setState(() {
-              isPressed = true;
+              isConcave = true;
             });
           }
         },
         onPointerUp: (TapUpDetails) {
           if (this.widget.isClickable) {
             setState(() {
-              isPressed = false;
+              isConcave = false;
             });
           }
         },
         onPointerCancel: (PointerCancelEvent) {
           if (this.widget.isClickable) {
             setState(() {
-              isPressed = false;
+              isConcave = false;
             });
           }
         },
         child: Container(
           width: this.widget.width,
           height: this.widget.height,
-          decoration: isPressed ? getInnerShadow() : getOuterShadow(),
+          decoration: isConcave ? getInnerShadow() : getOuterShadow(),
           child: Center(
             child: this.widget.child,
           ),

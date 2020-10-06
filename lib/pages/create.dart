@@ -139,16 +139,18 @@ class _CreateState extends State<Create> {
                       Expanded(
                         flex: 4,
                         child: SoftButton(
+                          inverted: true,
                           radius: 12,
                           width: double.infinity,
                           height: double.infinity,
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(15, 0, 15, 5),
+                            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                             child: TextField(
                               controller: textController,
                               keyboardType: TextInputType.multiline,
                               maxLines: 5,
                               maxLength: 120,
+                              maxLengthEnforced: true,
                               onChanged: (text) {
                                 setState(() {
                                   qrInput = text;
