@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/pages/Details.dart';
 import 'package:qr_wizard/pages/contactDetails.dart';
 import 'package:qr_wizard/pages/history.dart';
@@ -10,14 +11,11 @@ import 'pages/create.dart';
 import 'pages/read.dart';
 import 'pages/about.dart';
 import 'package:flutter/services.dart';
-import 'pages/settings.dart';
-import 'package:quick_actions/quick_actions.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
-
 
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,

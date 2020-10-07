@@ -8,6 +8,7 @@ import 'package:qr_wizard/res/constants.dart';
 import 'package:simple_vcard_parser/simple_vcard_parser.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_wizard/res/button.dart';
+import 'package:uuid/uuid.dart';
 
 class History extends StatefulWidget {
   @override
@@ -16,7 +17,14 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
   List<Entry> entriesList;
-  Widget mainWidget;
+
+  Widget mainWidget = Align(
+      heightFactor: 7,
+      child: Text(
+        "Loading History",
+        style: TextStyle(color: Colors.grey),
+      ));
+
 
   Icon findIcon(entry) {
     if (entry.dataType == QrDataTypes.CONTACT.index) {
@@ -72,21 +80,39 @@ class _HistoryState extends State<History> {
         );
       }
     } else {
-      return Linkify(text: entry.qrString, onOpen: (link) => {launch(link.url)},);
+      return Linkify(
+        text: entry.qrString,
+        onOpen: (link) => {launch(link.url)},
+      );
     }
   }
 
-  void initiateView(entriesList) async {
-    setState(() {
-      mainWidget = Align(
-          heightFactor: 7,
-          child: Text(
-            "Loading History",
-            style: TextStyle(color: Colors.grey),
-          ));
-      print('loading screen');
-    });
-    entriesList = await entries();
+  Widget findAction(entry) {
+    return Expanded(
+      flex: 1,
+      child: SoftButton(
+        isClickable: true,
+        radius: 9,
+        height: double.infinity,
+        child: Icon(Icons.arrow_forward),
+        onTap: () async{
+
+          if (entry.dataType == QrDataTypes.CONTACT.index) {
+            await Navigator.pushNamed(context, '/contact_details', arguments: entry);
+            viewBuilder(entriesList);
+          } else if (entry.dataType == QrDataTypes.URL.index || entry.dataType == QrDataTypes.TEXT.index) {
+            await Navigator.pushNamed(context, '/details', arguments: entry);
+            viewBuilder(entriesList);
+          } else if (entry.dataType == QrDataTypes.WIFI.index) {
+            //Implement wifi page
+          }
+        },
+      ),
+    );
+  }
+
+  void viewBuilder(entriesList) async {
+    List<Entry> entriesListCache = new List<Entry>.from(entriesList);
     if (entriesList.length == 0) {
       setState(() {
         mainWidget = Align(
@@ -99,15 +125,14 @@ class _HistoryState extends State<History> {
       });
     } else {
       setState(() {
-        print('widgets loaded');
         mainWidget = ListView.builder(
             padding: EdgeInsets.all(8),
             itemCount: entriesList.length,
+
             itemBuilder: (BuildContext context, int index) {
               Icon entryIcon = findIcon(entriesList[index]);
-
               return Dismissible(
-                key: Key(index.toString()),
+                key: UniqueKey(),
                 onDismissed: (direction) {
                   setState(() {
                     deleteEntry(entriesList[index].id);
@@ -121,6 +146,7 @@ class _HistoryState extends State<History> {
                           )); //used to set main screen after all history entries are dismissed
                     }
                   });
+                  print(entriesList);
                 },
                 child: SoftButton(
                   radius: 8,
@@ -160,31 +186,7 @@ class _HistoryState extends State<History> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: SoftButton(
-                          isClickable: true,
-                          radius: 9,
-                          height: double.infinity,
-                          child: Icon(Icons.arrow_forward),
-                          onTap: () {
-                            if (entriesList[index].dataType ==
-                                QrDataTypes.CONTACT.index) {
-                              Navigator.pushNamed(context, '/contact_details',
-                                  arguments: entriesList[index]);
-                            } else if (entriesList[index].dataType ==
-                                    QrDataTypes.URL.index ||
-                                entriesList[index].dataType ==
-                                    QrDataTypes.TEXT.index) {
-                              Navigator.pushNamed(context, '/details',
-                                  arguments: entriesList[index]);
-                            } else if (entriesList[index].dataType ==
-                                QrDataTypes.WIFI.index) {
-                              //Implement wifi page
-                            }
-                          },
-                        ),
-                      ),
+                      findAction(entriesList[index]),
                     ],
                   ),
                 ),
@@ -194,10 +196,16 @@ class _HistoryState extends State<History> {
     }
   }
 
+
+  void initiateView() async {
+    entriesList = await entries();
+    viewBuilder(entriesList);
+  }
+
   @override
   void initState() {
-    initiateView(entriesList);
     super.initState();
+    initiateView();
   }
 
   @override

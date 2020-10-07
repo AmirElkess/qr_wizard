@@ -20,13 +20,11 @@ class _ContactDetailsState extends State<ContactDetails> {
   @override
   Widget build(BuildContext context) {
     Entry entry = ModalRoute.of(context).settings.arguments;
-    print(entry.qrString);
     VCard vc = VCard(entry.qrString);
-    RegExp telem = RegExp(r'(?<=:).+');
-    List<String> tels = vc.getWordsOfPrefix('TEL');
+    List<dynamic> tels = vc.typedTelephone;
     List<String> telephones = List<String>();
-    for (String tel in tels){
-      telephones.add(telem.firstMatch(tel).group(0));
+    for (var tel in tels){
+      telephones.add(tel[0]);
     }
     ScreenshotController screenshotController = ScreenshotController();
 
@@ -104,8 +102,6 @@ class _ContactDetailsState extends State<ContactDetails> {
                                       delay: Duration(milliseconds: 150))
                                       .then((File image) async {
                                     if (image != null && image.path != null) {
-                                      print("Image and path correct");
-                                      print(image.path);
                                       await GallerySaver.saveImage(
                                         image.path,
                                         albumName: "QR Wizard",

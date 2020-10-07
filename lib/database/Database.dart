@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-Future<Database> initiateDB() async {
+Future<Database> initiate_DB() async {
   final Future<Database> database = openDatabase(
     join(await getDatabasesPath(), 'qrDB.db'),
     onCreate: (db, version) {
@@ -16,3 +16,4 @@ Future<Database> initiateDB() async {
 
   return database;
 }
+
