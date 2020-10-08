@@ -76,11 +76,17 @@ class _ContactDetailsState extends State<ContactDetails> {
                               width: double.infinity,
                               child: Screenshot(
                                 controller: screenshotController,
-                                child: QrImage(
-                                  data: entry.qrString,
-                                  version: QrVersions.auto,
-                                  size: MediaQuery.of(context).size.height * 0.25,
-                                  backgroundColor: backgroundColor,
+                                child: GestureDetector(
+                                  onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [entry.qrString, 'tag']);},
+                                  child: Hero(
+                                    tag: 'tag',
+                                    child: QrImage(
+                                      data: entry.qrString,
+                                      version: QrVersions.auto,
+                                      size: MediaQuery.of(context).size.height * 0.25,
+                                      backgroundColor: backgroundColor,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

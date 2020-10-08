@@ -8,7 +8,6 @@ import 'package:qr_wizard/res/constants.dart';
 import 'package:simple_vcard_parser/simple_vcard_parser.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qr_wizard/res/button.dart';
-import 'package:uuid/uuid.dart';
 
 class History extends StatefulWidget {
   @override

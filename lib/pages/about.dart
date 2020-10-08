@@ -42,46 +42,42 @@ class _AboutState extends State<About> {
         body: SingleChildScrollView(
           child: Padding(
             padding: universalPadding,
-            child: SoftButton(
-              radius: 12,
-              width: double.infinity,
-              height: 350,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("Who am I", style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("An independent Hobbyist/Developer who's interested in Flutter app development."),
-                    SizedBox(height: 12,),
-                    Text("Contact me", style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text("Name: Amir Elkess"),
-                    Text("Email: amir.elkess@gmail.com"),
-                    SizedBox(height: 12,),
-                    SoftButton(
-                      width: double.infinity,
-                      radius: 8,
-                      height: 36,
-                      isClickable: true,
-                      child: Text("Privacy Policy"),
-                      onTap: (){
-                          Navigator.pushNamed(context, '/privacy_policy');
-                      },
-                    ),
-                    SoftButton(
-                      width: double.infinity,
-                      radius: 8,
-                      height: 36,
-                      isClickable: true,
-                      child: Text("Open Source Licenses"),
-                      onTap: (){
-                        Navigator.pushNamed(context, '/licenses');
-                      },
-                    ),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("Who am I", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text("An independent Hobbyist/Developer who's interested in Flutter app development."),
+                  SizedBox(height: 12,),
+                  Text("Contact me", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text("Name: Amir Elkess"),
+                  Text("Email: amir.elkess@gmail.com"),
+                  SizedBox(height: 20,),
+                  SoftButton(
+                    width: double.infinity,
+                    radius: 16,
+                    height: 36,
+                    isClickable: true,
+                    child: Text("Privacy Policy"),
+                    onTap: (){
+                        Navigator.pushNamed(context, '/privacy_policy');
+                    },
+                  ),
+                  SizedBox(height: 10,),
+                  SoftButton(
+                    width: double.infinity,
+                    radius: 16,
+                    height: 36,
+                    isClickable: true,
+                    child: Text("Open Source Licenses"),
+                    onTap: (){
+                      Navigator.pushNamed(context, '/licenses');
+                    },
+                  ),
 
-                  ],
-                ),
+                ],
               ),
             ),
           ),

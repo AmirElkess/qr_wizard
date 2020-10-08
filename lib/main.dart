@@ -6,6 +6,7 @@ import 'package:qr_wizard/pages/contactDetails.dart';
 import 'package:qr_wizard/pages/history.dart';
 import 'package:qr_wizard/pages/licenses.dart';
 import 'package:qr_wizard/pages/privacy_policy.dart';
+import 'package:qr_wizard/pages/qr_view.dart';
 import 'pages/home.dart';
 import 'pages/create.dart';
 import 'pages/read.dart';
@@ -39,6 +40,7 @@ void main() {
           case '/details': return CupertinoPageRoute(builder: (_) => Details(), settings: settings);
           case '/licenses': return CupertinoPageRoute(builder: (_)=> Licenses(), settings: settings);
           case '/contact_details': return CupertinoPageRoute(builder: (_) => ContactDetails(), settings: settings);
+          case '/qr_view': return MaterialPageRoute(builder: (_) => QrViewer(), settings: settings);
         }
       },
       // routes: {

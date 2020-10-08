@@ -77,11 +77,17 @@ class _CreateState extends State<Create> {
                               width: double.infinity,
                               child: Screenshot(
                                 controller: screenshotController,
-                                child: QrImage(
-                                  data: qrInput,
-                                  version: QrVersions.auto,
-                                  size: 200.0,
-                                  backgroundColor: backgroundColor,
+                                child: GestureDetector(
+                                  onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [qrInput, 'tag']);},
+                                  child: Hero(
+                                    tag: 'tag',
+                                    child: QrImage(
+                                      data: qrInput,
+                                      version: QrVersions.auto,
+                                      size: 200.0,
+                                      backgroundColor: backgroundColor,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

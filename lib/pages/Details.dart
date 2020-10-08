@@ -77,11 +77,17 @@ class _DetailsState extends State<Details> {
                               width: double.infinity,
                               child: Screenshot(
                                 controller: screenshotController,
-                                child: QrImage(
-                                  data: entry.qrString,
-                                  version: QrVersions.auto,
-                                  size: 200.0,
-                                  backgroundColor: backgroundColor,
+                                child: GestureDetector(
+                                  onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [entry.qrString, 'tag']);},
+                                  child: Hero(
+                                    tag: 'tag',
+                                    child: QrImage(
+                                      data: entry.qrString,
+                                      version: QrVersions.auto,
+                                      size: 200.0,
+                                      backgroundColor: backgroundColor,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
