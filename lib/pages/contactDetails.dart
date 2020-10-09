@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -74,17 +75,19 @@ class _ContactDetailsState extends State<ContactDetails> {
                               radius: 12,
                               height: double.infinity,
                               width: double.infinity,
-                              child: Screenshot(
-                                controller: screenshotController,
-                                child: GestureDetector(
-                                  onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [entry.qrString, 'tag']);},
-                                  child: Hero(
-                                    tag: 'tag',
-                                    child: QrImage(
-                                      data: entry.qrString,
-                                      version: QrVersions.auto,
-                                      size: MediaQuery.of(context).size.height * 0.25,
-                                      backgroundColor: backgroundColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(3),
+                                child: Screenshot(
+                                  controller: screenshotController,
+                                  child: GestureDetector(
+                                    onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [entry.qrString, 'tag']);},
+                                    child: Hero(
+                                      tag: 'tag',
+                                      child: QrImage(
+                                        data: entry.qrString,
+                                        version: QrVersions.auto,
+                                        backgroundColor: backgroundColor,
+                                      ),
                                     ),
                                   ),
                                 ),

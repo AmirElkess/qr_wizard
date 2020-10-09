@@ -17,25 +17,19 @@ class QrViewer extends StatelessWidget {
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        leading: SoftButton(
-          margin: 8,
-          radius: 24,
-          width: 5,
-          height: 5,
-          shadowOffset: 0,
-          blurRadius: 0,
+        leading: GestureDetector(
+          onTap: () {Navigator.pop(context);},
           child: Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
-          onTap: () {
-            Navigator.pop(context);
-          },
         ),
       ),
-      body: Center(
+      body: Align(
+        alignment: Alignment(0,-0.6),
         child: GestureDetector(
           onTap: (){Navigator.pop(context);},
+
           child: Hero(
             tag: extras[1],
             child: QrImage(

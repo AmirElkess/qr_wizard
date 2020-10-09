@@ -27,17 +27,19 @@ class _HomeState extends State<Home> {
     final QuickActions quickActions =  QuickActions();
     quickActions.initialize((shortcutType) {
       if (shortcutType == 'scan_qr') {
-        print('The user tapped on the "scan qr" action.');
         Navigator.pushNamed(context, '/read');
       } else if (shortcutType == 'create_qr') {
-        print('The user tapped on the "create qr" action.');
         Navigator.pushNamed(context, '/create');
+      } else if (shortcutType == 'history') {
+        Navigator.pushNamed(context, '/history');
       }
     });
 
     quickActions.setShortcutItems(<ShortcutItem>[
       const ShortcutItem(type: 'scan_qr', localizedTitle: 'SCAN QR', icon: 'scan_icon'),
       const ShortcutItem(type: 'create_qr', localizedTitle: 'CREATE QR', icon: 'create_icon' ),
+      const ShortcutItem(type: 'history', localizedTitle: 'Scan History', icon: 'history_icon' ),
+
 
     ]);
     super.initState();
@@ -88,11 +90,13 @@ class _HomeState extends State<Home> {
                           radius: btnRadius,
                           height: 220,
                           //child: Image.asset('lib/res/logo.png', ),
-                          child: QrImage(
-                            data: qrLogo,
-                            version: QrVersions.auto,
-                            size: 220.0,
-                            backgroundColor: backgroundColor,
+                          child: Padding(
+                            padding: EdgeInsets.all(3),
+                            child: QrImage(
+                              data: qrLogo,
+                              version: QrVersions.auto,
+                              backgroundColor: backgroundColor,
+                            ),
                           ),
                         ),
                         SoftButton(
