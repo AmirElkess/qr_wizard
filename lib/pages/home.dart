@@ -17,7 +17,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   double btnWidth = double.infinity;
   double btnHeight = 40;
-  double btnRadius = 12;
+  double btnRadius = 20;
   double sideMargin = 55;
   String qrLogo = "QRWizard by AE";
 
@@ -77,71 +77,66 @@ class _HomeState extends State<Home> {
                     ),
                   ),
 
-                  SoftButton(
-                    width: double.infinity,
-                    radius: 12,
-                    height: 450,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        SoftButton(
-                          width: btnWidth,
-                          inverted: false,
-                          radius: btnRadius,
-                          height: 220,
-                          //child: Image.asset('lib/res/logo.png', ),
-                          child: Padding(
-                            padding: EdgeInsets.all(3),
-                            child: QrImage(
-                              data: qrLogo,
-                              version: QrVersions.auto,
-                              backgroundColor: backgroundColor,
-                            ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SoftButton(
+                        width: btnWidth,
+                        inverted: false,
+                        radius: btnRadius,
+                        height: 220,
+                        //child: Image.asset('lib/res/logo.png', ),
+                        child: Padding(
+                          padding: EdgeInsets.all(3),
+                          child: QrImage(
+                            data: qrLogo,
+                            version: QrVersions.auto,
+                            backgroundColor: backgroundColor,
                           ),
                         ),
-                        SoftButton(
-                          radius: btnRadius,
-                          height: btnHeight,
-                          width: btnWidth,
-                          isClickable: true,
-                          child: Text("Scan QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal),),
-                          onTap: () {
-                            //Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
-                            Navigator.pushNamed(context, '/read');
-                          },
-                        ),
-                        SoftButton(
-                          radius: btnRadius,
-                          height: btnHeight,
-                          width: btnWidth,
-                          isClickable: true,
-                          child: Text("Create QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/create');
-                          },
-                        ),
-                        SoftButton(
-                          radius: btnRadius,
-                          height: btnHeight,
-                          width: btnWidth,
-                          isClickable: true,
-                          child: Text("Scan History", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/history');
-                          },
-                        ),
-                        SoftButton(
-                          radius: btnRadius,
-                          height: btnHeight,
-                          width: btnWidth,
-                          isClickable: true,
-                          child: Text("About", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/about');
-                          },
-                        ),
-                      ],
-                    ),
+                      ),
+                      SoftButton(
+                        radius: btnRadius,
+                        height: btnHeight,
+                        width: btnWidth,
+                        isClickable: true,
+                        child: Text("Scan QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal),),
+                        onTap: () {
+                          //Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
+                          Navigator.pushNamed(context, '/read');
+                        },
+                      ),
+                      SoftButton(
+                        radius: btnRadius,
+                        height: btnHeight,
+                        width: btnWidth,
+                        isClickable: true,
+                        child: Text("Create QR", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/create');
+                        },
+                      ),
+                      SoftButton(
+                        radius: btnRadius,
+                        height: btnHeight,
+                        width: btnWidth,
+                        isClickable: true,
+                        child: Text("Scan History", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/history');
+                        },
+                      ),
+                      SoftButton(
+                        radius: btnRadius,
+                        height: btnHeight,
+                        width: btnWidth,
+                        isClickable: true,
+                        child: Text("About", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.normal)),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/about');
+                        },
+                      ),
+                    ],
                   )
 
                 ],
