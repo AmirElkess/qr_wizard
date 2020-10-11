@@ -57,128 +57,121 @@ class _ReadState extends State<Read> {
           },
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-            padding: universalPadding,
-            child: Builder(builder: (context) {
-              return SoftButton(
-                width: double.infinity,
-                height: 420,
-                radius: 12,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(14, 14, 14, 0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                color: shadowColor,
-                                offset: Offset(4, 4),
-                                blurRadius: 2),
-                            BoxShadow(
-                                color: lightShadowColor,
-                                offset: Offset(-4, -4),
-                                blurRadius: 2),
-                          ],
-                        ),
-                        child: SizedBox(
-                          height: 200,
-                          width: double.infinity,
-                          child: GestureDetector(
-                            onTap: () {
+      body: Builder(builder: (context) {
+        return Align(
+          alignment: universalAlignment,
+          child: SoftButton(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.6,
+            radius: 12,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 6,
+                  child: Padding(
+                    padding: EdgeInsets.all(6),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                              color: shadowColor,
+                              offset: Offset(3, 3),
+                              blurRadius: 2),
+                          BoxShadow(
+                              color: lightShadowColor,
+                              offset: Offset(-3, -3),
+                              blurRadius: 2),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: QRView(
+                          key: qrKey,
+                          onQRViewCreated: (controller) {
+                            this.controller = controller;
+                            controller.scannedDataStream
+                                .listen((event) async {
+                              qrTextString = event;
+                              var qrDataType = QrDataTypes
+                                  .values[await classifyType(qrTextString)];
+                              print(qrDataType);
+                              Entry entry = Entry(
+                                  id: null,
+                                  qrString: qrTextString,
+                                  timestamp:
+                                  DateTime.now().toIso8601String(),
+                                  dataType:
+                                  await classifyType(qrTextString));
+                              insertEntry(entry);
+
                               setState(() {
-                                controller.resumeCamera();
-                                playing = true;
-                                playPause = Icon(Icons.play_arrow);
+                                controller.pauseCamera();
+                                playing = false;
+                                playPause = Icon(Icons.pause);
                               });
-                            },
-                            child: QRView(
-                              key: qrKey,
-                              onQRViewCreated: (controller) {
-                                this.controller = controller;
-                                controller.scannedDataStream
-                                    .listen((event) async {
-                                  qrTextString = event;
-                                  var qrDataType = QrDataTypes
-                                      .values[await classifyType(qrTextString)];
-                                  print(qrDataType);
-                                  Entry entry = Entry(
-                                      id: null,
-                                      qrString: qrTextString,
-                                      timestamp:
-                                          DateTime.now().toIso8601String(),
-                                      dataType:
-                                          await classifyType(qrTextString));
-                                  insertEntry(entry);
 
-                                  setState(() {
-                                    controller.pauseCamera();
-                                    playing = false;
-                                    playPause = Icon(Icons.pause);
-                                  });
-
-                                  if (qrDataType == QrDataTypes.TEXT || qrDataType == QrDataTypes.URL) {
-                                    qrText = Linkify(text: qrTextString, onOpen: (link) => {launch(link.url)});
-                                  } else if (qrDataType ==
-                                      QrDataTypes.CONTACT) {
-                                    //qrText = Text("Contact: " + qrTextString);
-                                    await Navigator.pushNamed(
-                                        context, '/contact_details',
-                                        arguments: entry);
-                                    setState(() {
-                                      controller.resumeCamera();
-                                      playing = true;
-                                      playPause = Icon(Icons.play_arrow);
-                                    });
-                                  } else if (qrDataType == QrDataTypes.WIFI) {
-                                    List<String> wifiDetails = parseWifi(qrTextString);
-                                    if (wifiDetails[1] == '-1') {
-                                      qrText = Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
-                                          Text("SSID: " + parseWifi(entry.qrString)[0]),
-                                          Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
-                                        ],
-                                      );
-                                      print("Connecting to passwordless wifi");
-                                    } else {
-                                      qrText = Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
-                                          Text("SSID: " +parseWifi(entry.qrString)[0]),
-                                          Text("Password: " + parseWifi(entry.qrString)[1], style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
-                                        ],
-                                      );
-                                      print("Connecting to passworded wifi");
-
-                                    }
-                                  }
+                              if (qrDataType == QrDataTypes.TEXT || qrDataType == QrDataTypes.URL) {
+                                qrText = Linkify(text: qrTextString, onOpen: (link) => {launch(link.url)});
+                              } else if (qrDataType ==
+                                  QrDataTypes.CONTACT) {
+                                //qrText = Text("Contact: " + qrTextString);
+                                await Navigator.pushNamed(
+                                    context, '/contact_details',
+                                    arguments: entry);
+                                setState(() {
+                                  controller.resumeCamera();
+                                  playing = true;
+                                  playPause = Icon(Icons.play_arrow);
                                 });
-                              },
-                              overlay: QrScannerOverlayShape(
-                                borderColor: Colors.blueGrey,
-                                borderRadius: 5,
-                                borderLength: 60,
-                                borderWidth: 5,
-                                cutOutSize: 200,
-                              ),
-                            ),
+                              } else if (qrDataType == QrDataTypes.WIFI) {
+                                List<String> wifiDetails = parseWifi(qrTextString);
+                                if (wifiDetails[1] == '-1') {
+                                  qrText = Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
+                                      Text("SSID: " + parseWifi(entry.qrString)[0]),
+                                      Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+                                    ],
+                                  );
+                                  print("Connecting to passwordless wifi");
+                                } else {
+                                  qrText = Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
+                                      Text("SSID: " +parseWifi(entry.qrString)[0]),
+                                      Text("Password: " + parseWifi(entry.qrString)[1], style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+                                    ],
+                                  );
+                                  print("Connecting to passworded wifi");
+
+                                }
+                              }
+                            });
+                          },
+                          overlay: QrScannerOverlayShape(
+                            borderColor: Colors.blueGrey,
+                            borderRadius: 12,
+                            borderLength: 60,
+                            borderWidth: 4,
+                            cutOutSize: MediaQuery.of(context).size.height * 0.3,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        SoftButton(
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Expanded(
+                        child: SoftButton(
                           child: flashIcon,
-                          radius: 50,
+                          radius: 12,
                           isClickable: true,
                           onTap: () {
                             setState(() {
@@ -195,25 +188,11 @@ class _ReadState extends State<Read> {
                             });
                           },
                         ),
-                        SoftButton(
-                          child: camIcon,
-                          radius: 50,
-                          isClickable: true,
-                          onTap: () {
-                            setState(() {
-                              if (REAR_CAM) {
-                                camIcon = Icon(Icons.camera_front);
-                              } else {
-                                camIcon = Icon(Icons.camera_rear);
-                              }
-                              REAR_CAM = !REAR_CAM;
-                              controller.flipCamera();
-                            });
-                          },
-                        ),
-                        SoftButton(
+                      ),
+                      Expanded(
+                        child: SoftButton(
+                          radius: 12,
                           child: playPause,
-                          radius: 50,
                           isClickable: true,
                           onTap: () {
                             setState(() {
@@ -227,65 +206,69 @@ class _ReadState extends State<Read> {
                               playing = !playing;
                             });
                           },
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Divider(
-                      thickness: 1.5,
-                      indent: 14,
-                      endIndent: 14,
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    SizedBox(
-                      height: 100,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(12, 0, 12, 0),
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 6,
-                              child: SoftButton(
-                                height: 150,
-                                radius: 12,
-                                child: SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(9.0),
-                                    child: qrText,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: SoftButton(
-                                height: 150,
-                                radius: 12,
-                                isClickable: true,
-                                child: Icon(Icons.content_copy),
-                                onTap: () {
-                                  Clipboard.setData(
-                                      ClipboardData(text: qrTextString));
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                      content:
-                                          Text('Text Copied to clipboard')));
-                                },
-                              ),
-                            ),
-                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: SoftButton(
+                          radius: 12,
+                          child: camIcon,
+                          isClickable: true,
+                          onTap: () {
+                            setState(() {
+                              if (REAR_CAM) {
+                                camIcon = Icon(Icons.camera_front);
+                              } else {
+                                camIcon = Icon(Icons.camera_rear);
+                              }
+                              REAR_CAM = !REAR_CAM;
+                              controller.flipCamera();
+                            });
+                          },
+                        ),
+                      ),
+
+                    ],
+                  ),
                 ),
-              );
-            })),
-      ),
+                Expanded(
+                  flex: 4,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 7,
+                        child: SoftButton(
+                          radius: 12,
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(9.0),
+                              child: qrText,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: SoftButton(
+                          radius: 12,
+                          isClickable: true,
+                          child: Icon(Icons.content_copy),
+                          onTap: () {
+                            Clipboard.setData(
+                                ClipboardData(text: qrTextString));
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                                content:
+                                Text('Text Copied to clipboard')));
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 

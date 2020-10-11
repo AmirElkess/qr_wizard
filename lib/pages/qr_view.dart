@@ -26,7 +26,7 @@ class QrViewer extends StatelessWidget {
         ),
       ),
       body: Align(
-        alignment: Alignment(0,-0.6),
+        alignment: universalAlignment,
         child: GestureDetector(
           onTap: (){Navigator.pop(context);},
 

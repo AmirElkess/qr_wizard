@@ -30,8 +30,8 @@ class SoftButton extends StatefulWidget {
       this.isClickable = false})
       : super(key: key) {
     if (radius == null || radius <= 0) radius = 32;
-    if (height == null || height <= 0) height = radius;
-    if (width == null || width <= 0) width = radius;
+    if (height == null || height <= 0) height = double.infinity;
+    if (width == null || width <= 0) width = double.infinity;
     if (margin == null || margin <= 0) margin = 5.0;
     if (color == null) color = backgroundColor;
   }

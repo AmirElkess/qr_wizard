@@ -57,124 +57,122 @@ class _CreateState extends State<Create> {
         ),
         body: Builder(
           builder: (BuildContext context) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: universalPadding,
-                child: SoftButton(
-                  radius: 12,
-                  width: double.infinity,
-                  height: 400,
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 5,
-                        child: Row(children: <Widget>[
-                          Expanded(
-                            flex: 6,
-                            child: SoftButton(
-                              radius: 12,
-                              height: double.infinity,
-                              width: double.infinity,
-                              child: Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: Screenshot(
-                                  controller: screenshotController,
-                                  child: GestureDetector(
-                                    onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [qrInput, 'tag']);},
-                                    child: Hero(
-                                      tag: 'tag',
-                                      child: QrImage(
-                                        data: qrInput,
-                                        version: QrVersions.auto,
-                                        backgroundColor: backgroundColor,
-                                      ),
+            return Align(
+              alignment: universalAlignment,
+              child: SoftButton(
+                radius: 12,
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 5,
+                      child: Row(children: <Widget>[
+                        Expanded(
+                          flex: 6,
+                          child: SoftButton(
+                            radius: 12,
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: Padding(
+                              padding: const EdgeInsets.all(3),
+                              child: Screenshot(
+                                controller: screenshotController,
+                                child: GestureDetector(
+                                  onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [qrInput, 'tag']);},
+                                  child: Hero(
+                                    tag: 'tag',
+                                    child: QrImage(
+                                      data: qrInput,
+                                      version: QrVersions.auto,
+                                      backgroundColor: backgroundColor,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: SoftButton(
-                              width: double.infinity,
-                              height: double.infinity,
-                              child: Icon(Icons.clear),
-                              isClickable: true,
-                              onTap: () {
-                                setState(() {
-                                  textController.value =
-                                      TextEditingValue(text: "");
-                                  qrInput = "";
-                                });
-                              },
-                            ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SoftButton(
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Icon(Icons.clear),
+                            isClickable: true,
+                            onTap: () {
+                              setState(() {
+                                textController.value =
+                                    TextEditingValue(text: "");
+                                qrInput = "";
+                              });
+                            },
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: SoftButton(
-                              height: double.infinity,
-                              width: double.infinity,
-                              child: Icon(Icons.save_alt),
-                              isClickable: true,
-                              onTap: () {
-                                setState(() {
-                                  FocusScope.of(context).unfocus();
-                                  screenshotController
-                                      .capture(
-                                          pixelRatio: 2,
-                                          delay: Duration(milliseconds: 150))
-                                      .then((File image) async {
-                                    if (image != null && image.path != null) {
-                                      print("Image and path correct");
-                                      print(image.path);
-                                      await GallerySaver.saveImage(
-                                        image.path,
-                                        albumName: "QR Wizard",
-                                      );
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                              content:
-                                                  Text('QR saved to gallery')));
-                                    }
-                                  });
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SoftButton(
+                            height: double.infinity,
+                            width: double.infinity,
+                            child: Icon(Icons.save_alt),
+                            isClickable: true,
+                            onTap: () {
+                              setState(() {
+                                FocusScope.of(context).unfocus();
+                                screenshotController
+                                    .capture(
+                                        pixelRatio: 2,
+                                        delay: Duration(milliseconds: 150))
+                                    .then((File image) async {
+                                  if (image != null && image.path != null) {
+                                    print("Image and path correct");
+                                    print(image.path);
+                                    await GallerySaver.saveImage(
+                                      image.path,
+                                      albumName: "QR Wizard",
+                                    );
+                                    Scaffold.of(context).showSnackBar(
+                                        SnackBar(
+                                            content:
+                                                Text('QR saved to gallery')));
+                                  }
                                 });
-                              },
-                            ),
-                          )
-                        ]),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: SoftButton(
-                          inverted: true,
-                          radius: 12,
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: TextField(
-                              controller: textController,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 5,
-                              maxLength: 120,
-                              maxLengthEnforced: true,
-                              onChanged: (text) {
-                                setState(() {
-                                  qrInput = text;
-                                  print(qrInput);
-                                });
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'Enter text here',
-                                border: InputBorder.none,
-                              ),
+                              });
+                            },
+                          ),
+                        )
+                      ]),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: SoftButton(
+                        inverted: true,
+                        radius: 12,
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: TextField(
+                            controller: textController,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 5,
+                            maxLength: 120,
+                            maxLengthEnforced: true,
+                            onChanged: (text) {
+                              setState(() {
+                                qrInput = text;
+                                print(qrInput);
+                              });
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Enter text here',
+                              border: InputBorder.none,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );

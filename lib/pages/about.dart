@@ -39,11 +39,11 @@ class _AboutState extends State<About> {
             },
           ),
         ),
-        body: SingleChildScrollView(
+        body: Align(
+          alignment: universalAlignment,
           child: Padding(
-            padding: universalPadding,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(14, 14, 14, 14),
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
