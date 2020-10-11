@@ -25,7 +25,7 @@ class SoftButton extends StatefulWidget {
       this.onTap,
       this.inverted = false,
       this.color,
-      this.shadowOffset = 4,
+      this.shadowOffset = 5,
       this.blurRadius = 7,
       this.isClickable = false})
       : super(key: key) {
@@ -65,7 +65,7 @@ class _SoftButtonState extends State<SoftButton> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(this.widget.radius)),
         colors: [lightShadowColor, shadowColor],
-        depth: 4);
+        depth: 6);
   }
 
 

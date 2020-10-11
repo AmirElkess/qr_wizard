@@ -62,12 +62,12 @@ class _ReadState extends State<Read> {
           alignment: universalAlignment,
           child: SoftButton(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.65,
             radius: 12,
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 6,
+                  flex: 9,
                   child: Padding(
                     padding: EdgeInsets.all(6),
                     child: Container(
@@ -90,8 +90,7 @@ class _ReadState extends State<Read> {
                           key: qrKey,
                           onQRViewCreated: (controller) {
                             this.controller = controller;
-                            controller.scannedDataStream
-                                .listen((event) async {
+                            controller.scannedDataStream.listen((event) async {
                               qrTextString = event;
                               var qrDataType = QrDataTypes
                                   .values[await classifyType(qrTextString)];
@@ -99,10 +98,8 @@ class _ReadState extends State<Read> {
                               Entry entry = Entry(
                                   id: null,
                                   qrString: qrTextString,
-                                  timestamp:
-                                  DateTime.now().toIso8601String(),
-                                  dataType:
-                                  await classifyType(qrTextString));
+                                  timestamp: DateTime.now().toIso8601String(),
+                                  dataType: await classifyType(qrTextString));
                               insertEntry(entry);
 
                               setState(() {
@@ -111,10 +108,12 @@ class _ReadState extends State<Read> {
                                 playPause = Icon(Icons.pause);
                               });
 
-                              if (qrDataType == QrDataTypes.TEXT || qrDataType == QrDataTypes.URL) {
-                                qrText = Linkify(text: qrTextString, onOpen: (link) => {launch(link.url)});
-                              } else if (qrDataType ==
-                                  QrDataTypes.CONTACT) {
+                              if (qrDataType == QrDataTypes.TEXT ||
+                                  qrDataType == QrDataTypes.URL) {
+                                qrText = Linkify(
+                                    text: qrTextString,
+                                    onOpen: (link) => {launch(link.url)});
+                              } else if (qrDataType == QrDataTypes.CONTACT) {
                                 //qrText = Text("Contact: " + qrTextString);
                                 await Navigator.pushNamed(
                                     context, '/contact_details',
@@ -125,28 +124,51 @@ class _ReadState extends State<Read> {
                                   playPause = Icon(Icons.play_arrow);
                                 });
                               } else if (qrDataType == QrDataTypes.WIFI) {
-                                List<String> wifiDetails = parseWifi(qrTextString);
+                                List<String> wifiDetails =
+                                    parseWifi(qrTextString);
                                 if (wifiDetails[1] == '-1') {
                                   qrText = Column(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
-                                      Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
-                                      Text("SSID: " + parseWifi(entry.qrString)[0]),
-                                      Text('PASSWORD: [Password-less Wifi]', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+                                      Text(
+                                        "Wifi",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text("SSID: " +
+                                          parseWifi(entry.qrString)[0]),
+                                      Text(
+                                        'PASSWORD: [Password-less Wifi]',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontStyle: FontStyle.italic),
+                                      ),
                                     ],
                                   );
                                   print("Connecting to passwordless wifi");
                                 } else {
                                   qrText = Column(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
-                                      Text("Wifi", style: TextStyle(fontWeight: FontWeight.bold),),
-                                      Text("SSID: " +parseWifi(entry.qrString)[0]),
-                                      Text("Password: " + parseWifi(entry.qrString)[1], style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),),
+                                      Text(
+                                        "Wifi",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text("SSID: " +
+                                          parseWifi(entry.qrString)[0]),
+                                      Text(
+                                        "Password: " +
+                                            parseWifi(entry.qrString)[1],
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontStyle: FontStyle.italic),
+                                      ),
                                     ],
                                   );
                                   print("Connecting to passworded wifi");
-
                                 }
                               }
                             });
@@ -156,7 +178,8 @@ class _ReadState extends State<Read> {
                             borderRadius: 12,
                             borderLength: 60,
                             borderWidth: 4,
-                            cutOutSize: MediaQuery.of(context).size.height * 0.3,
+                            cutOutSize:
+                                MediaQuery.of(context).size.height * 0.3,
                           ),
                         ),
                       ),
@@ -164,78 +187,79 @@ class _ReadState extends State<Read> {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        child: SoftButton(
-                          child: flashIcon,
-                          radius: 12,
-                          isClickable: true,
-                          onTap: () {
-                            setState(() {
-                              if (FLASH_ON) {
-                                flashIcon = Icon(Icons.flash_off);
-                              } else {
-                                flashIcon = Icon(
-                                  Icons.flash_on,
-                                  color: Colors.yellow,
-                                );
-                              }
-                              FLASH_ON = !FLASH_ON;
-                              controller.toggleFlash();
-                            });
-                          },
+                  flex: 2,
+                  child: SoftButton(
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: SoftButton(
+                            child: flashIcon,
+                            isClickable: true,
+                            onTap: () {
+                              setState(() {
+                                if (FLASH_ON) {
+                                  flashIcon = Icon(Icons.flash_off);
+                                } else {
+                                  flashIcon = Icon(
+                                    Icons.flash_on,
+                                    color: Colors.yellow,
+                                  );
+                                }
+                                FLASH_ON = !FLASH_ON;
+                                controller.toggleFlash();
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SoftButton(
-                          radius: 12,
-                          child: playPause,
-                          isClickable: true,
-                          onTap: () {
-                            setState(() {
-                              if (playing) {
-                                playPause = Icon(Icons.pause);
-                                controller.pauseCamera();
-                              } else {
-                                playPause = Icon(Icons.play_arrow);
-                                controller.resumeCamera();
-                              }
-                              playing = !playing;
-                            });
-                          },
+                        Expanded(
+                          flex: 2,
+                          child: SoftButton(
+                            child: playPause,
+                            isClickable: true,
+                            onTap: () {
+                              setState(() {
+                                if (playing) {
+                                  playPause = Icon(Icons.pause);
+                                  controller.pauseCamera();
+                                } else {
+                                  playPause = Icon(Icons.play_arrow);
+                                  controller.resumeCamera();
+                                }
+                                playing = !playing;
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SoftButton(
-                          radius: 12,
-                          child: camIcon,
-                          isClickable: true,
-                          onTap: () {
-                            setState(() {
-                              if (REAR_CAM) {
-                                camIcon = Icon(Icons.camera_front);
-                              } else {
-                                camIcon = Icon(Icons.camera_rear);
-                              }
-                              REAR_CAM = !REAR_CAM;
-                              controller.flipCamera();
-                            });
-                          },
+                        Expanded(
+                          flex: 1,
+                          child: SoftButton(
+                            child: camIcon,
+                            isClickable: true,
+                            onTap: () {
+                              setState(() {
+                                if (REAR_CAM) {
+                                  camIcon = Icon(Icons.camera_front);
+                                } else {
+                                  camIcon = Icon(Icons.camera_rear);
+                                }
+                                REAR_CAM = !REAR_CAM;
+                                controller.flipCamera();
+                              });
+                            },
+                          ),
                         ),
-                      ),
-
-                    ],
+                      ],
+                    ),
                   ),
                 ),
+                //Padding(padding: EdgeInsets.fromLTRB(8,0,8,0), child: Divider(),),
                 Expanded(
-                  flex: 4,
+                  flex: 7,
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        flex: 7,
+                        flex: 6,
                         child: SoftButton(
                           radius: 12,
                           child: SingleChildScrollView(
@@ -249,15 +273,13 @@ class _ReadState extends State<Read> {
                       Expanded(
                         flex: 1,
                         child: SoftButton(
-                          radius: 12,
                           isClickable: true,
                           child: Icon(Icons.content_copy),
                           onTap: () {
                             Clipboard.setData(
                                 ClipboardData(text: qrTextString));
                             Scaffold.of(context).showSnackBar(SnackBar(
-                                content:
-                                Text('Text Copied to clipboard')));
+                                content: Text('Text Copied to clipboard')));
                           },
                         ),
                       ),
@@ -271,7 +293,6 @@ class _ReadState extends State<Read> {
       }),
     );
   }
-
 
   @override
   void dispose() {
