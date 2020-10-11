@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double btnRadius = 36;
+  double btnRadius = 16;
   String qrLogo = "QRWizard by AE";
 
   @override
@@ -58,8 +58,7 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   width: double.infinity,
                   child: Text(" QR WIZARD", textAlign: TextAlign.left,
-                      style: GoogleFonts.robotoMono(
-                          fontSize: 16, fontWeight: FontWeight.bold)),
+                      style: GoogleFonts.nunitoSans(fontSize: 18, fontWeight: FontWeight.bold)),
                 ),
                 SizedBox(height: 10,),
                 Expanded(
@@ -85,10 +84,7 @@ class _HomeState extends State<Home> {
                     isClickable: true,
                     child: Text(
                       "Scan QR",
-                      style: TextStyle(
-                          color: textColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal),
+                      style: GoogleFonts.nunitoSans(fontSize: 18),
                     ),
                     onTap: () {
                       //Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
@@ -103,10 +99,7 @@ class _HomeState extends State<Home> {
 
                     isClickable: true,
                     child: Text("Create QR",
-                        style: TextStyle(
-                            color: textColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal)),
+                        style: GoogleFonts.nunitoSans(fontSize: 18)),
                     onTap: () {
                       Navigator.pushNamed(context, '/create');
                     },
@@ -119,10 +112,7 @@ class _HomeState extends State<Home> {
 
                     isClickable: true,
                     child: Text("Scan History",
-                        style: TextStyle(
-                            color: textColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal)),
+                        style: GoogleFonts.nunitoSans(fontSize: 18)),
                     onTap: () {
                       Navigator.pushNamed(context, '/history');
                     },
@@ -135,10 +125,7 @@ class _HomeState extends State<Home> {
 
                     isClickable: true,
                     child: Text("About",
-                        style: TextStyle(
-                            color: textColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal)),
+                        style: GoogleFonts.nunitoSans(fontSize: 18)),
                     onTap: () {
                       Navigator.pushNamed(context, '/about');
                     },
