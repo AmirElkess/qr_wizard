@@ -67,7 +67,7 @@ class _ReadState extends State<Read> {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 9,
+                  flex: 11,
                   child: Padding(
                     padding: EdgeInsets.all(6),
                     child: Container(
@@ -124,52 +124,14 @@ class _ReadState extends State<Read> {
                                   playPause = Icon(Icons.play_arrow);
                                 });
                               } else if (qrDataType == QrDataTypes.WIFI) {
-                                List<String> wifiDetails =
-                                    parseWifi(qrTextString);
-                                if (wifiDetails[1] == '-1') {
-                                  qrText = Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Text(
-                                        "Wifi",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text("SSID: " +
-                                          parseWifi(entry.qrString)[0]),
-                                      Text(
-                                        'PASSWORD: [Password-less Wifi]',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                    ],
-                                  );
-                                  print("Connecting to passwordless wifi");
-                                } else {
-                                  qrText = Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Text(
-                                        "Wifi",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text("SSID: " +
-                                          parseWifi(entry.qrString)[0]),
-                                      Text(
-                                        "Password: " +
-                                            parseWifi(entry.qrString)[1],
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                    ],
-                                  );
-                                  print("Connecting to passworded wifi");
-                                }
+                                await Navigator.pushNamed(
+                                    context, '/wifi_details',
+                                    arguments: entry);
+                                setState(() {
+                                  controller.resumeCamera();
+                                  playing = true;
+                                  playPause = Icon(Icons.play_arrow);
+                                });
                               }
                             });
                           },
@@ -262,9 +224,9 @@ class _ReadState extends State<Read> {
                         flex: 6,
                         child: SoftButton(
                           radius: 12,
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.all(9.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(9),
+                            child: SingleChildScrollView(
                               child: qrText,
                             ),
                           ),

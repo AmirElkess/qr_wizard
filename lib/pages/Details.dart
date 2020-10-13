@@ -153,7 +153,7 @@ class _DetailsState extends State<Details> {
                                         ),
                                         Expanded(
                                           flex: 5,
-                                          child: Linkify(text: entry.qrString, onOpen: (link) => {launch(link.url)},),
+                                          child: SingleChildScrollView(child: Linkify(text: entry.qrString, onOpen: (link) => {launch(link.url)},)),
                                         )
                                       ],
                                     ),

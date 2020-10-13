@@ -48,11 +48,13 @@ class _AboutState extends State<About> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Who am I", style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text("An independent Developer/Hobbyist who's interested in Flutter app development."),
-                  SizedBox(height: 12,),
+                  Text("QR Wizard is aiming to demonstrate a fully functioning app with the innovative Neumorphism UI. It supports all typical features of a QR app: QR Scanning, QR creation, and scan history. The QR scanner can differentiate between QR text Strings, URLs, WiFis, and vCards (Contact cards). QR Wizard is free and ad-free with no liability on the developer.", textAlign: TextAlign.justify,),
+                  SizedBox(height: 15,),
+
                   Text("Contact me", style: TextStyle(fontWeight: FontWeight.bold),),
+                  SizedBox(height: 5,),
                   Text("Email: amir.elkess@gmail.com"),
+                  SizedBox(height: 3,),
                   Text("Github: https://github.com/AmirElkess"),
                   SizedBox(height: 20,),
                   SoftButton(

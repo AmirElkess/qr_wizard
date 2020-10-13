@@ -61,7 +61,7 @@ class _HistoryState extends State<History> {
           children: [
             Text("SSID: " + parseWifi(entry.qrString)[0]),
             Text(
-              'PASSWORD: [Password-less Wifi]',
+              'PASSWORD: [Password-less WiFi]',
               style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
             ),
           ],

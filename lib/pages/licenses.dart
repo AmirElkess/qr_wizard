@@ -16,6 +16,7 @@ class _LicensesState extends State<Licenses> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Center(child: Text(licenseName, style: TextStyle(fontStyle: FontStyle.italic), )),
+        SizedBox(height: 5,),
         SoftButton(
           inverted: true,
           radius: 8,
@@ -28,7 +29,7 @@ class _LicensesState extends State<Licenses> {
             ),
           ),
         ),
-        SizedBox(height: 16,),
+        SizedBox(height: 18,),
       ],
     );
   }
@@ -83,6 +84,8 @@ class _LicensesState extends State<Licenses> {
                 licenseCard("quick_actions", quick_actionsLicense),
 
                 licenseCard("flutter_linkify", flutter_linkifyLicense),
+                
+                licenseCard('simple_vcard_parser', simple_vcard_parserLicense),
               ],
             )
         ),

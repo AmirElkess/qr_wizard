@@ -23,17 +23,19 @@ class _WifiDetailsState extends State<WifiDetails> {
     Widget getWifiBody () {
       if (parseWifi(entry.qrString)[1] == '-1') {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text("SSID: " + parseWifi(entry.qrString)[0]),
             Text(
-              'PASSWORD: [Password-less Wifi]',
+              'PASSWORD: [Password-less WiFi]',
               style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
             ),
           ],
         );
       } else {
         return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text("SSID: " + parseWifi(entry.qrString)[0]),
@@ -76,7 +78,7 @@ class _WifiDetailsState extends State<WifiDetails> {
         alignment: universalAlignment,
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.6,
+          height: MediaQuery.of(context).size.height * 0.5,
           child: Builder(
             builder: (BuildContext context) {
               return SoftButton(
@@ -148,7 +150,7 @@ class _WifiDetailsState extends State<WifiDetails> {
                       ]),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: 3,
                       child: SoftButton(
                         radius: 12,
                         width: double.infinity,

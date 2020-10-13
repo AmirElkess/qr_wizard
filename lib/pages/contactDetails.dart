@@ -1,8 +1,5 @@
 import 'dart:io';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
@@ -22,11 +19,25 @@ class _ContactDetailsState extends State<ContactDetails> {
   Widget build(BuildContext context) {
     Entry entry = ModalRoute.of(context).settings.arguments;
     VCard vc = VCard(entry.qrString);
-    List<dynamic> tels = vc.typedTelephone;
-    List<String> telephones = List<String>();
-    for (var tel in tels){
-      telephones.add(tel[0]);
+
+    String getName() {
+      String _name = vc.formattedName;
+      if (_name.isEmpty) {
+        _name = vc.name.reversed.join(' ');
+      }
+      return _name;
     }
+
+    String getTelephones() {
+      List<dynamic> _tels = vc.typedTelephone;
+      List<String> _telephones = List<String>();
+      for (var tel in _tels){
+        _telephones.add(tel[0]);
+      }
+      return _telephones.join(', ');
+    }
+
+
     ScreenshotController screenshotController = ScreenshotController();
 
     return Scaffold(
@@ -151,7 +162,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                                         style: TextStyle(color: Colors.black, wordSpacing: 1.5, height: 1.4),
                                         children: <TextSpan>[
                                           TextSpan(text: 'Name: '),
-                                          TextSpan(text: vc.formattedName, style: TextStyle(color: Colors.black54)),
+                                          TextSpan(text: getName(), style: TextStyle(color: Colors.black54)),
                                           TextSpan(text: '\n'),
 
                                           TextSpan(text: 'Organisation: '),
@@ -163,7 +174,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                                           TextSpan(text: '\n'),
 
                                           TextSpan(text: 'Telephone: '),
-                                          TextSpan(text: telephones.join(', '), style: TextStyle(color: Colors.black54)),
+                                          TextSpan(text: getTelephones(), style: TextStyle(color: Colors.black54)),
                                           TextSpan(text: '\n'),
 
                                           TextSpan(text: 'Email: '),
