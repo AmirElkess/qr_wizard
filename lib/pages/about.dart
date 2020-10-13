@@ -49,11 +49,11 @@ class _AboutState extends State<About> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text("Who am I", style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text("An independent Hobbyist/Developer who's interested in Flutter app development."),
+                  Text("An independent Developer/Hobbyist who's interested in Flutter app development."),
                   SizedBox(height: 12,),
                   Text("Contact me", style: TextStyle(fontWeight: FontWeight.bold),),
-                  Text("Name: Amir Elkess"),
                   Text("Email: amir.elkess@gmail.com"),
+                  Text("Github: https://github.com/AmirElkess"),
                   SizedBox(height: 20,),
                   SoftButton(
                     width: double.infinity,

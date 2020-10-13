@@ -194,7 +194,7 @@ class _ReadState extends State<Read> {
                         Expanded(
                           flex: 2,
                           child: SoftButton(
-                            child: camIcon,
+                            child: FittedBox(child: camIcon),
                             isClickable: true,
                             onTap: () {
                               setState(() {
@@ -212,7 +212,7 @@ class _ReadState extends State<Read> {
                         Expanded(
                           flex: 3,
                           child: SoftButton(
-                            child: flashIcon,
+                            child: FittedBox(child: flashIcon),
                             isClickable: true,
                             onTap: () {
                               setState(() {
@@ -233,7 +233,7 @@ class _ReadState extends State<Read> {
                         Expanded(
                           flex: 2,
                           child: SoftButton(
-                            child: playPause,
+                            child: FittedBox(child: playPause),
                             isClickable: true,
                             onTap: () {
                               setState(() {
@@ -255,7 +255,7 @@ class _ReadState extends State<Read> {
                 ),
                 //Padding(padding: EdgeInsets.fromLTRB(8,0,8,0), child: Divider(),),
                 Expanded(
-                  flex: 7,
+                  flex: 6,
                   child: Row(
                     children: <Widget>[
                       Expanded(
