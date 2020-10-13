@@ -58,13 +58,13 @@ class _DetailsState extends State<Details> {
         ),
         body: Builder(
           builder: (BuildContext context) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: universalPadding,
+            return Align(
+              alignment: universalAlignment,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.6,
                 child: SoftButton(
                   radius: 12,
-                  width: double.infinity,
-                  height: 400,
                   child: Column(
                     children: <Widget>[
                       Expanded(

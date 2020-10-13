@@ -57,13 +57,13 @@ class _ContactDetailsState extends State<ContactDetails> {
         ),
         body: Builder(
           builder: (BuildContext context) {
-            return SingleChildScrollView(
-              child: Padding(
-                padding: universalPadding,
+            return Align(
+              alignment: universalAlignment,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.6,
                 child: SoftButton(
                   radius: 12,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.6,
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -145,34 +145,36 @@ class _ContactDetailsState extends State<ContactDetails> {
                                 ),
                                 Expanded(
                                   flex: 7,
-                                  child: RichText(
-                                    text: TextSpan(
-                                      style: TextStyle(color: Colors.black, wordSpacing: 1.5, height: 1.4),
-                                      children: <TextSpan>[
-                                        TextSpan(text: 'Name: '),
-                                        TextSpan(text: vc.name.reversed.join(' '), style: TextStyle(color: Colors.black54)),
-                                        TextSpan(text: '\n'),
+                                  child: SingleChildScrollView(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        style: TextStyle(color: Colors.black, wordSpacing: 1.5, height: 1.4),
+                                        children: <TextSpan>[
+                                          TextSpan(text: 'Name: '),
+                                          TextSpan(text: vc.formattedName, style: TextStyle(color: Colors.black54)),
+                                          TextSpan(text: '\n'),
 
-                                        TextSpan(text: 'Organisation: '),
-                                        TextSpan(text: vc.organisation, style: TextStyle(color: Colors.black54)),
-                                        TextSpan(text: '\n'),
+                                          TextSpan(text: 'Organisation: '),
+                                          TextSpan(text: vc.organisation, style: TextStyle(color: Colors.black54)),
+                                          TextSpan(text: '\n'),
 
-                                        TextSpan(text: 'Title: '),
-                                        TextSpan(text: vc.title, style: TextStyle(color: Colors.black54)),
-                                        TextSpan(text: '\n'),
+                                          TextSpan(text: 'Title: '),
+                                          TextSpan(text: vc.title, style: TextStyle(color: Colors.black54)),
+                                          TextSpan(text: '\n'),
 
-                                        TextSpan(text: 'Telephone: '),
-                                        TextSpan(text: telephones.join(', '), style: TextStyle(color: Colors.black54)),
-                                        TextSpan(text: '\n'),
+                                          TextSpan(text: 'Telephone: '),
+                                          TextSpan(text: telephones.join(', '), style: TextStyle(color: Colors.black54)),
+                                          TextSpan(text: '\n'),
 
-                                        TextSpan(text: 'Email: '),
-                                        TextSpan(text: vc.email, style: TextStyle(color: Colors.black54)),
-                                        TextSpan(text: '\n'),
-
-
+                                          TextSpan(text: 'Email: '),
+                                          TextSpan(text: vc.email, style: TextStyle(color: Colors.black54)),
+                                          TextSpan(text: '\n'),
 
 
-                                      ]
+
+
+                                        ]
+                                      ),
                                     ),
                                   )
                                 )

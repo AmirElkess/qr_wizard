@@ -151,22 +151,25 @@ class _CreateState extends State<Create> {
                         width: double.infinity,
                         height: double.infinity,
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: TextField(
-                            controller: textController,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 5,
-                            maxLength: 120,
-                            maxLengthEnforced: true,
-                            onChanged: (text) {
-                              setState(() {
-                                qrInput = text;
-                                print(qrInput);
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintText: 'Enter text here',
-                              border: InputBorder.none,
+                          padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
+                          child: SizedBox(
+                            height: double.infinity,
+                            child: TextField(
+                              controller: textController,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 10,
+                              maxLength: 120,
+                              maxLengthEnforced: true,
+                              onChanged: (text) {
+                                setState(() {
+                                  qrInput = text;
+                                  print(qrInput);
+                                });
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Enter text here',
+                                border: InputBorder.none,
+                              ),
                             ),
                           ),
                         ),

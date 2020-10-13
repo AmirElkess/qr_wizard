@@ -19,7 +19,7 @@ class _AboutState extends State<About> {
           elevation: 0.0,
           centerTitle: true,
           title: Text(
-            "ABOUT",
+            "About",
             style: TextStyle(color: Colors.black),
           ),
           leading: SoftButton(
@@ -58,9 +58,20 @@ class _AboutState extends State<About> {
                   SoftButton(
                     width: double.infinity,
                     radius: 16,
-                    height: 36,
+                    height: 40,
+                    shadowOffset: 0,
+                    blurRadius: 0,
                     isClickable: true,
-                    child: Text("Privacy Policy"),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(6, 0, 4, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Privacy Policy"),
+                          Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
+                    ),
                     onTap: (){
                         Navigator.pushNamed(context, '/privacy_policy');
                     },
@@ -69,9 +80,20 @@ class _AboutState extends State<About> {
                   SoftButton(
                     width: double.infinity,
                     radius: 16,
-                    height: 36,
+                    height: 40,
+                    shadowOffset: 0,
+                    blurRadius: 0,
                     isClickable: true,
-                    child: Text("Open Source Licenses"),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(6, 0, 4, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Open Source Licenses"),
+                          Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
+                    ),
                     onTap: (){
                       Navigator.pushNamed(context, '/licenses');
                     },

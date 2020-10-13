@@ -44,6 +44,7 @@ class _LicensesState extends State<Licenses> {
               children: [
                 Text("Flutter", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -58,6 +59,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("qr_flutter", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -72,6 +75,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("qr_code_scanner", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -86,6 +91,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("gallery_saver", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -100,6 +107,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("screenshot", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -114,6 +123,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("url_launcher", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -128,6 +139,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("flutter_launcher_icons", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -142,6 +155,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("quick_actions", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,
@@ -156,6 +171,8 @@ class _LicensesState extends State<Licenses> {
 
                 Text("flutter_linkify", style: TextStyle(fontStyle: FontStyle.italic), ),
                 SoftButton(
+                  inverted: true,
+
                   radius: 8,
                   width: double.infinity,
                   height: 250,

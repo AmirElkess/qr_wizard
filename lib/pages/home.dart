@@ -51,43 +51,45 @@ class _HomeState extends State<Home> {
         child: Align(
           alignment: homeAlignment,
           child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.7,
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.4,
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  width: double.infinity,
-                  child: Text(" QR WIZARD", textAlign: TextAlign.left,
-                      style: GoogleFonts.nunitoSans(fontSize: 18, fontWeight: FontWeight.bold)),
-                ),
-                SizedBox(height: 10,),
                 Expanded(
-                  flex: 5,
                   child: SoftButton(
-                    inverted: false,
-                    radius: 16,
-                    //child: Image.asset('lib/res/logo.png', ),
-                    child: Padding(
-                      padding: EdgeInsets.all(3),
-                      child: QrImage(
-                        data: qrLogo,
-                        version: QrVersions.auto,
-                        backgroundColor: backgroundColor,
-                      ),
-                    ),
+                    radius: btnRadius,
+                    inverted: true,
+                    child: Text("QR WIZARD",
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.nunitoSans(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
                   ),
+                ),
+                SizedBox(
+                  height: 16,
                 ),
                 Expanded(
                   flex: 1,
                   child: SoftButton(
+                    shadowOffset: 0,
+                    blurRadius: 0,
                     radius: btnRadius,
                     isClickable: true,
-                    child: Text(
-                      "Scan QR",
-                      style: GoogleFonts.nunitoSans(fontSize: 18),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(6, 0, 4, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Scan QR",
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.nunitoSans(fontSize: 18),
+                          ),
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
                     ),
                     onTap: () {
-                      //Navigator.push(context, CupertinoPageRoute(builder: (context) => Read()));
                       Navigator.pushNamed(context, '/read');
                     },
                   ),
@@ -96,10 +98,23 @@ class _HomeState extends State<Home> {
                   flex: 1,
                   child: SoftButton(
                     radius: btnRadius,
-
+                    shadowOffset: 0,
+                    blurRadius: 0,
                     isClickable: true,
-                    child: Text("Create QR",
-                        style: GoogleFonts.nunitoSans(fontSize: 18)),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(6, 0, 4, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Create QR",
+                                style: GoogleFonts.nunitoSans(fontSize: 18)),
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
+                      ),
+                    ),
                     onTap: () {
                       Navigator.pushNamed(context, '/create');
                     },
@@ -109,10 +124,23 @@ class _HomeState extends State<Home> {
                   flex: 1,
                   child: SoftButton(
                     radius: btnRadius,
-
+                    shadowOffset: 0,
+                    blurRadius: 0,
                     isClickable: true,
-                    child: Text("Scan History",
-                        style: GoogleFonts.nunitoSans(fontSize: 18)),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(6, 0, 4, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Scan History",
+                                style: GoogleFonts.nunitoSans(fontSize: 18)),
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
+                      ),
+                    ),
                     onTap: () {
                       Navigator.pushNamed(context, '/history');
                     },
@@ -122,10 +150,23 @@ class _HomeState extends State<Home> {
                   flex: 1,
                   child: SoftButton(
                     radius: btnRadius,
-
+                    shadowOffset: 0,
+                    blurRadius: 0,
                     isClickable: true,
-                    child: Text("About",
-                        style: GoogleFonts.nunitoSans(fontSize: 18)),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(6, 0, 4, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("About",
+                                style: GoogleFonts.nunitoSans(fontSize: 18)),
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
+                      ),
+                    ),
                     onTap: () {
                       Navigator.pushNamed(context, '/about');
                     },

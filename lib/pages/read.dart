@@ -91,6 +91,12 @@ class _ReadState extends State<Read> {
                           onQRViewCreated: (controller) {
                             this.controller = controller;
                             controller.scannedDataStream.listen((event) async {
+                              setState(() {
+                                controller.pauseCamera();
+                                playing = false;
+                                playPause = Icon(Icons.pause);
+                              });
+
                               qrTextString = event;
                               var qrDataType = QrDataTypes
                                   .values[await classifyType(qrTextString)];
@@ -101,12 +107,6 @@ class _ReadState extends State<Read> {
                                   timestamp: DateTime.now().toIso8601String(),
                                   dataType: await classifyType(qrTextString));
                               insertEntry(entry);
-
-                              setState(() {
-                                controller.pauseCamera();
-                                playing = false;
-                                playPause = Icon(Icons.pause);
-                              });
 
                               if (qrDataType == QrDataTypes.TEXT ||
                                   qrDataType == QrDataTypes.URL) {
@@ -192,7 +192,25 @@ class _ReadState extends State<Read> {
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                          flex: 1,
+                          flex: 2,
+                          child: SoftButton(
+                            child: camIcon,
+                            isClickable: true,
+                            onTap: () {
+                              setState(() {
+                                if (REAR_CAM) {
+                                  camIcon = Icon(Icons.camera_front);
+                                } else {
+                                  camIcon = Icon(Icons.camera_rear);
+                                }
+                                REAR_CAM = !REAR_CAM;
+                                controller.flipCamera();
+                              });
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
                           child: SoftButton(
                             child: flashIcon,
                             isClickable: true,
@@ -227,24 +245,6 @@ class _ReadState extends State<Read> {
                                   controller.resumeCamera();
                                 }
                                 playing = !playing;
-                              });
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: SoftButton(
-                            child: camIcon,
-                            isClickable: true,
-                            onTap: () {
-                              setState(() {
-                                if (REAR_CAM) {
-                                  camIcon = Icon(Icons.camera_front);
-                                } else {
-                                  camIcon = Icon(Icons.camera_rear);
-                                }
-                                REAR_CAM = !REAR_CAM;
-                                controller.flipCamera();
                               });
                             },
                           ),

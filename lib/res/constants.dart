@@ -7,6 +7,6 @@ Color lightShadowColor = Color(0xFFffffff);
 Color textColor = Colors.black54;
 EdgeInsets universalPadding = EdgeInsets.fromLTRB(20, 20, 20, 10);
 Alignment universalAlignment = Alignment(0, -0.8);
-Alignment homeAlignment = Alignment(0, -0.7);
+Alignment homeAlignment = Alignment(0, -0.5);
 
 //String urlPattern = r'^((?:.|\n)*?)((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?)';

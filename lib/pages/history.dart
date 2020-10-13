@@ -103,7 +103,8 @@ class _HistoryState extends State<History> {
             await Navigator.pushNamed(context, '/details', arguments: entry);
             viewBuilder(entriesList);
           } else if (entry.dataType == QrDataTypes.WIFI.index) {
-            //Implement wifi page
+            await Navigator.pushNamed(context, '/wifi_details', arguments: entry);
+            viewBuilder(entriesList);
           }
         },
       ),
