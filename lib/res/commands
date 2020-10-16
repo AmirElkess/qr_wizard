@@ -2,3 +2,6 @@
 flutter packages get
 flutter packages pub run flutter_launcher_icons:main
 
+-Command to generate apk from app bundle
+bundletool build-apks --bundle='D:\flutter_apps\qr_wizard\build\app\outputs\bundle\release\app-release.aab' --output='D:\flutter_apps\qr_wizard\build\app\outputs\bundle\release\app.apk'
+

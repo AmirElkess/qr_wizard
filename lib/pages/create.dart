@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:screenshot/screenshot.dart';
 import 'dart:io';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:share/share.dart';
 
 class Create extends StatefulWidget {
   @override
@@ -24,6 +25,31 @@ class _CreateState extends State<Create> {
   void dispose() {
     textController.dispose();
     super.dispose();
+  }
+
+  void saveImageToGallery(ctx) {
+    screenshotController
+        .capture(pixelRatio: 2, delay: Duration(milliseconds: 150))
+        .then((File image) async {
+      if (image != null && image.path != null) {
+        await GallerySaver.saveImage(
+          image.path,
+          albumName: "QR Wizard",
+        );
+        SnackBar saveSB = SnackBar(content: Text('QR saved to gallery'));
+        Scaffold.of(ctx).showSnackBar(saveSB);
+      }
+    });
+  }
+
+  void shareImage() {
+    screenshotController
+        .capture(pixelRatio: 2, delay: Duration(milliseconds: 50))
+        .then((File image) async {
+      if (image != null && image.path != null) {
+        Share.shareFiles([image.path]);
+      }
+    });
   }
 
   @override
@@ -79,7 +105,10 @@ class _CreateState extends State<Create> {
                               child: Screenshot(
                                 controller: screenshotController,
                                 child: GestureDetector(
-                                  onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [qrInput, 'tag']);},
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/qr_view',
+                                        arguments: [qrInput, 'tag']);
+                                  },
                                   child: Hero(
                                     tag: 'tag',
                                     child: QrImage(
@@ -111,34 +140,31 @@ class _CreateState extends State<Create> {
                         ),
                         Expanded(
                           flex: 1,
-                          child: SoftButton(
-                            height: double.infinity,
-                            width: double.infinity,
-                            child: Icon(Icons.save_alt),
-                            isClickable: true,
-                            onTap: () {
-                              setState(() {
-                                FocusScope.of(context).unfocus();
-                                screenshotController
-                                    .capture(
-                                        pixelRatio: 2,
-                                        delay: Duration(milliseconds: 150))
-                                    .then((File image) async {
-                                  if (image != null && image.path != null) {
-                                    print("Image and path correct");
-                                    print(image.path);
-                                    await GallerySaver.saveImage(
-                                      image.path,
-                                      albumName: "QR Wizard",
-                                    );
-                                    Scaffold.of(context).showSnackBar(
-                                        SnackBar(
-                                            content:
-                                                Text('QR saved to gallery')));
-                                  }
-                                });
-                              });
-                            },
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: SoftButton(
+                                  child: Icon(Icons.save_alt),
+                                  isClickable: true,
+                                  onTap: () {
+                                    setState(() {
+                                      FocusScope.of(context).unfocus();
+                                      saveImageToGallery(context);
+                                    });
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: SoftButton(
+                                  child: Icon(Icons.share),
+                                  isClickable: true,
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                    shareImage();
+                                  },
+                                ),
+                              )
+                            ],
                           ),
                         )
                       ]),
