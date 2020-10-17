@@ -18,6 +18,7 @@ class Create extends StatefulWidget {
 
 class _CreateState extends State<Create> {
   File _imageFile;
+  double inputHeight = 60;
   int selectedPos = 0;
   ScreenshotController screenshotController = ScreenshotController();
   final textController = TextEditingController();
@@ -96,7 +97,7 @@ class _CreateState extends State<Create> {
               inverted: true,
               radius: 12,
               width: double.infinity,
-              height: 60,
+              height: inputHeight,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                 child: SizedBox(
@@ -122,7 +123,7 @@ class _CreateState extends State<Create> {
               inverted: true,
               radius: 12,
               width: double.infinity,
-              height: 60,
+              height: inputHeight,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                 child: SizedBox(
@@ -148,18 +149,18 @@ class _CreateState extends State<Create> {
         );
       }
       case 2: {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Row(
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
                 children: [
                   Expanded(
                     child: SoftButton(
                       inverted: true,
                       radius: 12,
                       width: double.infinity,
-                      height: double.infinity,
+                      height: inputHeight,
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                         child: SizedBox(
@@ -187,7 +188,7 @@ class _CreateState extends State<Create> {
                       inverted: true,
                       radius: 12,
                       width: double.infinity,
-                      height: double.infinity,
+                      height: inputHeight,
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                         child: SizedBox(
@@ -213,13 +214,11 @@ class _CreateState extends State<Create> {
 
                 ],
               ),
-            ),
-            Expanded(
-              child: SoftButton(
+              SoftButton(
                 inverted: true,
                 radius: 12,
                 width: double.infinity,
-                height: double.infinity,
+                height: inputHeight,
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                   child: SizedBox(
@@ -241,13 +240,11 @@ class _CreateState extends State<Create> {
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: SoftButton(
+              SoftButton(
                 inverted: true,
                 radius: 12,
                 width: double.infinity,
-                height: double.infinity,
+                height: inputHeight,
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                   child: SizedBox(
@@ -269,13 +266,11 @@ class _CreateState extends State<Create> {
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: SoftButton(
+              SoftButton(
                 inverted: true,
                 radius: 12,
                 width: double.infinity,
-                height: double.infinity,
+                height: inputHeight,
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                   child: SizedBox(
@@ -297,40 +292,63 @@ class _CreateState extends State<Create> {
                   ),
                 ),
               ),
-            ),
-          ],
-        );
-      }
-      case 3: {
-        return Column(
-          children: [
-            SoftButton(
-              inverted: true,
-              radius: 12,
-              width: double.infinity,
-              height: 100,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
-                child: SizedBox(
-                  height: double.infinity,
-                  child: TextField(
-                    controller: textController,
-                    keyboardType: TextInputType.url,
-                    onChanged: (text) {
-                      setState(() {
-                        qrInput = text;
-                        print(qrInput);
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'URL',
-                      border: InputBorder.none,
+              SoftButton(
+                inverted: true,
+                radius: 12,
+                width: double.infinity,
+                height: inputHeight,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
+                  child: SizedBox(
+                    height: double.infinity,
+                    child: TextField(
+                      controller: textController,
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (text) {
+                        setState(() {
+                          qrInput = text;
+                          print(qrInput);
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Title',
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
                 ),
               ),
+
+            ],
+          ),
+        );
+      }
+      case 3: {
+        return SoftButton(
+          inverted: true,
+          radius: 12,
+          width: double.infinity,
+          height: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
+            child: SizedBox(
+              height: double.infinity,
+              child: TextField(
+                controller: textController,
+                keyboardType: TextInputType.url,
+                onChanged: (text) {
+                  setState(() {
+                    qrInput = text;
+                    print(qrInput);
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'URL',
+                  border: InputBorder.none,
+                ),
+              ),
             ),
-          ],
+          ),
         );
       }
       default: {
@@ -455,7 +473,7 @@ class _CreateState extends State<Create> {
                       )
                     ]),
                   ),
-                  Expanded(flex: 1, child: SizedBox()),
+                  SizedBox(height: 10,),
                   Expanded(
                     flex: 9,
                     child: getInputWidget(),
