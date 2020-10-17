@@ -60,10 +60,9 @@ class _ReadState extends State<Read> {
       body: Builder(builder: (context) {
         return Align(
           alignment: universalAlignment,
-          child: SoftButton(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
             height: MediaQuery.of(context).size.height * 0.65,
-            radius: 12,
             child: Column(
               children: <Widget>[
                 Expanded(
