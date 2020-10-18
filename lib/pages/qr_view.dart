@@ -6,7 +6,7 @@ import 'package:qr_wizard/res/constants.dart';
 class QrViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final List<String> extras = ModalRoute.of(context).settings.arguments;
+    final List<dynamic> extras = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(

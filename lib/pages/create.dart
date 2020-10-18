@@ -1,13 +1,14 @@
+import 'dart:io';
 import 'package:fancy_bottom_bar/fancy_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/rendering.dart';
 import 'package:screenshot/screenshot.dart';
-import 'dart:io';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:share/share.dart';
 
@@ -17,6 +18,7 @@ class Create extends StatefulWidget {
 }
 
 class _CreateState extends State<Create> {
+
   Map inputDetails = {
     'txt': '',
     'url': '',
@@ -24,6 +26,10 @@ class _CreateState extends State<Create> {
     'contact': {
       'first_name': '',
       'last_name': '',
+      'org': '',
+      'phone': '',
+      'email': '',
+      'title': '',
     }
   };
   Map controllers = {
@@ -38,7 +44,6 @@ class _CreateState extends State<Create> {
       'last_name': TextEditingController(),
     }
   };
-  File _imageFile;
   double inputHeight = 60;
   int selectedPos = 0;
   ScreenshotController screenshotController = ScreenshotController();
@@ -131,12 +136,16 @@ class _CreateState extends State<Create> {
               .replaceAll(r',', r'\,')
               .replaceAll(r':', r'\:');
           String wifiResult = "";
-          if (password.trim().isEmpty) {
-            wifiResult = 'WIFI:T:nopass;S:$ssid;P:;;';
+          if(ssid.trim().isNotEmpty){
+            if (password.trim().isEmpty) {
+              wifiResult = 'WIFI:T:nopass;S:$ssid;P:;;';
+            } else {
+              wifiResult = 'WIFI:T:WPA;S:$ssid;P:$password;;';
+            }
+            qrInput = wifiResult;
           } else {
-            wifiResult = 'WIFI:T:WPA;S:$ssid;P:$password;;';
+            qrInput = "";
           }
-          qrInput = wifiResult;
           break;
         }
       case 3:
@@ -202,7 +211,6 @@ class _CreateState extends State<Create> {
                   child: SizedBox(
                     height: double.infinity,
                     child: TextFormField(
-                      autovalidateMode: AutovalidateMode.always,
                       controller: controllers['wifi']['ssid'],
                       keyboardType: TextInputType.name,
                       onChanged: (text) {
@@ -430,6 +438,7 @@ class _CreateState extends State<Create> {
                 child: TextFormField(
                   controller: controllers['url'],
                   keyboardType: TextInputType.url,
+
                   onChanged: (text) {
                     setState(() {
                       inputDetails['url'] = text;
@@ -437,6 +446,7 @@ class _CreateState extends State<Create> {
                     });
                   },
                   decoration: InputDecoration(
+
                     hintText: 'URL',
                     border: InputBorder.none,
                   ),

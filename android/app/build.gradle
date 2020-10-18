@@ -47,6 +47,8 @@ android {
         applicationId "com.aeproductions.qr_wizard"
         minSdkVersion 24
         targetSdkVersion 29
+        //compileSdkVersion = 29
+        //buildToolsVersion = "29.0.0"
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
