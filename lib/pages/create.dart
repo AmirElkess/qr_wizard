@@ -25,6 +25,7 @@ class _CreateState extends State<Create> {
     'wifi': {
       'ssid': TextEditingController(),
       'password': TextEditingController(),
+      'security': TextEditingController(),
     },
     'contact': {
       'first_name': TextEditingController(),
@@ -35,8 +36,9 @@ class _CreateState extends State<Create> {
       'title': TextEditingController(),
     }
   };
+
   double inputHeight = 60;
-  int selectedPos = 0;
+  int selectedPos = 0; //bottom app bar choice
   ScreenshotController screenshotController = ScreenshotController();
   String qrInput = ""; //will be fed to the QrImage view & the enlarged qr view
 
@@ -51,6 +53,12 @@ class _CreateState extends State<Create> {
     controllers['txt'].dispose();
     controllers['url'].dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    controllers['wifi']['security'].text = 'WPA2-EAP';
+    super.initState();
   }
 
   void saveImageToGallery(ctx) {
@@ -125,7 +133,7 @@ class _CreateState extends State<Create> {
           qrInput = controllers['txt'].text;
           break;
         }
-      case 1:
+      case 1: //WiFi
         {
           String ssid = controllers['wifi']['ssid']
               .text
@@ -139,12 +147,13 @@ class _CreateState extends State<Create> {
               .replaceAll(r';', r'\;')
               .replaceAll(r',', r'\,')
               .replaceAll(r':', r'\:');
+          String auth = controllers['wifi']['security'].text;
           String wifiResult = "";
           if (ssid.trim().isNotEmpty) {
             if (password.trim().isEmpty) {
               wifiResult = 'WIFI:T:nopass;S:$ssid;P:;;';
             } else {
-              wifiResult = 'WIFI:T:WPA;S:$ssid;P:$password;;';
+              wifiResult = 'WIFI:T:$auth;S:$ssid;P:$password;;';
             }
             qrInput = wifiResult;
           } else {
@@ -225,60 +234,125 @@ class _CreateState extends State<Create> {
         }
       case 1: //WiFi
         {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SoftButton(
-                inverted: true,
-                radius: 12,
-                width: double.infinity,
-                height: inputHeight,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
-                  child: SizedBox(
-                    height: double.infinity,
-                    child: TextFormField(
-                      controller: controllers['wifi']['ssid'],
-                      keyboardType: TextInputType.name,
-                      onChanged: (text) {
-                        setState(() {
-                          updateQrInput();
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'SSID (Required)',
-                        border: InputBorder.none,
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SoftButton(
+                  inverted: true,
+                  radius: 12,
+                  width: double.infinity,
+                  height: inputHeight,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
+                    child: SizedBox(
+                      height: double.infinity,
+                      child: TextFormField(
+                        controller: controllers['wifi']['ssid'],
+                        keyboardType: TextInputType.name,
+                        onChanged: (text) {
+                          setState(() {
+                            updateQrInput();
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'SSID (Required)',
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SoftButton(
-                inverted: true,
-                radius: 12,
-                width: double.infinity,
-                height: inputHeight,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
-                  child: SizedBox(
-                    height: double.infinity,
-                    child: TextFormField(
-                      controller: controllers['wifi']['password'],
-                      keyboardType: TextInputType.visiblePassword,
-                      onChanged: (text) {
-                        setState(() {
-                          updateQrInput();
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Password',
-                        border: InputBorder.none,
+                SoftButton(
+                  inverted: true,
+                  radius: 12,
+                  width: double.infinity,
+                  height: inputHeight,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
+                    child: SizedBox(
+                      height: double.infinity,
+                      child: TextFormField(
+                        controller: controllers['wifi']['password'],
+                        keyboardType: TextInputType.visiblePassword,
+                        onChanged: (text) {
+                          setState(() {
+                            updateQrInput();
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Password',
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Visibility(
+                  visible: controllers['wifi']['password'].text.trim().isNotEmpty,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Authentication', style: TextStyle(fontWeight: FontWeight.bold),),
+                  ),
+                ),
+                Visibility(
+                  visible: controllers['wifi']['password'].text.trim().isNotEmpty,
+                  child: Row(children: [
+                    Expanded(
+                      child: SoftButton(
+                        inverted: controllers['wifi']['security'].text == 'WPA2-EAP',
+                        radius: 16,
+                        blurRadius: 5,
+                        shadowOffset: 1.5,
+                        width: double.infinity,
+                        height: inputHeight,
+                        child: Text('WPA2-EAP'),
+                        onTap: () {
+                          setState(() {
+                            controllers['wifi']['security'].text = 'WPA2-EAP';
+                            updateQrInput();
+                          });
+                          },
+                      ),
+                    ),
+                    Expanded(
+                      child: SoftButton(
+                        blurRadius: 5,
+                        shadowOffset: 1.5,
+                        inverted: controllers['wifi']['security'].text == 'WPA',
+                        radius: 16,
+                        width: double.infinity,
+                        height: inputHeight,
+                        child: Text('WPA'),
+                        onTap: () {
+                          setState(() {
+                            controllers['wifi']['security'].text = 'WPA';
+                            updateQrInput();
+                          });
+                          },
+                      ),
+                    ),
+                    Expanded(
+                      child: SoftButton(
+                        inverted: controllers['wifi']['security'].text == 'WEP',
+                        radius: 16,
+                        blurRadius: 5,
+                        shadowOffset: 1.5,
+                        width: double.infinity,
+                        height: inputHeight,
+                        child: Text('WEP'),
+                        onTap: () {
+                          setState(() {
+                            controllers['wifi']['security'].text = 'WEP';
+                            updateQrInput();
+                          });
+                          },
+                      ),
+                    ),
+                  ],),
+                )
+              ],
+            ),
           );
         }
       case 2: //Contact
@@ -483,7 +557,7 @@ class _CreateState extends State<Create> {
         }
       default:
         {
-          return Text("HELLO");
+          return Text("OOpsie");
         }
     }
   }

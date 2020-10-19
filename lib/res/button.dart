@@ -71,7 +71,13 @@ class _SoftButtonState extends State<SoftButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.inverted) isConcave = true;
+    if (widget.inverted) {
+      isConcave = true;
+    } else {
+      isConcave = false;
+    }
+
+
     return GestureDetector(
       onTap: this.widget.onTap,
       child: Listener(
