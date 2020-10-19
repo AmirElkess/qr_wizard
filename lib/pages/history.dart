@@ -27,7 +27,7 @@ class _HistoryState extends State<History> {
 
   Icon findIcon(entry) {
     if (entry.dataType == QrDataTypes.CONTACT.index) {
-      return Icon(Icons.contact_phone);
+      return Icon(Icons.person);
     } else if (entry.dataType == QrDataTypes.URL.index) {
       return Icon(Icons.link);
     } else if (entry.dataType == QrDataTypes.WIFI.index) {

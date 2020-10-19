@@ -90,47 +90,49 @@ class _ReadState extends State<Read> {
                           onQRViewCreated: (controller) {
                             this.controller = controller;
                             controller.scannedDataStream.listen((event) async {
-                              setState(() {
-                                controller.pauseCamera();
-                                playing = false;
-                                playPause = Icon(Icons.pause);
-                              });
-
-                              qrTextString = event;
-                              var qrDataType = QrDataTypes
-                                  .values[await classifyType(qrTextString)];
-                              print(qrDataType);
-                              Entry entry = Entry(
-                                  id: null,
-                                  qrString: qrTextString,
-                                  timestamp: DateTime.now().toIso8601String(),
-                                  dataType: await classifyType(qrTextString));
-                              insertEntry(entry);
-
-                              if (qrDataType == QrDataTypes.TEXT ||
-                                  qrDataType == QrDataTypes.URL) {
-                                qrText = Linkify(
-                                    text: qrTextString,
-                                    onOpen: (link) => {launch(link.url)});
-                              } else if (qrDataType == QrDataTypes.CONTACT) {
-                                //qrText = Text("Contact: " + qrTextString);
-                                await Navigator.pushNamed(
-                                    context, '/contact_details',
-                                    arguments: entry);
+                              if (event.isNotEmpty) {
                                 setState(() {
-                                  controller.resumeCamera();
-                                  playing = true;
-                                  playPause = Icon(Icons.play_arrow);
+                                  controller.pauseCamera();
+                                  playing = false;
+                                  playPause = Icon(Icons.pause);
                                 });
-                              } else if (qrDataType == QrDataTypes.WIFI) {
-                                await Navigator.pushNamed(
-                                    context, '/wifi_details',
-                                    arguments: entry);
-                                setState(() {
-                                  controller.resumeCamera();
-                                  playing = true;
-                                  playPause = Icon(Icons.play_arrow);
-                                });
+
+                                qrTextString = event;
+                                var qrDataType = QrDataTypes
+                                    .values[await classifyType(qrTextString)];
+                                print(qrDataType);
+                                Entry entry = Entry(
+                                    id: null,
+                                    qrString: qrTextString,
+                                    timestamp: DateTime.now().toIso8601String(),
+                                    dataType: await classifyType(qrTextString));
+                                insertEntry(entry);
+
+                                if (qrDataType == QrDataTypes.TEXT ||
+                                    qrDataType == QrDataTypes.URL) {
+                                  qrText = Linkify(
+                                      text: qrTextString,
+                                      onOpen: (link) => {launch(link.url)});
+                                } else if (qrDataType == QrDataTypes.CONTACT) {
+                                  //qrText = Text("Contact: " + qrTextString);
+                                  await Navigator.pushNamed(
+                                      context, '/contact_details',
+                                      arguments: entry);
+                                  setState(() {
+                                    controller.resumeCamera();
+                                    playing = true;
+                                    playPause = Icon(Icons.play_arrow);
+                                  });
+                                } else if (qrDataType == QrDataTypes.WIFI) {
+                                  await Navigator.pushNamed(
+                                      context, '/wifi_details',
+                                      arguments: entry);
+                                  setState(() {
+                                    controller.resumeCamera();
+                                    playing = true;
+                                    playPause = Icon(Icons.play_arrow);
+                                  });
+                                }
                               }
                             });
                           },

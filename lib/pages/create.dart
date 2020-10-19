@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:fancy_bottom_bar/fancy_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:form_validator/form_validator.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/res/constants.dart';
 import 'package:qr_wizard/res/button.dart';
@@ -11,6 +11,7 @@ import 'package:flutter/rendering.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:share/share.dart';
+import 'package:vcard/vcard.dart';
 
 class Create extends StatefulWidget {
   @override
@@ -18,20 +19,6 @@ class Create extends StatefulWidget {
 }
 
 class _CreateState extends State<Create> {
-
-  Map inputDetails = {
-    'txt': '',
-    'url': '',
-    'wifi': {'ssid': '', 'password': ''},
-    'contact': {
-      'first_name': '',
-      'last_name': '',
-      'org': '',
-      'phone': '',
-      'email': '',
-      'title': '',
-    }
-  };
   Map controllers = {
     'txt': TextEditingController(),
     'url': TextEditingController(),
@@ -42,6 +29,10 @@ class _CreateState extends State<Create> {
     'contact': {
       'first_name': TextEditingController(),
       'last_name': TextEditingController(),
+      'org': TextEditingController(),
+      'phone': TextEditingController(),
+      'email': TextEditingController(),
+      'title': TextEditingController(),
     }
   };
   double inputHeight = 60;
@@ -79,17 +70,19 @@ class _CreateState extends State<Create> {
           controllers['txt'].value = TextEditingValue(text: "");
           break;
         }
-      case 1:
+      case 1: //WiFi
         {
-          controllers['wifi']['ssid'] = TextEditingValue(text: "");
-          controllers['wifi']['password'] = TextEditingValue(text: "");
+          controllers['wifi'].forEach((key, value) {
+            value.clear();
+          });
+
           break;
         }
-      case 2:
+      case 2: //Contact
         {
-          controllers['contact']['first_name'] = TextEditingValue(text: "");
-          controllers['contact']['last_name'] = TextEditingValue(text: "");
-          //and more values ....
+          controllers['contact'].forEach((key, value) {
+            value.clear();
+          });
           break;
         }
       case 3: //URL
@@ -102,7 +95,6 @@ class _CreateState extends State<Create> {
           qrInput = '';
         }
     }
-    print('qr input updated');
   }
 
   void shareImage() {
@@ -120,23 +112,25 @@ class _CreateState extends State<Create> {
     switch (selectedPos) {
       case 0: //TEXT
         {
-          qrInput = inputDetails['txt'];
+          qrInput = controllers['txt'].text;
           break;
         }
       case 1:
         {
-          String ssid = inputDetails['wifi']['ssid']
+          String ssid = controllers['wifi']['ssid']
+              .text
               .replaceAll(r'\', r'\\')
               .replaceAll(r';', r'\;')
               .replaceAll(r',', r'\,')
               .replaceAll(r':', r'\:');
-          String password = inputDetails['wifi']['password']
+          String password = controllers['wifi']['password']
+              .text
               .replaceAll(r'\', r'\\')
               .replaceAll(r';', r'\;')
               .replaceAll(r',', r'\,')
               .replaceAll(r':', r'\:');
           String wifiResult = "";
-          if(ssid.trim().isNotEmpty){
+          if (ssid.trim().isNotEmpty) {
             if (password.trim().isEmpty) {
               wifiResult = 'WIFI:T:nopass;S:$ssid;P:;;';
             } else {
@@ -148,9 +142,37 @@ class _CreateState extends State<Create> {
           }
           break;
         }
+      case 2:
+        {
+          //Contact
+          //controllers['contact'].forEach((key, value) => print(value.text));
+          VCard vCard = VCard();
+          if (controllers['contact']['first_name'].text.trim().isNotEmpty) {
+            vCard.firstName = controllers['contact']['first_name'].text.trim();
+          }
+          if (controllers['contact']['last_name'].text.trim().isNotEmpty) {
+            vCard.lastName = controllers['contact']['last_name'].text.trim();
+          }
+          if (controllers['contact']['org'].text.trim().isNotEmpty) {
+            vCard.organization = controllers['contact']['org'].text.trim();
+          }
+          if (controllers['contact']['email'].text.trim().isNotEmpty) {
+            vCard.email = controllers['contact']['email'].text.trim();
+          }
+          if (controllers['contact']['title'].text.trim().isNotEmpty) {
+            vCard.jobTitle = controllers['contact']['title'].text.trim();
+          }
+          if (controllers['contact']['email'].text.trim().isNotEmpty) {
+            vCard.email = controllers['contact']['email'].text.trim();
+          }
+
+
+          qrInput = vCard.getFormattedString();
+          break;
+        }
       case 3:
         {
-          qrInput = inputDetails['url'];
+          qrInput = controllers['url'].text;
           break;
         }
       default:
@@ -158,7 +180,6 @@ class _CreateState extends State<Create> {
           qrInput = '';
         }
     }
-    print('qr input updated');
   }
 
   Widget getInputWidget() {
@@ -183,7 +204,6 @@ class _CreateState extends State<Create> {
                   maxLengthEnforced: true,
                   onChanged: (text) {
                     setState(() {
-                      inputDetails['txt'] = text;
                       updateQrInput();
                     });
                   },
@@ -215,7 +235,6 @@ class _CreateState extends State<Create> {
                       keyboardType: TextInputType.name,
                       onChanged: (text) {
                         setState(() {
-                          inputDetails['wifi']['ssid'] = text;
                           updateQrInput();
                         });
                       },
@@ -241,7 +260,6 @@ class _CreateState extends State<Create> {
                       keyboardType: TextInputType.visiblePassword,
                       onChanged: (text) {
                         setState(() {
-                          inputDetails['wifi']['password'] = text;
                           updateQrInput();
                         });
                       },
@@ -274,12 +292,12 @@ class _CreateState extends State<Create> {
                           padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                           child: SizedBox(
                             height: double.infinity,
-                            child: TextField(
+                            child: TextFormField(
+                              controller: controllers['contact']['first_name'],
                               keyboardType: TextInputType.name,
                               onChanged: (text) {
                                 setState(() {
-                                  qrInput = text;
-                                  print(qrInput);
+                                  updateQrInput();
                                 });
                               },
                               decoration: InputDecoration(
@@ -301,12 +319,12 @@ class _CreateState extends State<Create> {
                           padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                           child: SizedBox(
                             height: double.infinity,
-                            child: TextField(
+                            child: TextFormField(
+                              controller: controllers['contact']['last_name'],
                               keyboardType: TextInputType.name,
                               onChanged: (text) {
                                 setState(() {
-                                  qrInput = text;
-                                  print(qrInput);
+                                  updateQrInput();
                                 });
                               },
                               decoration: InputDecoration(
@@ -319,7 +337,7 @@ class _CreateState extends State<Create> {
                       ),
                     ),
                   ],
-                ),
+                ), //fname lname
                 SoftButton(
                   inverted: true,
                   radius: 12,
@@ -329,12 +347,12 @@ class _CreateState extends State<Create> {
                     padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                     child: SizedBox(
                       height: double.infinity,
-                      child: TextField(
+                      child: TextFormField(
+                        controller: controllers['contact']['org'],
                         keyboardType: TextInputType.name,
                         onChanged: (text) {
                           setState(() {
-                            qrInput = text;
-                            print(qrInput);
+                            updateQrInput();
                           });
                         },
                         decoration: InputDecoration(
@@ -344,7 +362,7 @@ class _CreateState extends State<Create> {
                       ),
                     ),
                   ),
-                ),
+                ), //org
                 SoftButton(
                   inverted: true,
                   radius: 12,
@@ -354,12 +372,12 @@ class _CreateState extends State<Create> {
                     padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                     child: SizedBox(
                       height: double.infinity,
-                      child: TextField(
+                      child: TextFormField(
+                        controller: controllers['contact']['phone'],
                         keyboardType: TextInputType.phone,
                         onChanged: (text) {
                           setState(() {
-                            qrInput = text;
-                            print(qrInput);
+                            updateQrInput();
                           });
                         },
                         decoration: InputDecoration(
@@ -369,7 +387,7 @@ class _CreateState extends State<Create> {
                       ),
                     ),
                   ),
-                ),
+                ), //phone
                 SoftButton(
                   inverted: true,
                   radius: 12,
@@ -379,12 +397,12 @@ class _CreateState extends State<Create> {
                     padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                     child: SizedBox(
                       height: double.infinity,
-                      child: TextField(
+                      child: TextFormField(
+                        controller: controllers['contact']['email'],
                         keyboardType: TextInputType.emailAddress,
                         onChanged: (text) {
                           setState(() {
-                            qrInput = text;
-                            print(qrInput);
+                            updateQrInput();
                           });
                         },
                         decoration: InputDecoration(
@@ -394,7 +412,7 @@ class _CreateState extends State<Create> {
                       ),
                     ),
                   ),
-                ),
+                ), //email
                 SoftButton(
                   inverted: true,
                   radius: 12,
@@ -404,12 +422,12 @@ class _CreateState extends State<Create> {
                     padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
                     child: SizedBox(
                       height: double.infinity,
-                      child: TextField(
-                        keyboardType: TextInputType.emailAddress,
+                      child: TextFormField(
+                        controller: controllers['contact']['title'],
+                        keyboardType: TextInputType.text,
                         onChanged: (text) {
                           setState(() {
-                            qrInput = text;
-                            print(qrInput);
+                            updateQrInput();
                           });
                         },
                         decoration: InputDecoration(
@@ -419,36 +437,37 @@ class _CreateState extends State<Create> {
                       ),
                     ),
                   ),
-                ),
+                ), //title
               ],
             ),
           );
         }
       case 3: //URL
         {
-          return SoftButton(
-            inverted: true,
-            radius: 12,
-            width: double.infinity,
-            height: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
-              child: SizedBox(
-                height: double.infinity,
-                child: TextFormField(
-                  controller: controllers['url'],
-                  keyboardType: TextInputType.url,
-
-                  onChanged: (text) {
-                    setState(() {
-                      inputDetails['url'] = text;
-                      updateQrInput();
-                    });
-                  },
-                  decoration: InputDecoration(
-
-                    hintText: 'URL',
-                    border: InputBorder.none,
+          return SingleChildScrollView(
+            child: SoftButton(
+              inverted: true,
+              radius: 12,
+              width: double.infinity,
+              height: 100,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(15, 6, 15, 12),
+                child: SizedBox(
+                  height: double.infinity,
+                  child: TextFormField(
+                    controller: controllers['url'],
+                    keyboardType: TextInputType.url,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: ValidationBuilder().url('This is not a valid URL address').build(),
+                    onChanged: (text) {
+                      setState(() {
+                        updateQrInput();
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'URL',
+                      border: InputBorder.none,
+                    ),
                   ),
                 ),
               ),
