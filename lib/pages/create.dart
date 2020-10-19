@@ -42,8 +42,14 @@ class _CreateState extends State<Create> {
 
   @override
   void dispose() {
-    //controllers.dispose();
-    //remember to dispose all controllers
+    controllers['contact'].forEach((key, value) {
+      value.dispose();
+    });
+    controllers['wifi'].forEach((key, value) {
+      value.dispose();
+    });
+    controllers['txt'].dispose();
+    controllers['url'].dispose();
     super.dispose();
   }
 
