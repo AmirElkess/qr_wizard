@@ -162,7 +162,7 @@ class _WifiDetailsState extends State<WifiDetails> {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 10)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle(fontSize: 11, color: Colors.grey),),
+                                child: FittedBox(child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 10)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle(color: Colors.grey),)),
                               ),
                               Expanded(
                                   flex: 7,
