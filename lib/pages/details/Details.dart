@@ -149,7 +149,7 @@ class _DetailsState extends State<Details> {
                                       children: [
                                         Expanded(
                                           flex: 1,
-                                          child: FittedBox(child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 11)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle( color: Colors.grey),)),
+                                          child: FittedBox(alignment: Alignment.centerLeft, child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 11)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle( color: Colors.grey),)),
                                         ),
                                         Expanded(
                                           flex: 5,

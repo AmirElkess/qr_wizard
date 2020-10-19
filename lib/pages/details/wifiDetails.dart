@@ -14,13 +14,12 @@ class WifiDetails extends StatefulWidget {
 }
 
 class _WifiDetailsState extends State<WifiDetails> {
-
   @override
   Widget build(BuildContext context) {
     Entry entry = ModalRoute.of(context).settings.arguments;
     ScreenshotController screenshotController = ScreenshotController();
 
-    Widget getWifiBody () {
+    Widget getWifiBody() {
       if (parseWifi(entry.qrString)[1] == '-1') {
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -101,7 +100,10 @@ class _WifiDetailsState extends State<WifiDetails> {
                               child: Screenshot(
                                 controller: screenshotController,
                                 child: GestureDetector(
-                                  onTap: (){Navigator.pushNamed(context, '/qr_view', arguments: [entry.qrString, 'tag']);},
+                                  onTap: () {
+                                    Navigator.pushNamed(context, '/qr_view',
+                                        arguments: [entry.qrString, 'tag']);
+                                  },
                                   child: Hero(
                                     tag: 'tag',
                                     child: QrImage(
@@ -128,25 +130,22 @@ class _WifiDetailsState extends State<WifiDetails> {
                                 FocusScope.of(context).unfocus();
                                 screenshotController
                                     .capture(
-                                    pixelRatio: 2,
-                                    delay: Duration(milliseconds: 150))
+                                        pixelRatio: 2,
+                                        delay: Duration(milliseconds: 150))
                                     .then((File image) async {
                                   if (image != null && image.path != null) {
                                     await GallerySaver.saveImage(
                                       image.path,
                                       albumName: "QR Wizard",
                                     );
-                                    Scaffold.of(context).showSnackBar(
-                                        SnackBar(
-                                            content:
-                                            Text('QR saved to gallery')));
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                        content: Text('QR saved to gallery')));
                                   }
                                 });
                               });
                             },
                           ),
                         ),
-
                       ]),
                     ),
                     Expanded(
@@ -162,11 +161,16 @@ class _WifiDetailsState extends State<WifiDetails> {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: FittedBox(child: Text("Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 10)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.", style: TextStyle(color: Colors.grey),)),
+                                child: FittedBox(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Scanned on ${DateTime.parse(entry.timestamp).toString().substring(0, 10)}, at ${DateTime.parse(entry.timestamp).toString().substring(11, 16)}.",
+                                      style: TextStyle(color: Colors.grey),
+                                    )),
                               ),
                               Expanded(
-                                  flex: 7,
-                                  child: getWifiBody(),
+                                flex: 7,
+                                child: getWifiBody(),
                               )
                             ],
                           ),

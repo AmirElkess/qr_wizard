@@ -170,10 +170,13 @@ class _HistoryState extends State<History> {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  child: Text(
-                                      "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 10)),
+                                  child: FittedBox(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                        "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
+                                        style: TextStyle(
+                                            color: Colors.grey)),
+                                  ),
                                 ),
                                 Expanded(
                                   flex: 3,

@@ -42,6 +42,8 @@ class SoftButton extends StatefulWidget {
 
 class _SoftButtonState extends State<SoftButton> {
   bool isConcave = false;
+  bool isPressed = false;
+
 
   Decoration getOuterShadow() {
     return BoxDecoration(
@@ -71,7 +73,7 @@ class _SoftButtonState extends State<SoftButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.inverted) {
+    if (widget.inverted || isPressed) {
       isConcave = true;
     } else {
       isConcave = false;
@@ -84,21 +86,21 @@ class _SoftButtonState extends State<SoftButton> {
         onPointerDown: (TapDownDetails) {
           if (this.widget.isClickable) {
             setState(() {
-              isConcave = true;
+              isPressed = true;
             });
           }
         },
         onPointerUp: (TapUpDetails) {
           if (this.widget.isClickable) {
             setState(() {
-              isConcave = false;
+              isPressed = false;
             });
           }
         },
         onPointerCancel: (PointerCancelEvent) {
           if (this.widget.isClickable) {
             setState(() {
-              isConcave = false;
+              isPressed = false;
             });
           }
         },
