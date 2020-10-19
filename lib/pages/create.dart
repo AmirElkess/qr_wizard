@@ -62,6 +62,12 @@ class _CreateState extends State<Create> {
     });
   }
 
+  void clearContact() {
+    controllers['contact'].forEach((key, value) {
+      value.clear();
+    });
+  }
+
   void clear() {
     // TEXT - WIFI - CONTACT - URL
     switch (selectedPos) {
@@ -80,9 +86,7 @@ class _CreateState extends State<Create> {
         }
       case 2: //Contact
         {
-          controllers['contact'].forEach((key, value) {
-            value.clear();
-          });
+          clearContact();
           break;
         }
       case 3: //URL
@@ -145,7 +149,6 @@ class _CreateState extends State<Create> {
       case 2:
         {
           //Contact
-          //controllers['contact'].forEach((key, value) => print(value.text));
           VCard vCard = VCard();
           if (controllers['contact']['first_name'].text.trim().isNotEmpty) {
             vCard.firstName = controllers['contact']['first_name'].text.trim();
@@ -165,8 +168,6 @@ class _CreateState extends State<Create> {
           if (controllers['contact']['email'].text.trim().isNotEmpty) {
             vCard.email = controllers['contact']['email'].text.trim();
           }
-
-
           qrInput = vCard.getFormattedString();
           break;
         }

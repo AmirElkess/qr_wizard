@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double btnRadius = 16;
+  double btnRadius = 24;
   String qrLogo = "QRWizard by AE";
 
   @override
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
           alignment: homeAlignment,
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.46,
             child: Column(
               children: <Widget>[
                 Expanded(
