@@ -24,7 +24,6 @@ class _HistoryState extends State<History> {
         style: TextStyle(color: Colors.grey),
       ));
 
-
   Icon findIcon(entry) {
     if (entry.dataType == QrDataTypes.CONTACT.index) {
       return Icon(Icons.person);
@@ -112,7 +111,7 @@ class _HistoryState extends State<History> {
   }
 
   void viewBuilder(entriesList) async {
-    List<Entry> entriesListCache = new List<Entry>.from(entriesList);
+    //List<Entry> entriesListCache = new List<Entry>.from(entriesList);
     if (entriesList.length == 0) {
       setState(() {
         mainWidget = Align(
@@ -121,7 +120,6 @@ class _HistoryState extends State<History> {
               "History is Empty",
               style: TextStyle(color: Colors.grey),
             ));
-        print('Empty history');
       });
     } else {
       setState(() {

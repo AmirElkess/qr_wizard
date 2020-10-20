@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_wizard/database/Entry.dart';
-import 'file:///D:/flutter_apps/qr_wizard/lib/pages/details/Details.dart';
-import 'file:///D:/flutter_apps/qr_wizard/lib/pages/details/contactDetails.dart';
+import 'package:qr_wizard/pages/about/licenses.dart';
+import 'package:qr_wizard/pages/about/privacy_policy.dart';
+import 'package:qr_wizard/pages/details/Details.dart';
+import 'package:qr_wizard/pages/details/contactDetails.dart';
+import 'package:qr_wizard/pages/details/wifiDetails.dart';
+
+
 import 'package:qr_wizard/pages/history.dart';
-import 'file:///D:/flutter_apps/qr_wizard/lib/pages/about/licenses.dart';
-import 'file:///D:/flutter_apps/qr_wizard/lib/pages/about/privacy_policy.dart';
+
 import 'package:qr_wizard/pages/qr_view.dart';
-import 'file:///D:/flutter_apps/qr_wizard/lib/pages/details/wifiDetails.dart';
+
 import 'pages/home.dart';
 import 'pages/create.dart';
 import 'pages/read.dart';
