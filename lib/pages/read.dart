@@ -24,8 +24,7 @@ class _ReadState extends State<Read> {
   bool playing = true;
   Icon playPause = Icon(Icons.play_arrow);
 
-  Widget qrText = Text('');
-  String qrTextString = '';
+  String displayString = '';
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -62,7 +61,7 @@ class _ReadState extends State<Read> {
           alignment: universalAlignment,
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.65,
+            height: MediaQuery.of(context).size.height * 0.7,
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -91,44 +90,42 @@ class _ReadState extends State<Read> {
                             this.controller = controller;
                             controller.scannedDataStream.listen((event) async {
                               if (event.isNotEmpty) {
-                                setState(() {
-                                  controller.pauseCamera();
-                                  playing = false;
-                                  playPause = Icon(Icons.pause);
-                                });
+                                controller.pauseCamera();
+                                playing = false;
+                                playPause = Icon(Icons.pause);
+                                setState(() {});
 
-                                qrTextString = event;
-                                var qrDataType = QrDataTypes
-                                    .values[await classifyType(qrTextString)];
-                                print(qrDataType);
+                                var qrDataType = QrDataTypes.values[await classifyType(event)];
+                                var _type = await classifyType(event);
                                 Entry entry = Entry(
                                     id: null,
-                                    qrString: qrTextString,
+                                    qrString: event,
                                     timestamp: DateTime.now().toIso8601String(),
-                                    dataType: await classifyType(qrTextString));
+                                    dataType: _type);
                                 insertEntry(entry);
 
-                                if (qrDataType == QrDataTypes.TEXT ||
-                                    qrDataType == QrDataTypes.URL) {
-                                  qrText = Linkify(
-                                      text: qrTextString,
-                                      onOpen: (link) => {launch(link.url)});
+
+                                if (qrDataType == QrDataTypes.TEXT || qrDataType == QrDataTypes.URL) {
+                                  controller.pauseCamera();
+                                  displayString = event;
+                                  controller.pauseCamera();
+
                                 } else if (qrDataType == QrDataTypes.CONTACT) {
-                                  //qrText = Text("Contact: " + qrTextString);
-                                  await Navigator.pushNamed(
-                                      context, '/contact_details',
+                                  displayString = "";
+                                  await Navigator.pushNamed(context, '/contact_details',
                                       arguments: entry);
                                   setState(() {
                                     controller.resumeCamera();
+                                    print("Camera resumed");
                                     playing = true;
                                     playPause = Icon(Icons.play_arrow);
                                   });
                                 } else if (qrDataType == QrDataTypes.WIFI) {
-                                  await Navigator.pushNamed(
-                                      context, '/wifi_details',
-                                      arguments: entry);
+                                  displayString = "";
+                                  await Navigator.pushNamed(context, '/wifi_details', arguments: entry);
                                   setState(() {
                                     controller.resumeCamera();
+                                    print("Camera resumed");
                                     playing = true;
                                     playPause = Icon(Icons.play_arrow);
                                   });
@@ -206,6 +203,7 @@ class _ReadState extends State<Read> {
                                 } else {
                                   playPause = Icon(Icons.play_arrow);
                                   controller.resumeCamera();
+                                  print("Cam resume is pressed");
                                 }
                                 playing = !playing;
                               });
@@ -216,7 +214,6 @@ class _ReadState extends State<Read> {
                     ),
                   ),
                 ),
-                //Padding(padding: EdgeInsets.fromLTRB(8,0,8,0), child: Divider(),),
                 Expanded(
                   flex: 6,
                   child: Row(
@@ -228,7 +225,9 @@ class _ReadState extends State<Read> {
                           child: Padding(
                             padding: const EdgeInsets.all(9),
                             child: SingleChildScrollView(
-                              child: qrText,
+                              child: Linkify(
+                                  text: displayString,
+                                  onOpen: (link) => {launch(link.url)}),
                             ),
                           ),
                         ),
@@ -240,7 +239,7 @@ class _ReadState extends State<Read> {
                           child: Icon(Icons.content_copy),
                           onTap: () {
                             Clipboard.setData(
-                                ClipboardData(text: qrTextString));
+                                ClipboardData(text: displayString));
                             Scaffold.of(context).showSnackBar(SnackBar(
                                 content: Text('Text Copied to clipboard')));
                           },
@@ -249,6 +248,21 @@ class _ReadState extends State<Read> {
                     ],
                   ),
                 ),
+                Expanded(
+                  flex: 2,
+                  child: AnimatedOpacity(
+                    opacity: displayString.trim().isNotEmpty ? 1 : 0,
+                    duration: Duration(milliseconds: 450),
+                    child: SoftButton(
+                      child: Text("Search google"),
+                      isClickable: true,
+                      onTap: () {
+                        launch(
+                            "https://www.google.com/search?q=$displayString");
+                      },
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -259,7 +273,7 @@ class _ReadState extends State<Read> {
 
   @override
   void dispose() {
-    controller.dispose();
+    controller?.dispose();
     super.dispose();
   }
 }

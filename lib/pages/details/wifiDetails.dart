@@ -210,7 +210,6 @@ class _WifiDetailsState extends State<WifiDetails> {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text('Password Copied to clipboard')));
                                 }
-
                               });
                             },
                           ),
