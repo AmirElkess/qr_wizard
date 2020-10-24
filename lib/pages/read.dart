@@ -95,7 +95,8 @@ class _ReadState extends State<Read> {
                                 playPause = Icon(Icons.pause);
                                 setState(() {});
 
-                                var qrDataType = QrDataTypes.values[await classifyType(event)];
+                                var qrDataType = QrDataTypes
+                                    .values[await classifyType(event)];
                                 var _type = await classifyType(event);
                                 Entry entry = Entry(
                                     id: null,
@@ -104,15 +105,15 @@ class _ReadState extends State<Read> {
                                     dataType: _type);
                                 insertEntry(entry);
 
-
-                                if (qrDataType == QrDataTypes.TEXT || qrDataType == QrDataTypes.URL) {
+                                if (qrDataType == QrDataTypes.TEXT ||
+                                    qrDataType == QrDataTypes.URL) {
                                   controller.pauseCamera();
                                   displayString = event;
                                   controller.pauseCamera();
-
                                 } else if (qrDataType == QrDataTypes.CONTACT) {
                                   displayString = "";
-                                  await Navigator.pushNamed(context, '/contact_details',
+                                  await Navigator.pushNamed(
+                                      context, '/contact_details',
                                       arguments: entry);
                                   setState(() {
                                     controller.resumeCamera();
@@ -122,7 +123,9 @@ class _ReadState extends State<Read> {
                                   });
                                 } else if (qrDataType == QrDataTypes.WIFI) {
                                   displayString = "";
-                                  await Navigator.pushNamed(context, '/wifi_details', arguments: entry);
+                                  await Navigator.pushNamed(
+                                      context, '/wifi_details',
+                                      arguments: entry);
                                   setState(() {
                                     controller.resumeCamera();
                                     print("Camera resumed");
@@ -254,7 +257,16 @@ class _ReadState extends State<Read> {
                     opacity: displayString.trim().isNotEmpty ? 1 : 0,
                     duration: Duration(milliseconds: 450),
                     child: SoftButton(
-                      child: Text("Search google"),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        child: Row(
+                          children: [
+                            FittedBox(child: Icon(Icons.search_rounded, color: backgroundColor)),
+                            Expanded(child: Text("Search google")),
+                            Icon(Icons.search_rounded)
+                          ],
+                        ),
+                      ),
                       isClickable: true,
                       onTap: () {
                         launch(

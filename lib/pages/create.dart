@@ -709,6 +709,7 @@ class _CreateState extends State<Create> {
         onItemSelected: (i) {
           setState(() => selectedPos = i);
           updateQrInput();
+          SystemSound.play(SystemSoundType.click);
         },
         selectedPosition: selectedPos,
         elevation: 0,
