@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qr_wizard/res/concaveDecoration.dart';
 import 'package:qr_wizard/res/constants.dart';
 
@@ -85,6 +86,7 @@ class _SoftButtonState extends State<SoftButton> {
       child: Listener(
         onPointerDown: (TapDownDetails) {
           if (this.widget.isClickable) {
+            SystemSound.play(SystemSoundType.click);
             setState(() {
               isPressed = true;
             });
