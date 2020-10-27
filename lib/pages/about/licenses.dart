@@ -86,6 +86,17 @@ class _LicensesState extends State<Licenses> {
                 licenseCard("flutter_linkify", flutter_linkifyLicense),
                 
                 licenseCard('simple_vcard_parser', simple_vcard_parserLicense),
+
+                licenseCard("flutter_contact", flutter_contactLicense),
+
+                licenseCard("form_validator", form_validatorLicense),
+
+                licenseCard("vcard", vcardLicense),
+
+                licenseCard("fancy_bottom_bar", fancy_bottom_barLicense),
+
+                licenseCard('permission_handler', permission_handlerLicense),
+
               ],
             )
         ),

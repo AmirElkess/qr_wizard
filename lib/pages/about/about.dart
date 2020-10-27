@@ -59,13 +59,13 @@ class _AboutState extends State<About> {
                   SizedBox(height: 20,),
                   SoftButton(
                     width: double.infinity,
-                    radius: 16,
-                    height: 40,
+
+                    height: 60,
                     shadowOffset: 0,
                     blurRadius: 0,
                     isClickable: true,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(6, 0, 4, 0),
+                      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -81,13 +81,13 @@ class _AboutState extends State<About> {
                   SizedBox(height: 10,),
                   SoftButton(
                     width: double.infinity,
-                    radius: 16,
-                    height: 40,
+
+                    height: 60,
                     shadowOffset: 0,
                     blurRadius: 0,
                     isClickable: true,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(6, 0, 4, 0),
+                      padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

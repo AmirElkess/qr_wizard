@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                     radius: btnRadius,
                     isClickable: true,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 4, 0),
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
                     child: SizedBox(
                       width: double.infinity,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 4, 0),
+                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                     child: SizedBox(
                       width: double.infinity,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 4, 0),
+                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
                     child: SizedBox(
                       width: double.infinity,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 4, 0),
+                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

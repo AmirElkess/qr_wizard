@@ -26,10 +26,14 @@ class _WifiDetailsState extends State<WifiDetails> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("SSID: " + parseWifi(entry.qrString)[0], style: TextStyle(fontSize: 18)),
+            Text("SSID: " + parseWifi(entry.qrString)[0],
+                style: TextStyle(fontSize: 18)),
             Text(
               'PASSWORD: [Password-less WiFi]',
-              style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic, fontSize: 18),
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 18),
             ),
           ],
         );
@@ -38,10 +42,14 @@ class _WifiDetailsState extends State<WifiDetails> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("SSID: " + parseWifi(entry.qrString)[0], style: TextStyle(fontSize: 18)),
+            Text("SSID: " + parseWifi(entry.qrString)[0],
+                style: TextStyle(fontSize: 18)),
             Text(
               "Password: " + parseWifi(entry.qrString)[1],
-              style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic, fontSize: 18),
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 18),
             ),
           ],
         );
@@ -164,10 +172,13 @@ class _WifiDetailsState extends State<WifiDetails> {
                                     style: TextStyle(color: Colors.grey),
                                   )),
                             ),
-                            SizedBox(height: 6,),
+                            SizedBox(
+                              height: 6,
+                            ),
                             Expanded(
                               flex: 5,
-                              child: SingleChildScrollView(child: getWifiBody()),
+                              child:
+                                  SingleChildScrollView(child: getWifiBody()),
                             )
                           ],
                         ),
@@ -184,9 +195,10 @@ class _WifiDetailsState extends State<WifiDetails> {
                             width: double.infinity,
                             height: double.infinity,
                             child: Text("Copy SSID"),
-                            onTap: (){
+                            onTap: () {
                               setState(() {
-                                Clipboard.setData(ClipboardData(text: parseWifi(entry.qrString)[0]));
+                                Clipboard.setData(ClipboardData(
+                                    text: parseWifi(entry.qrString)[0]));
                                 Scaffold.of(context).showSnackBar(SnackBar(
                                     content: Text('SSID Copied to clipboard')));
                               });
@@ -199,21 +211,43 @@ class _WifiDetailsState extends State<WifiDetails> {
                             width: double.infinity,
                             height: double.infinity,
                             child: Text("Copy Password"),
-                            onTap: (){
+                            onTap: () {
                               setState(() {
                                 String _password = parseWifi(entry.qrString)[1];
                                 if (_password == '-1') {
                                   Scaffold.of(context).showSnackBar(SnackBar(
                                       content: Text('WiFi is Password-less')));
                                 } else {
-                                  Clipboard.setData(ClipboardData(text: _password));
+                                  Clipboard.setData(
+                                      ClipboardData(text: _password));
                                   Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text('Password Copied to clipboard')));
+                                      content: Text(
+                                          'Password Copied to clipboard')));
                                 }
                               });
                             },
                           ),
                         ),
+                        // Expanded(
+                        //   child: SoftButton(
+                        //     isClickable: true,
+                        //     width: double.infinity,
+                        //     height: double.infinity,
+                        //     child: Text("Login to wifi"),
+                        //     onTap: () async {
+                        //       String _ssid = parseWifi(entry.qrString)[0];
+                        //       String _password = parseWifi(entry.qrString)[1];
+                        //       bool _res;
+                        //
+                        //       if (_password == '-1') {
+                        //         _res = await WifiConnector.connectToWifi(ssid: _ssid);
+                        //       } else {
+                        //         _res = await WifiConnector.connectToWifi(ssid: _ssid, password: _password);
+                        //       }
+                        //       print(_res);
+                        //     },
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

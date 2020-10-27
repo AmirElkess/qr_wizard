@@ -219,36 +219,39 @@ class _ReadState extends State<Read> {
                 ),
                 Expanded(
                   flex: 6,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 6,
-                        child: SoftButton(
-                          radius: 12,
-                          child: Padding(
-                            padding: const EdgeInsets.all(9),
-                            child: SingleChildScrollView(
-                              child: Linkify(
-                                  text: displayString,
-                                  onOpen: (link) => {launch(link.url)}),
+                  child: SoftButton(
+                    radius: 12,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 6,
+                          child: SoftButton(
+                            radius: 12,
+                            child: Padding(
+                              padding: const EdgeInsets.all(9),
+                              child: SingleChildScrollView(
+                                child: Linkify(
+                                    text: displayString,
+                                    onOpen: (link) => {launch(link.url)}),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: SoftButton(
-                          isClickable: true,
-                          child: Icon(Icons.content_copy),
-                          onTap: () {
-                            Clipboard.setData(
-                                ClipboardData(text: displayString));
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text('Text Copied to clipboard')));
-                          },
+                        Expanded(
+                          flex: 1,
+                          child: SoftButton(
+                            isClickable: true,
+                            child: Icon(Icons.content_copy),
+                            onTap: () {
+                              Clipboard.setData(
+                                  ClipboardData(text: displayString));
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text('Text Copied to clipboard')));
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
