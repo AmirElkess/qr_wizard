@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_contact/contacts.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/res/button.dart';
@@ -102,7 +101,7 @@ class _ContactDetailsState extends State<ContactDetails> {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    flex: 7,
+                    flex: 6,
                     child: Row(children: <Widget>[
                       Expanded(
                         flex: 11,
@@ -163,7 +162,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                     ]),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex: 3,
                     child: SoftButton(
                       radius: 12,
                       width: double.infinity,
@@ -232,7 +231,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: SoftButton(
                       child: Text("Save Contact"),
                       isClickable: true,
