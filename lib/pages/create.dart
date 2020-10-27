@@ -183,6 +183,9 @@ class _CreateState extends State<Create> {
           if (controllers['contact']['email'].text.trim().isNotEmpty) {
             vCard.email = controllers['contact']['email'].text.trim();
           }
+          if (controllers['contact']['phone'].text.trim().isNotEmpty) {
+            vCard.cellPhone = controllers['contact']['phone'].text.trim();
+          }
           qrInput = vCard.getFormattedString();
           break;
         }
@@ -288,15 +291,17 @@ class _CreateState extends State<Create> {
                     ),
                   ),
                 ),
-                Visibility(
-                  visible: controllers['wifi']['password'].text.trim().isNotEmpty,
+                AnimatedOpacity(
+                  opacity: controllers['wifi']['password'].text.trim().isNotEmpty ? 1 : 0,
+                  duration: Duration(milliseconds: 450),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text('Authentication', style: TextStyle(fontWeight: FontWeight.bold),),
                   ),
                 ),
-                Visibility(
-                  visible: controllers['wifi']['password'].text.trim().isNotEmpty,
+                AnimatedOpacity(
+                  opacity: controllers['wifi']['password'].text.trim().isNotEmpty ? 1 : 0,
+                  duration: Duration(milliseconds: 450),
                   child: Row(children: [
                     Expanded(
                       child: SoftButton(

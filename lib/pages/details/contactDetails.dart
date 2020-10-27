@@ -23,7 +23,9 @@ class _ContactDetailsState extends State<ContactDetails> {
     String getName() {
       String _name = vc.formattedName;
       if (_name.isEmpty) {
-        _name = vc.name.reversed.join(' ');
+        List<String> nameElements = vc.name;
+        nameElements.removeWhere((element) => element == "");
+        _name = nameElements.reversed.join(' ');
       }
       return _name;
     }
@@ -52,11 +54,19 @@ class _ContactDetailsState extends State<ContactDetails> {
 
         emails: [Item(label: 'Email', value: vc.email)],
         jobTitle: vc.title,
-        displayName: vc.formattedName,
+        displayName: getName(),
         phones: _iPhones,
         company: vc.organisation,
 
       );
+
+
+      print(contact.displayName);
+      print(contact.familyName);
+      print(contact.givenName);
+      print(contact.jobTitle);
+      print(contact.phones);
+
 
       await Contacts.openContactInsertForm(contact);
 

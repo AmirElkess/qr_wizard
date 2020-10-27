@@ -36,19 +36,23 @@ class _HistoryState extends State<History> {
     }
   }
 
+
   Widget findEntryBody(entry) {
     if (entry.dataType == QrDataTypes.CONTACT.index) {
-      VCard vCard = VCard(entry.qrString);
-      List<String> _name = vCard.name;
-      _name.removeWhere((element) => element == "");
-      String name = _name.reversed.join(' ');
+      VCard vc = VCard(entry.qrString);
+      String _name = vc.formattedName;
+      if (_name.isEmpty) {
+        List<String> nameElements = vc.name;
+        nameElements.removeWhere((element) => element == "");
+        _name = nameElements.reversed.join(' ');
+      }
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            "$name",
+            "$_name",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
