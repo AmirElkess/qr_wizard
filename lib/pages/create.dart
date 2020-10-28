@@ -96,6 +96,8 @@ class _CreateState extends State<Create> {
             value.clear();
           });
 
+          controllers['wifi']['security'].text = 'WPA2-EAP';
+
           break;
         }
       case 2: //Contact
