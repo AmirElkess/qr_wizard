@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
@@ -268,11 +269,10 @@ class _ReadState extends State<Read> {
                     duration: Duration(milliseconds: 450),
                     child: SoftButton(
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        padding: EdgeInsets.fromLTRB(22, 0, 15, 0),
                         child: Row(
                           children: [
-                            FittedBox(child: Icon(Icons.search_rounded, color: backgroundColor)),
-                            Expanded(child: Text("Search google")),
+                            Expanded(child: Text("Search google", style: GoogleFonts.nunitoSans(),)),
                             Icon(Icons.search_rounded)
                           ],
                         ),
