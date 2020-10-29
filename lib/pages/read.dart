@@ -24,6 +24,30 @@ class _ReadState extends State<Read> {
   bool playing = true;
   Icon playPause = Icon(Icons.play_arrow);
 
+  void togglePlayButton() {
+    if (playing) {
+      pauseButton();
+    } else {
+      playButton();
+    }
+  }
+
+  void pauseButton() {
+    setState(() {
+      controller.pauseCamera();
+      playing = false;
+      playPause = Icon(Icons.pause);
+    });
+  }
+
+  void playButton() {
+    setState(() {
+      controller.resumeCamera();
+      playing = true;
+      playPause = Icon(Icons.play_arrow);
+    });
+  }
+
   String displayString = '';
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -90,48 +114,41 @@ class _ReadState extends State<Read> {
                             this.controller = controller;
                             controller.scannedDataStream.listen((event) async {
                               if (event.isNotEmpty) {
-                                controller.pauseCamera();
-                                playing = false;
-                                playPause = Icon(Icons.pause);
-                                setState(() {});
+
+                                pauseButton();
 
                                 var qrDataType = QrDataTypes
                                     .values[await classifyType(event)];
+
                                 var _type = await classifyType(event);
+
                                 Entry entry = Entry(
                                     id: null,
                                     qrString: event,
                                     timestamp: DateTime.now().toIso8601String(),
                                     dataType: _type);
+
                                 insertEntry(entry);
 
                                 if (qrDataType == QrDataTypes.TEXT ||
                                     qrDataType == QrDataTypes.URL) {
-                                  controller.pauseCamera();
-                                  displayString = event;
-                                  controller.pauseCamera();
+
+                                  setState(() {
+                                    displayString = event;
+                                  });
+
                                 } else if (qrDataType == QrDataTypes.CONTACT) {
                                   displayString = "";
                                   await Navigator.pushNamed(
                                       context, '/contact_details',
                                       arguments: entry);
-                                  setState(() {
-                                    controller.resumeCamera();
-                                    print("Camera resumed");
-                                    playing = true;
-                                    playPause = Icon(Icons.play_arrow);
-                                  });
+                                  playButton();
                                 } else if (qrDataType == QrDataTypes.WIFI) {
                                   displayString = "";
                                   await Navigator.pushNamed(
                                       context, '/wifi_details',
                                       arguments: entry);
-                                  setState(() {
-                                    controller.resumeCamera();
-                                    print("Camera resumed");
-                                    playing = true;
-                                    playPause = Icon(Icons.play_arrow);
-                                  });
+                                  playButton();
                                 }
                               }
                             });
@@ -199,17 +216,7 @@ class _ReadState extends State<Read> {
                             child: FittedBox(child: playPause),
                             isClickable: true,
                             onTap: () {
-                              setState(() {
-                                if (playing) {
-                                  playPause = Icon(Icons.pause);
-                                  controller.pauseCamera();
-                                } else {
-                                  playPause = Icon(Icons.play_arrow);
-                                  controller.resumeCamera();
-                                  print("Cam resume is pressed");
-                                }
-                                playing = !playing;
-                              });
+                              togglePlayButton();
                             },
                           ),
                         ),
@@ -271,8 +278,8 @@ class _ReadState extends State<Read> {
                         ),
                       ),
                       isClickable: true,
-                      onTap: () {
-                        launch(
+                      onTap: () async {
+                        await launch(
                             "https://www.google.com/search?q=$displayString");
                       },
                     ),
@@ -288,7 +295,8 @@ class _ReadState extends State<Read> {
 
   @override
   void dispose() {
-    controller?.dispose();
+    playButton();
+    controller.dispose();
     super.dispose();
   }
 }

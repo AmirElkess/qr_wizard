@@ -40,36 +40,29 @@ class _ContactDetailsState extends State<ContactDetails> {
     }
 
     void _addContact() async {
+
       List<String> _name = vc.name;
       List<dynamic> _phones = vc.typedTelephone;
       List<Item> _iPhones = List<Item>();
+
       _name.removeWhere((element) => element == '');
+
       _phones.forEach((element) {
         var _item = Item(label: 'phone', value: element[0]);
         _iPhones.add(_item);
       });
+
       Contact contact = Contact(
         givenName: _name[0],
         familyName: _name.last,
-
         emails: [Item(label: 'Email', value: vc.email)],
         jobTitle: vc.title,
         displayName: getName(),
         phones: _iPhones,
         company: vc.organisation,
-
       );
 
-
-      print(contact.displayName);
-      print(contact.familyName);
-      print(contact.givenName);
-      print(contact.jobTitle);
-      print(contact.phones);
-
-
-      await Contacts.openContactInsertForm(contact);
-
+      Contacts.openContactInsertForm(contact);
 
     }
 
