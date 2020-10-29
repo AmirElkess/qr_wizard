@@ -19,13 +19,13 @@ class _LicensesState extends State<Licenses> {
         SizedBox(height: 5,),
         SoftButton(
           inverted: true,
-          radius: 8,
+          radius: 5,
           width: double.infinity,
           height: 180,
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(licenseString),
+              child: Text(licenseString, textAlign: TextAlign.justify,),
             ),
           ),
         ),

@@ -48,7 +48,7 @@ class _AboutState extends State<About> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("QR Wizard is aiming to demonstrate a fully functioning app with the innovative Neumorphism UI. It supports all typical features of a QR app: QR Scanning, QR creation, and scan history. The QR scanner can differentiate between QR text Strings, URLs, WiFis, and vCards (Contact cards). QR Wizard is free and ad-free with no liability on the developer.", textAlign: TextAlign.justify,),
+                  Text("QR Wizard is aiming to demonstrate a fully functioning app with the Innovative/Experimental Neumorphism UI. It supports all typical features of a QR app: QR Scanning, QR creation, and scan history. The app can deal with QR texts, URLs, WiFis, and vCards (Contact cards). QR Wizard is free and ad-free with no liability on the developer.", textAlign: TextAlign.justify,),
                   SizedBox(height: 15,),
 
                   Text("Contact me", style: TextStyle(fontWeight: FontWeight.bold),),
