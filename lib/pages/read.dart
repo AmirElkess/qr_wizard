@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_wizard/database/Entry.dart';
 import 'package:qr_wizard/database/qrDataTypes.dart';
@@ -52,6 +53,7 @@ class _ReadState extends State<Read> {
   String displayString = '';
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,11 +113,10 @@ class _ReadState extends State<Read> {
                         borderRadius: BorderRadius.circular(12),
                         child: QRView(
                           key: qrKey,
-                          onQRViewCreated: (controller) {
+                          onQRViewCreated: (controller) async {
                             this.controller = controller;
                             controller.scannedDataStream.listen((event) async {
                               if (event.isNotEmpty) {
-
                                 pauseButton();
 
                                 var qrDataType = QrDataTypes
@@ -133,11 +134,9 @@ class _ReadState extends State<Read> {
 
                                 if (qrDataType == QrDataTypes.TEXT ||
                                     qrDataType == QrDataTypes.URL) {
-
                                   setState(() {
                                     displayString = event;
                                   });
-
                                 } else if (qrDataType == QrDataTypes.CONTACT) {
                                   displayString = "";
                                   await Navigator.pushNamed(
@@ -272,7 +271,11 @@ class _ReadState extends State<Read> {
                         padding: EdgeInsets.fromLTRB(22, 0, 15, 0),
                         child: Row(
                           children: [
-                            Expanded(child: Text("Search google", style: GoogleFonts.nunitoSans(),)),
+                            Expanded(
+                                child: Text(
+                              "Search google",
+                              style: GoogleFonts.nunitoSans(),
+                            )),
                             Icon(Icons.search_rounded)
                           ],
                         ),
