@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_wizard/database/Entry.dart';
+import 'package:qr_wizard/functions/wifiConnector.dart';
 import 'package:qr_wizard/functions/wifiParser.dart';
 import 'package:qr_wizard/res/button.dart';
 import 'package:qr_wizard/res/constants.dart';
@@ -233,18 +234,14 @@ class _WifiDetailsState extends State<WifiDetails> {
                         //     isClickable: true,
                         //     width: double.infinity,
                         //     height: double.infinity,
-                        //     child: Text("Login to wifi"),
+                        //     child: Text("__"),
                         //     onTap: () async {
                         //       String _ssid = parseWifi(entry.qrString)[0];
                         //       String _password = parseWifi(entry.qrString)[1];
-                        //       bool _res;
+                        //       print("Connect to wifi tapped");
+                        //       await connectWifi(_ssid, _password);
+                        //       print("Connect to wifi finished");
                         //
-                        //       if (_password == '-1') {
-                        //         _res = await WifiConnector.connectToWifi(ssid: _ssid);
-                        //       } else {
-                        //         _res = await WifiConnector.connectToWifi(ssid: _ssid, password: _password);
-                        //       }
-                        //       print(_res);
                         //     },
                         //   ),
                         // ),
