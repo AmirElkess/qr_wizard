@@ -190,22 +190,22 @@ class _WifiDetailsState extends State<WifiDetails> {
                     flex: 2,
                     child: Row(
                       children: [
-                        Expanded(
-                          child: SoftButton(
-                            isClickable: true,
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: Text("Copy SSID"),
-                            onTap: () {
-                              setState(() {
-                                Clipboard.setData(ClipboardData(
-                                    text: parseWifi(entry.qrString)[0]));
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('SSID Copied to clipboard')));
-                              });
-                            },
-                          ),
-                        ),
+                        // Expanded(
+                        //   child: SoftButton(
+                        //     isClickable: true,
+                        //     width: double.infinity,
+                        //     height: double.infinity,
+                        //     child: Text("Copy SSID"),
+                        //     onTap: () {
+                        //       setState(() {
+                        //         Clipboard.setData(ClipboardData(
+                        //             text: parseWifi(entry.qrString)[0]));
+                        //         Scaffold.of(context).showSnackBar(SnackBar(
+                        //             content: Text('SSID Copied to clipboard')));
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
                         Expanded(
                           child: SoftButton(
                             isClickable: true,
@@ -226,6 +226,17 @@ class _WifiDetailsState extends State<WifiDetails> {
                                           'Password Copied to clipboard')));
                                 }
                               });
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: SoftButton(
+                            isClickable: true,
+                            width: double.infinity,
+                            height: double.infinity,
+                            child: Text("WiFi settings"),
+                            onTap: () async {
+                              openWifiSettings();
                             },
                           ),
                         ),

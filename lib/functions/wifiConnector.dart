@@ -1,9 +1,8 @@
 import 'package:flutter/services.dart';
 
-Future<void> connectWifi(ssid, [pwd]) async {
+Future<void> openWifiSettings() async {
   MethodChannel _methodChannel = MethodChannel('main/wifi');
   print ("Calling native fn");
-  dynamic res = await _methodChannel.invokeMethod("connectWifi", {'ssid': ssid, 'pwd': pwd});
+  await _methodChannel.invokeMethod("openWifiSettings");
   print ("native fn called");
-
 }
