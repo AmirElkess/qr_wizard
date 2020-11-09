@@ -97,6 +97,8 @@ class _HistoryState extends State<History> {
     return Expanded(
       flex: 1,
       child: SoftButton(
+        blurRadius: 4,
+        shadowOffset: 2,
         isClickable: true,
         radius: 9,
         height: double.infinity,
@@ -154,49 +156,55 @@ class _HistoryState extends State<History> {
                   });
                   print(entriesList);
                 },
-                child: SoftButton(
-                  radius: 8,
-                  height: 90,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: entryIcon,
-                      ),
-                      Expanded(
-                        flex: 7,
-                        child: SoftButton(
-                          height: double.infinity,
-                          radius: 8,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: FittedBox(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                        "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
-                                        style: TextStyle(
-                                            color: Colors.grey)),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                  child: SoftButton(
+                    radius: 8,
+                    height: 90,
+                    shadowOffset: 5,
+                    blurRadius: 8,
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: entryIcon,
+                        ),
+                        Expanded(
+                          flex: 7,
+                          child: Container(
+                            height: double.infinity,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(15, 9, 9, 12),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: FittedBox(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                          "Scanned on ${DateTime.parse(entriesList[index].timestamp).toString().substring(0, 11)}",
+                                          style: TextStyle(
+                                              color: Colors.grey.shade400)),
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: SingleChildScrollView(
-                                    child: findEntryBody(entriesList[index]),
+                                  SizedBox(height: 8,),
+                                  Expanded(
+                                    flex: 3,
+                                    child: SingleChildScrollView(
+                                      child: findEntryBody(entriesList[index]),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      findAction(entriesList[index]),
-                    ],
+                        findAction(entriesList[index]),
+                      ],
+                    ),
                   ),
                 ),
               );
