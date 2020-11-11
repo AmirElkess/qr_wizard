@@ -92,7 +92,7 @@ class _ReadState extends State<Read> {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 11,
+                  flex: 12,
                   child: Padding(
                     padding: EdgeInsets.all(6),
                     child: Container(
@@ -168,65 +168,72 @@ class _ReadState extends State<Read> {
                 ),
                 Expanded(
                   flex: 2,
-                  child: SoftButton(
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 2,
-                          child: SoftButton(
-                            child: FittedBox(child: camIcon),
-                            isClickable: true,
-                            onTap: () {
-                              setState(() {
-                                if (REAR_CAM) {
-                                  camIcon = Icon(Icons.camera_front);
-                                } else {
-                                  camIcon = Icon(Icons.camera_rear);
-                                }
-                                REAR_CAM = !REAR_CAM;
-                                controller.flipCamera();
-                              });
-                            },
-                          ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: SoftButton(
+                          blurRadius: 10,
+                          shadowOffset: 4,
+                          child: FittedBox(child: camIcon),
+                          isClickable: true,
+                          onTap: () {
+                            setState(() {
+                              if (REAR_CAM) {
+                                camIcon = Icon(Icons.camera_front);
+                              } else {
+                                camIcon = Icon(Icons.camera_rear);
+                              }
+                              REAR_CAM = !REAR_CAM;
+                              controller.flipCamera();
+                            });
+                          },
                         ),
-                        Expanded(
-                          flex: 3,
-                          child: SoftButton(
-                            child: FittedBox(child: flashIcon),
-                            isClickable: true,
-                            onTap: () {
-                              setState(() {
-                                if (FLASH_ON) {
-                                  flashIcon = Icon(Icons.flash_off);
-                                } else {
-                                  flashIcon = Icon(
-                                    Icons.flash_on,
-                                    color: Colors.yellow,
-                                  );
-                                }
-                                FLASH_ON = !FLASH_ON;
-                                controller.toggleFlash();
-                              });
-                            },
-                          ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: SoftButton(
+                          blurRadius: 10,
+                          shadowOffset: 4,
+                          child: FittedBox(child: flashIcon),
+                          isClickable: true,
+                          onTap: () {
+                            setState(() {
+                              if (FLASH_ON) {
+                                flashIcon = Icon(Icons.flash_off);
+                              } else {
+                                flashIcon = Icon(
+                                  Icons.flash_on,
+                                  color: Colors.yellow,
+                                );
+                              }
+                              FLASH_ON = !FLASH_ON;
+                              controller.toggleFlash();
+                            });
+                          },
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: SoftButton(
-                            child: FittedBox(child: playPause),
-                            isClickable: true,
-                            onTap: () {
-                              togglePlayButton();
-                            },
-                          ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: SoftButton(
+                          blurRadius: 10,
+                          shadowOffset: 4,
+                          child: FittedBox(child: playPause),
+                          isClickable: true,
+                          onTap: () {
+                            togglePlayButton();
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+                Divider(color: Colors.grey.shade300, thickness: 1.4, indent: 6, endIndent: 6, height: 15,),
                 Expanded(
-                  flex: 6,
+                  flex: 7,
                   child: SoftButton(
+                    blurRadius: 7,
+                    shadowOffset: 4,
                     radius: 12,
                     child: Row(
                       children: <Widget>[
@@ -234,6 +241,8 @@ class _ReadState extends State<Read> {
                           flex: 6,
                           child: SoftButton(
                             radius: 12,
+                            blurRadius: 0,
+                            shadowOffset: 0,
                             child: Padding(
                               padding: const EdgeInsets.all(9),
                               child: SingleChildScrollView(
@@ -247,6 +256,9 @@ class _ReadState extends State<Read> {
                         Expanded(
                           flex: 1,
                           child: SoftButton(
+                            radius: 12,
+                            blurRadius: 8,
+                            shadowOffset: 4,
                             isClickable: true,
                             child: Icon(Icons.content_copy),
                             onTap: () {
@@ -267,6 +279,8 @@ class _ReadState extends State<Read> {
                     opacity: displayString.trim().isNotEmpty ? 1 : 0,
                     duration: Duration(milliseconds: 450),
                     child: SoftButton(
+                      blurRadius: 8,
+                      shadowOffset: 4,
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(22, 0, 15, 0),
                         child: Row(

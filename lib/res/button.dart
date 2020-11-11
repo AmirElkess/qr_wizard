@@ -26,8 +26,8 @@ class SoftButton extends StatefulWidget {
       this.onTap,
       this.inverted = false,
       this.color,
-      this.shadowOffset = 5,
-      this.blurRadius = 7,
+      this.shadowOffset = 4,
+      this.blurRadius = 8,
       this.isClickable = false})
       : super(key: key) {
     if (radius == null || radius <= 0) radius = 32;
